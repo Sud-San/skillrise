@@ -1,0 +1,186 @@
+/*
+    COLOUR PALETTE (decent, eye-comfortable):
+    ─── Green  : #3a7d44  (dark muted green)  /  #4e9a5e  (mid green)
+    ─── Red    : #c0392b  (muted deep red)    /  #d9534f  (soft red)
+    ─── Shadows: low-opacity so they don't glare
+*/
+
+/* ─── Card ──────────────────────────────────────────────── */
+.card {
+    border-radius: 16px !important;
+}
+
+.card-header {
+    border-radius: 16px 16px 0 0 !important;
+    border-bottom: 2px solid #e6f0e8;
+    /* very soft green tint */
+    padding: 20px 28px;
+}
+
+.card-header h4 {
+    font-weight: 700;
+    color: #1a1f36;
+    font-size: 1.4rem;
+}
+
+/* ─── Form labels ───────────────────────────────────────── */
+.form-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.875rem;
+    margin-bottom: 6px;
+}
+
+/* ─── Inputs & selects ──────────────────────────────────── */
+.form-control,
+.form-select {
+    border: 1.5px solid #d1d9d1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    color: #1a1f36;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #3a7d44;
+    /* decent muted green */
+    box-shadow: 0 0 0 3px rgba(58, 125, 68, 0.12);
+    /* very soft green glow */
+    outline: none;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 110px;
+}
+
+input[type="file"].form-control {
+    padding: 7px 14px;
+    cursor: pointer;
+}
+
+/* ─── Save button — decent muted green ─────────────────── */
+.btn-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #3a7d44 0%, #4e9a5e 100%);
+    color: #ffffff;
+    border: none;
+    padding: 11px 28px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(58, 125, 68, 0.25);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-save:hover {
+    background: linear-gradient(135deg, #2f6637 0%, #3a7d44 100%);
+    box-shadow: 0 6px 16px rgba(58, 125, 68, 0.32);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.btn-save:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(58, 125, 68, 0.2);
+}
+
+/* ─── Cancel button — decent muted red ─────────────────── */
+.btn-cancel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #c0392b 0%, #d9534f 100%);
+    color: #ffffff;
+    border: none;
+    padding: 11px 28px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.25);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background: linear-gradient(135deg, #a93226 0%, #c0392b 100%);
+    box-shadow: 0 6px 16px rgba(192, 57, 43, 0.32);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.btn-cancel:active {
+    transform: translateY(0);
+}
+
+/* ─── Section label ─────────────────────────────────────── */
+.section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+/* ─── SweetAlert2 — decent green / red ─────────────────── */
+.swal2-popup {
+    border-radius: 16px !important;
+    font-family: inherit !important;
+}
+
+.swal2-title {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #1a1f36 !important;
+}
+
+/* Confirm — decent muted green */
+.swal2-confirm {
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    padding: 10px 26px !important;
+    background: linear-gradient(135deg, #3a7d44, #4e9a5e) !important;
+    border: none !important;
+    box-shadow: 0 3px 10px rgba(58, 125, 68, 0.28) !important;
+    transition: all 0.2s ease !important;
+}
+
+.swal2-confirm:hover {
+    background: linear-gradient(135deg, #2f6637, #3a7d44) !important;
+    box-shadow: 0 5px 14px rgba(58, 125, 68, 0.35) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Cancel — decent muted red */
+.swal2-cancel {
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    padding: 10px 26px !important;
+    background: linear-gradient(135deg, #c0392b, #d9534f) !important;
+    border: none !important;
+    box-shadow: 0 3px 10px rgba(192, 57, 43, 0.25) !important;
+    transition: all 0.2s ease !important;
+}
+
+.swal2-cancel:hover {
+    background: linear-gradient(135deg, #a93226, #c0392b) !important;
+    box-shadow: 0 5px 14px rgba(192, 57, 43, 0.32) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Timer progress bar — soft green */
+.swal2-timer-progress-bar {
+    background: linear-gradient(90deg, #3a7d44, #4e9a5e) !important;
+}

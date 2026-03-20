@@ -1,0 +1,524 @@
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Mulish:wght@400;500;600;700&display=swap');
+
+        :root {
+            --g600: #16a34a;
+            --g500: #22c55e;
+            --g100: #dcfce7;
+            --g50: #f0fdf4;
+            --ink: #111827;
+            --ink2: #374151;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --card-shadow: 0 1px 3px rgba(0, 0, 0, .07), 0 4px 16px rgba(0, 0, 0, .05);
+        }
+
+        body.app,
+        .app-wrapper {
+            font-family: 'Mulish', sans-serif !important;
+            background: #f9fafb;
+        }
+
+        .page-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ink);
+            font-weight: 700;
+            letter-spacing: -.4px;
+        }
+
+        .page-sub {
+            font-size: .9rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* Alerts */
+        .alert-success-custom {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-left: 4px solid var(--g500);
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: #15803d;
+            font-size: .88rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-error-custom {
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
+            border-left: 4px solid #ef4444;
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: #b91c1c;
+            font-size: .88rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-warn-custom {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-left: 4px solid #f59e0b;
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: #92400e;
+            font-size: .88rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Current plan banner */
+        .current-plan-card {
+            background: linear-gradient(135deg, var(--g600) 0%, #15803d 100%);
+            border-radius: 16px;
+            padding: 22px 26px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(22, 163, 74, .3);
+        }
+
+        .current-plan-card::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .07);
+        }
+
+        .current-plan-card::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: 80px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .cp-label {
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            opacity: .75;
+        }
+
+        .cp-name {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 2px 0;
+        }
+
+        .cp-dates {
+            font-size: .8rem;
+            opacity: .8;
+        }
+
+        .cp-days {
+            background: rgba(255, 255, 255, .18);
+            border-radius: 10px;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .cp-days .d-num {
+            font-family: 'Sora', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .cp-days .d-lbl {
+            font-size: .72rem;
+            opacity: .8;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .cp-bar-wrap {
+            background: rgba(255, 255, 255, .2);
+            border-radius: 99px;
+            height: 5px;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .cp-bar {
+            height: 5px;
+            border-radius: 99px;
+            background: #fff;
+        }
+
+        /* Prepaid badge */
+        .prepaid-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, .2);
+            border: 1px solid rgba(255, 255, 255, .35);
+            border-radius: 99px;
+            padding: 4px 12px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            margin-top: 8px;
+        }
+
+        /* Pricing grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 24px;
+        }
+
+        .pkg-card {
+            background: #fff;
+            border-radius: 18px;
+            border: 2px solid var(--border);
+            padding: 28px 24px;
+            position: relative;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+            box-shadow: var(--card-shadow);
+        }
+
+        .pkg-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .1);
+        }
+
+        .pkg-card.highlighted {
+            border-color: var(--g500);
+            box-shadow: 0 4px 24px rgba(22, 163, 74, .18);
+        }
+
+        .pkg-card.active-pkg {
+            border-color: #7c3aed;
+            box-shadow: 0 4px 24px rgba(124, 58, 237, .12);
+        }
+
+        .pkg-badge {
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--g600);
+            color: #fff;
+            font-size: .65rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 99px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(22, 163, 74, .3);
+        }
+
+        .pkg-badge.active-badge {
+            background: #7c3aed;
+            box-shadow: 0 2px 8px rgba(124, 58, 237, .3);
+        }
+
+        .pkg-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+
+        .pkg-name-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .pkg-validity {
+            font-size: .78rem;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .pkg-price {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .pkg-price sup {
+            font-size: 1rem;
+            vertical-align: super;
+            font-weight: 700;
+        }
+
+        .pkg-price span {
+            font-size: .85rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .pkg-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 18px 0;
+        }
+
+        /* Prepaid info on card */
+        .prepaid-info-card {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-top: 10px;
+            font-size: .78rem;
+            color: #92400e;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        /* Buttons */
+        .btn-buy {
+            width: 100%;
+            padding: 11px;
+            border-radius: 10px;
+            font-size: .88rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: 'Mulish', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            margin-top: 18px;
+        }
+
+        .btn-buy-primary {
+            background: var(--g600);
+            color: #fff;
+        }
+
+        .btn-buy-primary:hover {
+            background: #15803d;
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .btn-buy-outline {
+            background: transparent;
+            color: var(--g600);
+            border: 2px solid var(--g600) !important;
+        }
+
+        .btn-buy-outline:hover {
+            background: var(--g50);
+            color: var(--g600);
+        }
+
+        .btn-buy-active {
+            background: #ede9fe;
+            color: #7c3aed;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* Payment modal */
+        .modal-pay .modal-content {
+            border-radius: 18px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .15);
+        }
+
+        .modal-pay .modal-header {
+            border: none;
+            padding: 24px 24px 0;
+        }
+
+        .modal-pay .modal-body {
+            padding: 16px 24px 8px;
+        }
+
+        .modal-pay .modal-footer {
+            border: none;
+            padding: 8px 24px 24px;
+            gap: 10px;
+        }
+
+        .pay-preview {
+            background: var(--g50);
+            border: 1px solid var(--g100);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        .pay-preview .pp-name {
+            font-family: 'Sora', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .pay-preview .pp-detail {
+            font-size: .82rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .pay-preview .pp-price {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--g600);
+            margin-top: 8px;
+        }
+
+        .prepaid-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-top: 10px;
+            font-size: .82rem;
+            color: #15803d;
+            font-weight: 600;
+        }
+
+        .btn-pay-now {
+            background: var(--g600);
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            padding: 10px 24px;
+            font-size: .9rem;
+            font-weight: 700;
+            font-family: 'Mulish', sans-serif;
+            cursor: pointer;
+            transition: background .15s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-pay-now:hover {
+            background: #15803d;
+        }
+
+        .btn-cancel-modal {
+            background: transparent;
+            color: var(--muted);
+            border: 1.5px solid var(--border);
+            border-radius: 9px;
+            padding: 10px 20px;
+            font-size: .88rem;
+            font-weight: 600;
+            font-family: 'Mulish', sans-serif;
+            cursor: pointer;
+        }
+
+        /* Processing overlay */
+        #pay-processing {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        #pay-processing.show {
+            display: flex;
+        }
+
+        .pay-spinner {
+            width: 52px;
+            height: 52px;
+            border: 4px solid rgba(255, 255, 255, .3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* History table */
+        .history-table th {
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--muted);
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            padding: 10px 14px;
+        }
+
+        .history-table td {
+            padding: 12px 14px;
+            font-size: .85rem;
+            color: var(--ink2);
+            vertical-align: middle;
+        }
+
+        .history-table tr:not(:last-child) td {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .status-chip {
+            font-size: .7rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 99px;
+            display: inline-block;
+        }
+
+        @media (max-width:576px) {
+            .current-plan-card {
+                flex-direction: column;
+            }
+
+            .cp-days {
+                width: 100%;
+            }
+        }

@@ -1,0 +1,235 @@
+/**
+ * SkillRise Academy - Site Styling Enhancements
+ * Theme color: #054b40 (primary teal)
+ * Applies to main site only - NOT admin
+ */
+
+:root {
+  --primary: #054b40;
+  --primary-light: #0a9984;
+  --primary-lighter: #0cc0a5;
+  --primary-dark: #033d35;
+  --primary-soft: rgba(5, 75, 64, 0.08);
+  --primary-glow: rgba(5, 75, 64, 0.15);
+}
+
+/* ========== Hero Sections ========== */
+section.relative.table.bg-primary,
+section.relative.overflow-hidden.bg-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, var(--primary) 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+section.relative.table.bg-primary::before,
+section.relative.overflow-hidden.bg-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 80%, var(--primary-glow) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, var(--primary-glow) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Hero text enhancement */
+section.bg-primary h1,
+section.bg-primary h3 {
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+  letter-spacing: -0.02em;
+}
+
+/* ========== Navbar ========== */
+#topnav.defaultscroll.is-sticky {
+  box-shadow: 0 4px 20px rgba(5, 75, 64, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+#topnav .navigation-menu > li > a:hover,
+#topnav .submenu a:hover {
+  color: var(--primary) !important;
+}
+
+/* Dropdown polish */
+#topnav .dropdown-menu {
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(5, 75, 64, 0.12);
+  border: 1px solid rgba(5, 75, 64, 0.06);
+}
+
+/* Login button in nav */
+#topnav a[href="login.php"]:hover {
+  background: var(--primary) !important;
+  color: white !important;
+  border-radius: 8px;
+}
+
+/* ========== Cards (Category, Course, Tutor) ========== */
+.group.rounded-lg.shadow,
+.rounded-lg.shadow-sm[class*="gray"],
+div.group.bg-white.rounded-lg {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(5, 75, 64, 0.06);
+}
+
+.group.rounded-lg.shadow:hover,
+.rounded-lg.shadow-sm[class*="gray"]:hover,
+div.group.bg-white.rounded-lg:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(5, 75, 64, 0.12) !important;
+  border-color: rgba(5, 75, 64, 0.15);
+}
+
+/* ========== Buttons & Links ========== */
+a[class*="bg-primary"][class*="hover:bg-primary"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+/* Back to top button */
+.back-to-top:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--primary-glow);
+}
+
+/* ========== Footer ========== */
+footer.bg-gray-900 {
+  background: linear-gradient(180deg, #111827 0%, #0f172a 100%) !important;
+  border-top: 1px solid rgba(5, 75, 64, 0.2);
+}
+
+footer .subcribe-form button,
+footer button[type="submit"] {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+footer .subcribe-form button:hover,
+footer button[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+/* Footer links hover */
+footer a:hover {
+  color: var(--primary-lighter) !important;
+}
+
+/* ========== Tutor Cards (Circular Avatar) ========== */
+.group.text-center .rounded-full.overflow-hidden {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.group:hover .rounded-full.overflow-hidden {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(5, 75, 64, 0.2);
+}
+
+/* Tutor social icons */
+.group .size-8.inline-flex.bg-primary:hover {
+  background: var(--primary-light) !important;
+  transform: scale(1.1);
+}
+
+/* ========== Images with rounded corners ========== */
+img.rounded-lg,
+.rounded-ss-\[60px\],
+.rounded-ee-\[60px\] {
+  transition: transform 0.3s ease;
+}
+
+.group:hover img.rounded-lg {
+  transform: scale(1.02);
+}
+
+/* ========== Check list items (About Us, Index) ========== */
+span.inline-flex.justify-center.items-center.size-5.rounded-full.bg-primary\/10 {
+  transition: transform 0.2s ease;
+}
+
+li:hover span.inline-flex.justify-center.items-center.size-5.rounded-full.bg-primary\/10 {
+  transform: scale(1.1);
+}
+
+/* ========== FAQ Accordion (Courses page) ========== */
+#accordion-faq .bg-white.shadow-sm {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+}
+
+#accordion-faq .bg-white.shadow-sm:hover {
+  box-shadow: 0 8px 25px rgba(5, 75, 64, 0.08) !important;
+}
+
+/* ========== Course Detail Page ========== */
+.p-6.bg-primary.rounded-lg {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+  box-shadow: 0 10px 30px rgba(5, 75, 64, 0.25);
+}
+
+/* Curriculum table rows */
+.rounded-md.shadow-sm table tr:hover td {
+  background: var(--primary-soft);
+}
+
+/* ========== Testimonials ========== */
+.tiny-slide .shadow-md {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tiny-slide:hover .shadow-md {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(5, 75, 64, 0.1) !important;
+}
+
+/* ========== Popular Categories Slideshow ========== */
+.categories-slider-wrapper {
+  position: relative;
+}
+#categoriesNavDots .tns-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+#categoriesNavDots .tns-nav button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: #d1d5db;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+#categoriesNavDots .tns-nav button:hover,
+#categoriesNavDots .tns-nav button.tns-nav-active {
+  background: #054b40;
+  transform: scale(1.25);
+}
+
+/* ========== Subtle page load animation ========== */
+section.relative {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0.97;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== Input focus states ========== */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+/* ========== Breadcrumb links in hero ========== */
+section.bg-primary a:hover {
+  text-decoration: underline;
+}

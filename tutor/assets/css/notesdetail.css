@@ -1,0 +1,163 @@
+/* ── Table: fills card, no horizontal scroll ── */
+#notesTable {
+    width: 100% !important;
+    table-layout: auto;
+    /* let DataTables manage widths */
+}
+
+#notesTable thead th {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 15px;
+    white-space: nowrap;
+    color: #343a40;
+}
+
+#notesTable tbody td {
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+/* Truncate long text columns only */
+#notesTable td.col-desc,
+#notesTable td.col-course,
+#notesTable td.col-lang {
+    max-width: 0;
+    /* forces text-overflow to work in table */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ── Export / DataTable buttons ── */
+.dt-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* ── Filter btn ── */
+.filter-btn {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 13px;
+    transition: all .2s;
+}
+
+.filter-btn:hover {
+    background: #e9ecef;
+}
+
+/* ── Upload btn ── */
+.add-note-btn {
+    background: #28a745;
+    border: none;
+    color: white;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    transition: background .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.add-note-btn:hover {
+    background: #218838;
+    color: white;
+}
+
+/* ── Status switch ── */
+.form-check-input:focus {
+    box-shadow: 0 0 0 .2rem rgba(40, 167, 69, .2) !important;
+}
+
+/* ── Modal ── */
+.modal-header {
+    background: #28a745;
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.modal .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.modal .form-control,
+.modal .form-select {
+    font-size: 13px;
+    border-radius: 8px;
+    border: 1.5px solid #dee2e6;
+}
+
+.modal .form-control:focus,
+.modal .form-select:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, .1);
+}
+
+/* ── File type badge ── */
+.file-type-badge {
+    font-size: 10px;
+    padding: 3px 7px;
+    border-radius: 50px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+/* ── Size text ── */
+.size-text {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* ── Edit progress ── */
+#editProgress {
+    display: none;
+}
+
+/* ── Dropdown ── */
+.dropdown-menu {
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+    border: none;
+    font-size: 13px;
+}
+
+.dropdown-item {
+    padding: 9px 18px;
+}
+
+.dropdown-item.active {
+    background-color: #28a745;
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: #f0fdf4;
+}
+
+/* ── View button style ── */
+.view-note-btn {
+    background: #17a2b8;
+    color: white;
+    border: none;
+    transition: all 0.2s;
+}
+
+.view-note-btn:hover {
+    background: #138496;
+    color: white;
+}

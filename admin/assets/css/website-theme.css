@@ -1,0 +1,139 @@
+/* Website Theme Overrides for Admin Panel */
+
+:root {
+    --sr-primary: #054b40;
+    --sr-primary-rgb: 5, 75, 64;
+    --sr-light: #f0fdf4;
+    --sr-light-rgb: 240, 253, 244;
+}
+
+/* Text Colors */
+.text-primary {
+    color: var(--sr-primary) !important;
+}
+
+/* Background Utilities */
+.bg-soft-primary {
+    background-color: rgba(var(--sr-primary-rgb), 0.1) !important;
+}
+
+.bg-primary {
+    background-color: var(--sr-primary) !important;
+}
+
+/* Dashboard Hero Banner */
+.hero-banner {
+    background: linear-gradient(135deg, #054b40 0%, #086d5d 100%) !important;
+}
+
+/* Primary Button Overrides */
+.btn-primary {
+    background-color: var(--sr-primary) !important;
+    border-color: var(--sr-primary) !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: #043d34 !important;
+    border-color: #043d34 !important;
+}
+
+.btn-soft-primary {
+    background-color: rgba(var(--sr-primary-rgb), 0.1) !important;
+    color: var(--sr-primary) !important;
+}
+
+/* Sidebar Overrides */
+.side-nav-link.active, 
+.side-nav-link:hover,
+.side-nav-item.active > .side-nav-link {
+    color: var(--sr-primary) !important;
+}
+
+.side-nav-link.active .menu-icon i,
+.side-nav-link:hover .menu-icon i {
+    color: var(--sr-primary) !important;
+}
+
+/* Sidebar Badge */
+.badge.bg-danger {
+    background-color: var(--sr-primary) !important;
+}
+
+/* Topbar Overrides */
+.app-topbar {
+    border-bottom: 2px solid var(--sr-primary) !important;
+}
+
+.topbar-link:hover {
+    color: var(--sr-primary) !important;
+}
+
+/* DataTables Buttons Overrides */
+.dt-buttons .btn {
+    background-color: var(--sr-primary) !important;
+    border-color: var(--sr-primary) !important;
+    color: #fff !important;
+}
+
+.dt-buttons .btn:hover {
+    background-color: #043d34 !important;
+    border-color: #043d34 !important;
+}
+
+/* Pagination Overrides */
+.pagination .page-item.active .page-link {
+    background-color: var(--sr-primary) !important;
+    border-color: var(--sr-primary) !important;
+    color: #fff !important;
+}
+
+.pagination .page-link {
+    color: var(--sr-primary) !important;
+}
+
+/* Form Switches / Toggles Overrides */
+.form-check-input:checked {
+    background-color: var(--sr-primary) !important;
+    border-color: var(--sr-primary) !important;
+}
+
+.form-check-input:focus {
+    border-color: var(--sr-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--sr-primary-rgb), 0.25) !important;
+}
+
+/* Logo Sizing and Consistency */
+.logo-lg img {
+    height: 45px !important;
+    width: auto !important;
+}
+
+.logo-sm img {
+    height: 30px !important;
+    width: auto !important;
+}
+
+/* Authentication Page Overrides */
+.auth-bg {
+    background-color: var(--sr-light) !important;
+}
+
+.card.overflow-hidden {
+    border-top: 4px solid var(--sr-primary) !important;
+}
+
+.auth-brand img {
+    height: 50px !important;
+    width: auto !important;
+}
+
+/* Text Colors */
+.text-primary {
+    color: var(--sr-primary) !important;
+}
+
+/* Scrollbar or other accents */
+::-webkit-scrollbar-thumb {
+    background: var(--sr-primary) !important;
+}

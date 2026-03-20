@@ -1,0 +1,218 @@
+:root {
+  --bg-primary: #0a0e27;
+  --bg-secondary: #1a1f3a;
+  --border-color: #2a3b5a;
+  --neon-cyan: #00fff2;
+  --neon-blue: #4d9eff;
+  --neon-violet: #9d4edd;
+  --text-secondary: #8892b0;
+  --text-muted: #666;
+  --color-success: #00ff88;
+  --color-error: #ff006e;
+  --radius-lg: 12px;
+}
+
+.refactor-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.code-panel {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.panel-header {
+  background: var(--bg-primary);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-title {
+  font-weight: 700;
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.panel-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge-messy {
+  background: rgba(255, 0, 110, 0.2);
+  color: var(--neon-pink);
+  border: 1px solid var(--neon-pink);
+}
+
+.badge-clean {
+  background: rgba(57, 255, 20, 0.2);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+.code-editor {
+  padding: 1.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  min-height: 400px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.code-display {
+  background: var(--bg-primary);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  white-space: pre-wrap;
+  color: var(--text-secondary);
+}
+
+.code-textarea {
+  width: 100%;
+  min-height: 350px;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  color: var(--text-primary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color 0.3s;
+}
+
+.code-textarea:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+}
+
+.issues-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.issue-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.75rem;
+  border-left: 3px solid var(--neon-pink);
+}
+
+.issue-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.issue-content {
+  flex: 1;
+}
+
+.issue-title {
+  font-weight: 700;
+  color: var(--neon-pink);
+  margin-bottom: 0.25rem;
+}
+
+.issue-description {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.hint-box {
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid var(--neon-cyan);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-top: 1rem;
+  display: none;
+}
+
+.hint-box.show {
+  display: block;
+  animation: fadeIn 0.3s;
+}
+
+.hint-title {
+  font-weight: 700;
+  color: var(--neon-cyan);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.comparison-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.indicator-arrow {
+  font-size: 1.5rem;
+}
+
+.indicator-good {
+  color: var(--color-success);
+}
+
+.indicator-bad {
+  color: var(--color-error);
+}

@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Mulish:wght@400;500;600&display=swap');
+
+:root {
+    --g600: #16a34a;
+    --g500: #22c55e;
+    --g100: #dcfce7;
+    --g50: #f0fdf4;
+    --ink: #111827;
+    --ink2: #374151;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, .07), 0 4px 16px rgba(0, 0, 0, .05);
+}
+
+body.app {
+    font-family: 'Mulish', sans-serif;
+    background: #f9fafb;
+}
+
+.page-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: -.4px;
+}
+
+/* ── Tab nav ── */
+.edit-tabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    background: #fff;
+    border-radius: 12px;
+    padding: 5px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 24px;
+}
+
+.edit-tab {
+    flex: 1;
+    min-width: 110px;
+    padding: 9px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    font-size: .84rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    text-decoration: none;
+}
+
+.edit-tab.active,
+.edit-tab:hover {
+    background: var(--g50);
+    color: var(--g600);
+}
+
+.edit-tab.active {
+    box-shadow: 0 1px 4px rgba(22, 163, 74, .15);
+}
+
+/* ── Cards ── */
+.pcard {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0, 0, 0, .04);
+    margin-bottom: 20px;
+}
+
+.pcard-body {
+    padding: 24px;
+}
+
+.sec-heading {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--g600);
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--g100);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.sec-heading::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--g500);
+    border-radius: 50%;
+}
+
+/* ── Form controls ── */
+.form-label {
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--ink2);
+    margin-bottom: 5px;
+}
+
+.form-label .req {
+    color: #dc2626;
+}
+
+.form-control,
+.form-select {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 13px;
+    font-size: .9rem;
+    color: var(--ink);
+    background: #fafafa;
+    transition: border-color .18s, box-shadow .18s, background .18s;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--g500);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, .12);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: #b0b7c3;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.field-hint {
+    font-size: .74rem;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+/* ── Avatar editor ── */
+.avatar-edit-wrap {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.avatar-edit-wrap img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .12);
+}
+
+.avatar-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity .2s;
+    cursor: pointer;
+}
+
+.avatar-edit-wrap:hover .avatar-overlay {
+    opacity: 1;
+}
+
+.avatar-overlay i {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+#photoInput {
+    display: none;
+}
+
+/* ── Buttons ── */
+.btn-save {
+    background: var(--g600);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 26px;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background .18s;
+}
+
+.btn-save:hover {
+    background: #15803d;
+}
+
+.btn-save:disabled {
+    background: #86efac;
+    cursor: not-allowed;
+}
+
+.btn-back {
+    background: #f3f4f6;
+    color: var(--ink2);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: background .18s;
+}
+
+.btn-back:hover {
+    background: var(--border);
+    color: var(--ink);
+}
+
+/* ── Education list ── */
+.edu-row {
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    position: relative;
+    background: #fafafa;
+    transition: border-color .18s;
+}
+
+.edu-row:hover {
+    border-color: var(--g500);
+}
+
+.edu-row-title {
+    font-weight: 600;
+    font-size: .9rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.edu-row-title i {
+    color: var(--g600);
+}
+
+.btn-delete-edu {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    border-radius: 7px;
+    padding: 4px 10px;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.btn-delete-edu:hover {
+    background: #fecaca;
+}
+
+.btn-add-edu {
+    background: var(--g50);
+    color: var(--g600);
+    border: 1.5px dashed var(--g500);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background .18s;
+    margin-top: 4px;
+}
+
+.btn-add-edu:hover {
+    background: var(--g100);
+}
+
+/* ── Toast ── */
+.toast-bar {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: .88rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all .3s;
+    z-index: 9999;
+    max-width: 320px;
+}
+
+.toast-bar.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-bar.success i {
+    color: #4ade80;
+}
+
+.toast-bar.error i {
+    color: #f87171;
+}
+
+/* ── Tab sections ── */
+.tab-section {
+    display: none;
+}
+
+.tab-section.active {
+    display: block;
+}

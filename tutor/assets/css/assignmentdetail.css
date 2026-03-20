@@ -1,0 +1,243 @@
+/* Card hover effect */
+.card:hover {
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Table header bold and uppercase */
+#datatable thead th {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Center the actions column */
+#datatable td:last-child {
+    width: 120px;
+}
+
+/* Modal styling */
+.modal-header {
+    background: #28a745;
+    color: white;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Dynamic validation styles */
+.error-border {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.success-border {
+    border-color: #28a745 !important;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+/* Filter Button Styles */
+.filter-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.filter-btn i {
+    margin-right: 8px;
+}
+
+/* Add Order Button */
+.add-order-btn {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.add-order-btn:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.add-order-btn i {
+    margin-right: 8px;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item.active {
+    background-color: #28a745;
+    color: white;
+}
+
+
+
+/* MODAL */
+/* PROFILE MODAL */
+/* MODERN PROFILE MODAL OVERHAUL */
+.profile-modal .modal-content {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* Creative Header with Gradient and Glassmorphism */
+.profile-header {
+    background: linear-gradient(135deg, #1e7e34 0%, #28a745 100%);
+    padding: 40px 30px;
+    position: relative;
+    color: white;
+}
+
+.profile-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: white;
+    clip-path: ellipse(60% 100% at 50% 100%);
+}
+
+.profile-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 20px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    object-fit: cover;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05) rotate(3deg);
+}
+
+/* Professional Typography */
+#profileName {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 2px;
+}
+
+.header-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Info Cards */
+.info-card {
+    background: #ffffff;
+    border: 1px solid #f1f4f8;
+    border-radius: 20px;
+    padding: 24px;
+    height: 100%;
+}
+
+.info-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e9f5ff;
+    display: flex;
+    align-items: center;
+}
+
+.info-title i {
+    background: #e9f5ff;
+    color: #28a745;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+/* Badge Style Lists */
+.clean-list li {
+    display: inline-block;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    transition: all 0.2s;
+}
+
+.clean-list li:hover {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+/* Soft Boxes for Grid Items */
+.info-item.soft {
+    border: 1px solid #f1f5f9;
+    background: #fdfdfd;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.info-item label {
+    color: #94a3b8;
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}

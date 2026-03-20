@@ -1,0 +1,214 @@
+:root {
+  --bg-primary: #0a0e27;
+  --bg-secondary: #1a1f3a;
+  --border-color: #2a3b5a;
+  --neon-cyan: #00fff2;
+  --neon-blue: #4d9eff;
+  --neon-violet: #9d4edd;
+  --text-secondary: #8892b0;
+  --text-muted: #666;
+  --color-success: #00ff88;
+  --color-error: #ff006e;
+  --radius-lg: 12px;
+}
+
+.maze-container {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+.maze-grid {
+  display: grid;
+  gap: 4px;
+  background: var(--bg-primary);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+}
+.maze-cell {
+  width: 50px;
+  height: 50px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s;
+}
+.maze-cell.wall {
+  background: var(--bg-primary);
+  border-color: var(--text-muted);
+}
+.maze-cell.path {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+.maze-cell.start {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 229, 255, 0.3),
+    rgba(0, 229, 255, 0.1)
+  );
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+}
+.maze-cell.goal {
+  background: linear-gradient(
+    135deg,
+    rgba(57, 255, 20, 0.3),
+    rgba(57, 255, 20, 0.1)
+  );
+  border-color: var(--color-success);
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+  animation: pulsateGoal 1.5s ease-in-out infinite;
+}
+@keyframes pulsateGoal {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+.maze-cell.player {
+  background: linear-gradient(135deg, var(--neon-violet), var(--neon-cyan));
+  border-color: var(--neon-violet);
+  box-shadow: 0 0 20px rgba(157, 78, 221, 0.8);
+  animation: playerGlow 1s ease-in-out infinite;
+}
+@keyframes playerGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(157, 78, 221, 1);
+  }
+}
+.maze-cell.visited {
+  background: rgba(0, 229, 255, 0.1);
+  border-color: rgba(0, 229, 255, 0.3);
+}
+.commands-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.command-btn {
+  padding: 1rem 1.5rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.command-btn:hover {
+  border-color: var(--neon-cyan);
+  background: rgba(0, 229, 255, 0.1);
+  transform: translateY(-2px);
+}
+.command-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.commands-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.code-display {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  margin-top: 1rem;
+  font-family: "JetBrains Mono", monospace;
+  min-height: 100px;
+}
+.code-line-item {
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  background: rgba(0, 229, 255, 0.05);
+  border-left: 3px solid var(--neon-cyan);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+}
+.level-info {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.level-number {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--neon-cyan);
+  margin-bottom: 0.5rem;
+}
+.moves-counter {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  font-weight: 700;
+}
+.navbar {
+  background: var(--bg-secondary);
+}
+.nav-container {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-logo {
+  justify-self: start;
+}
+
+.nav-menu {
+  justify-self: center;
+}
+
+.nav-right {
+  justify-self: end;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #4d9eff;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.back-btn:hover {
+  background: #4d9eff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(77, 158, 255, 0.4);
+}

@@ -1,0 +1,287 @@
+:root {
+  --bg-primary: #0a0e27;
+  --bg-secondary: #1a1f3a;
+  --border-color: #2a3b5a;
+  --neon-cyan: #00fff2;
+  --neon-blue: #4d9eff;
+  --neon-violet: #9d4edd;
+  --text-secondary: #8892b0;
+  --text-muted: #666;
+  --color-success: #00ff88;
+  --color-error: #ff006e;
+  --radius-lg: 12px;
+}
+
+/* Enhanced Navigation Styles */
+.nav-container {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-logo {
+  justify-self: start;
+}
+
+.nav-menu {
+  justify-self: center;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #4d9eff;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.back-btn:hover {
+  background: #4d9eff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(77, 158, 255, 0.4);
+}
+
+.duel-arena {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.player-side {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: relative;
+}
+
+.player-side.player1 {
+  border-color: var(--neon-cyan);
+}
+
+.player-side.player2 {
+  border-color: #ff006e;
+}
+
+.player-side.winner {
+  box-shadow: 0 0 30px currentColor;
+  animation: winnerGlow 1s ease-in-out infinite;
+}
+
+@keyframes winnerGlow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.player-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.player-avatar {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.player-name {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.player-side.player1 .player-name {
+  color: var(--neon-cyan);
+}
+
+.player-side.player2 .player-name {
+  color: #ff006e;
+}
+
+.player-progress {
+  width: 100%;
+  height: 30px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.player-progress-fill {
+  height: 100%;
+  transition: width 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.player1 .player-progress-fill {
+  background: linear-gradient(90deg, var(--neon-cyan), #00b8d4);
+}
+
+.player2 .player-progress-fill {
+  background: linear-gradient(90deg, #ff006e, #d4004f);
+}
+
+.challenge-display {
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.challenge-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  margin-bottom: 1rem;
+}
+
+.challenge-question {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.answer-input {
+  width: 100%;
+  padding: 1rem;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+.answer-input:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+}
+
+.player2 .answer-input:focus {
+  border-color: #ff006e;
+}
+
+.countdown {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--neon-cyan);
+  margin: 3rem 0;
+  animation: countdown 1s ease-in-out;
+}
+
+@keyframes countdown {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.vs-divider {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--neon-cyan);
+  margin: 2rem 0;
+}
+
+.mode-selector {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.mode-btn {
+  padding: 2rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.mode-btn:hover {
+  border-color: var(--neon-cyan);
+  transform: translateY(-5px);
+}
+
+.mode-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.mode-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.mode-desc {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--neon-cyan);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .duel-arena {
+    grid-template-columns: 1fr;
+  }
+}
