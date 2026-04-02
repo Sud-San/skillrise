@@ -5,6 +5,7 @@ $logo1 = "SkillRise_logo1.png";
 $company_name = "SkillRise Academy";
 $user_profile_path = "./admin/assets/images/users/";
 $tutor_profile_path = "./admin/assets/images/tutors/";
+$_SESSION['prelogin_redirect'] = "index.php";
 
 // Check connection
 if ($conn->connect_error) {

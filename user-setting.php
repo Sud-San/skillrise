@@ -196,7 +196,7 @@ function e($str)
 
 								<div>
 									<label class="form-label font-medium text-sm">Phone No. :</label>
-									<input type="text" name="number" value="<?php echo e($user['mobile']); ?>"
+									<input type="text" name="mobile" value="<?php echo e($user['mobile']); ?>"
 										class="form-input px-3 py-2 h-10 text-sm rounded-lg w-full bg-transparent border border-gray-100 dark:border-gray-800 focus:shadow-none focus:ring-0 placeholder:text-gray-400 mt-2"
 										placeholder="Phone :">
 								</div>
@@ -324,7 +324,16 @@ function e($str)
 				contentType: false,
 
 				success: function (response) {
-					Swal.fire('Success', response, 'success');
+					Swal.fire({
+						title: 'Success',
+						text: response,
+						icon: 'success',
+						confirmButtonText: 'OK'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							location.reload();
+						}
+					});
 				}
 			});
 		});

@@ -15,6 +15,7 @@ if ($course_id <= 0) {
     exit;
 }
 
+
 // Fetch Course Details
 $courseStmt = $conn->prepare("SELECT course_title FROM course_tbl WHERE course_id = ?");
 $courseStmt->bind_param("i", $course_id);
@@ -41,6 +42,7 @@ $videos = [];
 while ($row = $videosResult->fetch_assoc()) {
     $videos[] = $row;
 }
+$lesson_count = mysqli_num_rows($videosResult);
 
 // Determine which lesson/video to play
 $active_video = null;
@@ -83,6 +85,29 @@ if ($active_video) {
         $can_watch = true; // First lesson is free
     } elseif ($is_enrolled) {
         $can_watch = true; // Enrolled users can watch all
+    }
+}
+
+// Progress Update
+if ($is_enrolled && $active_video) {
+    $new_progress = round((($active_video['lesson_order'] - 1) / $lesson_count) * 100);
+
+    if (isset($_GET['finished']) && $_GET['finished'] == 1 && $active_video['lesson_order'] == $lesson_count) {
+        $new_progress = 100;
+        $upd = $conn->prepare("UPDATE enrollments_tbl SET progress = 100, completed_at = NOW(), certificate_issued = '1' WHERE user_id = ? AND course_id = ?");
+        $upd->bind_param("ii", $user_id, $course_id);
+        $upd->execute();
+    } else {
+        $check = $conn->prepare("SELECT progress FROM enrollments_tbl WHERE user_id = ? AND course_id = ?");
+        $check->bind_param("ii", $user_id, $course_id);
+        $check->execute();
+        $curr = $check->get_result()->fetch_assoc();
+
+        if ($curr && $new_progress > $curr['progress']) {
+            $upd = $conn->prepare("UPDATE enrollments_tbl SET progress = ? WHERE user_id = ? AND course_id = ?");
+            $upd->bind_param("iii", $new_progress, $user_id, $course_id);
+            $upd->execute();
+        }
     }
 }
 
@@ -147,7 +172,8 @@ function e($str)
         .video-wrapper video {
             height: 100% !important;
             width: 100% !important;
-            object-fit: contain; /* Prevents stretching while filling space */
+            object-fit: contain;
+            /* Prevents stretching while filling space */
         }
 
         @media (min-width: 1024px) {
@@ -347,15 +373,23 @@ function e($str)
             player.on('ended', () => {
                 <?php
                 $next_v = null;
+                $current_idx = -1;
                 foreach ($videos as $i => $v) {
-                    if ($v['lesson_id'] == $active_video['lesson_id'] && isset($videos[$i + 1])) {
-                        $next_v = $videos[$i + 1];
+                    if ($v['lesson_id'] == $active_video['lesson_id']) {
+                        $current_idx = $i;
+                        if (isset($videos[$i + 1])) {
+                            $next_v = $videos[$i + 1];
+                        }
                         break;
                     }
                 }
                 ?>
                 <?php if ($next_v): ?>
+                    // Go to next lesson
                     window.location.href = "?course_id=<?php echo $course_id; ?>&lesson_id=<?php echo $next_v['lesson_id']; ?>";
+                <?php elseif ($active_video['lesson_order'] == $lesson_count): ?>
+                    // Final lesson completed - reload with finished flag to trigger 100% update in PHP
+                    window.location.href = window.location.href + "&finished=1";
                 <?php endif; ?>
             });
         <?php endif; ?>

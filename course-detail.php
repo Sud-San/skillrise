@@ -57,6 +57,8 @@ if (isset($_SESSION['user_id'])) {
     $stmt->bind_param("ii", $user_id, $course_id);
     $stmt->execute();
     $result = $stmt->get_result();
+    $certificates = $result->fetch_assoc();
+    $certificate = $certificates['certificate_issued'];
 
     if ($result && $result->num_rows > 0) {
         $already_purchased = true;
@@ -269,7 +271,7 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
                                             <tbody>
                                                 <tr class="border-t border-gray-100 dark:border-gray-800">
                                                     <td class="p-4">
-                                                        <a href="<?php echo $lessonLink; ?>"
+                                                        <a href="<?php echo $lessonLink; ?>" target="1"
                                                             class="hover:text-primary <?php echo ($isLocked) ? 'opacity-75' : ''; ?>">
                                                             <i
                                                                 class="<?php echo ($isLocked) ? 'ri-lock-line' : 'ri-play-circle-line'; ?> me-1"></i>
@@ -298,35 +300,63 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
                     </div>
 
                     <!-- ── Course Notes ─────────────────────────── -->
-                    <?php if (mysqli_num_rows($notes) > 0): ?>
-                        <h5 class="text-2xl font-semibold my-6 border-b border-gray-100 dark:border-gray-800 pb-2">Course
-                            Notes</h5>
-                        <div class="grid grid-cols-1 gap-4">
-                            <?php while ($note = mysqli_fetch_assoc($notes)): ?>
-                                <div
-                                    class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 flex justify-between items-center transition hover:shadow-md">
-                                    <div class="flex items-center">
-                                        <div
-                                            class="h-10 w-10 bg-primary/10 text-primary rounded-lg flex items-center justify-center me-3 text-xl">
-                                            <i class="ri-file-text-line"></i>
+                    <?php if ($already_purchased) { ?>
+                        <?php if (mysqli_num_rows($notes) > 0): ?>
+                            <h5 class="text-2xl font-semibold my-6 border-b border-gray-100 dark:border-gray-800 pb-2">Course
+                                Notes</h5>
+                            <div class="grid grid-cols-1 gap-4">
+                                <?php while ($note = mysqli_fetch_assoc($notes)): ?>
+                                    <div
+                                        class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 flex justify-between items-center transition hover:shadow-md">
+                                        <div class="flex items-center">
+                                            <div class="flex items-center justify-center me-3 text-xl">
+                                                <i class="ri-file-text-line"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs text-gray-400 mt-1"> &nbsp;
+                                                    <?= htmlspecialchars($note['description']); ?>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h6 class="font-semibold text-gray-800 dark:text-gray-100">
-                                                <?= htmlspecialchars($note['file_name']); ?>
-                                            </h6>
-                                            <p class="text-xs text-gray-400 mt-1"><?= htmlspecialchars($note['description']); ?>
-                                            </p>
-                                        </div>
+                                        <a href="<?= "." . htmlspecialchars($note['file_url']); ?>" download class="">
+                                            <i class="ri-download-2-line"></i>
+                                        </a>
                                     </div>
-                                    <a href="<?= htmlspecialchars($note['file_url']); ?>" download
-                                        class="h-9 w-9 bg-primary/10 text-primary rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition">
-                                        <i class="ri-download-2-line"></i>
-                                    </a>
-                                </div>
-                            <?php endwhile; ?>
+                                <?php endwhile; ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php } else { ?>
+                        <div class="mt-8">
+                            <h5 class="text-2xl font-semibold mb-4">Course Notes</h5>
+                            <p class="text-gray-500 dark:text-gray-400">You need to purchase the course to download the
+                                notes.</p>
                         </div>
-                    <?php endif; ?>
+                    <?php } ?>
 
+                    <!-- certificate -->
+                    <?php if ($already_purchased) { ?>
+                        <?php if ($certificate) { ?>
+                            <div class="mt-8">
+                                <h5 class="text-2xl font-semibold mb-4">Certificate</h5>
+                                <a href="certi.php?course_id=<?php echo $course_id; ?>"
+                                    class="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition">
+                                    Download Certificate
+                                </a>
+                            </div>
+                        <?php } else { ?>
+                            <div class="mt-8">
+                                <h5 class="text-2xl font-semibold mb-4">Certificate</h5>
+                                <p class="text-gray-500 dark:text-gray-400">You need to complete the course to download the
+                                    certificate.</p>
+                            </div>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <div class="mt-8">
+                            <h5 class="text-2xl font-semibold mb-4">Certificate</h5>
+                            <p class="text-gray-500 dark:text-gray-400">You need to purchase the course to download the
+                                certificate.</p>
+                        </div>
+                    <?php } ?>
                     <!-- ── Reviews Section ──────────────────────── -->
                     <h5 class="text-2xl font-semibold my-6 border-b border-gray-100 dark:border-gray-800 pb-2">Reviews &
                         Ratings</h5>

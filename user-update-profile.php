@@ -13,7 +13,7 @@ $user_id = (int) $_SESSION['user_id'];
 -------------------------- */
 $user_name = trim($_POST['user_name'] ?? '');
 $user_email = trim($_POST['user_email'] ?? '');
-$mobile = trim($_POST['mobile_no'] ?? '');
+$mobile = trim($_POST['mobile'] ?? '');
 
 if ($user_name == '' || $user_email == '') {
     exit("Name and Email are required.");
@@ -32,11 +32,9 @@ $profile_pic_path = null;
 if (!empty($_FILES['profile_pic']['name'])) {
 
     $uploadDir = "admin/assets/images/users/";
-    if (!is_dir($uploadDir))
-        mkdir($uploadDir, 0777, true);
 
     $fileTmp = $_FILES['profile_pic']['tmp_name'];
-    $fileName = time() . "_" . basename($_FILES['profile_pic']['name']);
+    $fileName = basename($_FILES['profile_pic']['name']);
     $target = $uploadDir . $fileName;
 
     $ext = strtolower(pathinfo($target, PATHINFO_EXTENSION));
@@ -67,6 +65,7 @@ if (!$stmt->execute()) {
 }
 
 $stmt->close();
-
-echo "Profile updated successfully!";
+json_encode(['success' => true, 'message' => 'Profile updated successfully!']);
+header("Location: user-setting.php");
+exit;
 ?>

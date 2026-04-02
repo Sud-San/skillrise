@@ -450,11 +450,13 @@ function formatDuration($minutes)
             <div class="grid grid-cols-1 text-center mt-10">
                 <h3 class="text-4xl md:leading-normal leading-normal font-semibold text-white">Our Courses</h3>
                 <ul class="tracking-[0.5px] inline-block mt-3">
-                    <li class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white/60 hover:text-white/90">
+                    <li
+                        class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white/60 hover:text-white/90">
                         <a href="index.php"><?php echo $company_name; ?></a>
                     </li>
                     <li class="inline-block text-white/50 mx-1 text-sm"><i class="ri-arrow-right-s-line"></i></li>
-                    <li class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white" aria-current="page">Courses</li>
+                    <li class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white"
+                        aria-current="page">Courses</li>
                 </ul>
             </div>
         </div>
@@ -469,7 +471,8 @@ function formatDuration($minutes)
                 <div class="lg:col-span-3 md:col-span-4 col-span-12">
 
                     <!-- Mobile Filter Toggle Button -->
-                    <button class="mobile-filter-toggle" id="mobileFilterToggle" aria-expanded="false" aria-controls="sidebarCollapsible">
+                    <button class="mobile-filter-toggle" id="mobileFilterToggle" aria-expanded="false"
+                        aria-controls="sidebarCollapsible">
                         <span style="display:flex;align-items:center;gap:8px;">
                             <i class="ri-filter-3-line"></i>
                             <span>Filters &amp; Search</span>
@@ -496,7 +499,8 @@ function formatDuration($minutes)
                             <!-- Filters -->
                             <form action="courses.php" method="GET" id="filterForm">
                                 <?php if (isset($_GET['search'])): ?>
-                                    <input type="hidden" name="search" value="<?php echo htmlspecialchars($_GET['search']); ?>">
+                                    <input type="hidden" name="search"
+                                        value="<?php echo htmlspecialchars($_GET['search']); ?>">
                                 <?php endif; ?>
 
                                 <!-- Category -->
@@ -523,16 +527,17 @@ function formatDuration($minutes)
                                         if ($catResult && mysqli_num_rows($catResult) > 0):
                                             while ($cat = mysqli_fetch_assoc($catResult)):
                                                 $isChecked = in_array($cat['category_id'], $selected_cats) ? 'checked' : '';
-                                        ?>
+                                                ?>
                                                 <li>
                                                     <label>
                                                         <input name="categories[]" value="<?php echo $cat['category_id']; ?>"
                                                             type="checkbox" <?php echo $isChecked; ?>>
-                                                        <span class="filter-label"><?php echo htmlspecialchars($cat['category_name']); ?></span>
+                                                        <span
+                                                            class="filter-label"><?php echo htmlspecialchars($cat['category_name']); ?></span>
                                                         <span class="filter-count"><?php echo $cat['course_count']; ?></span>
                                                     </label>
                                                 </li>
-                                        <?php endwhile;
+                                            <?php endwhile;
                                         endif; ?>
                                     </ul>
                                 </div>
@@ -548,26 +553,28 @@ function formatDuration($minutes)
                                         if ($lvlResult && mysqli_num_rows($lvlResult) > 0):
                                             while ($lvlRow = mysqli_fetch_assoc($lvlResult)):
                                                 $lvlName = ucfirst(strtolower($lvlRow['course_level']));
-                                                if (empty($lvlName)) continue;
+                                                if (empty($lvlName))
+                                                    continue;
                                                 $isChecked = in_array($lvlRow['course_level'], $selected_levels) ? 'checked' : '';
                                                 $domId = 'lvl-' . md5($lvlRow['course_level']);
-                                        ?>
+                                                ?>
                                                 <li>
                                                     <label for="<?php echo $domId; ?>">
                                                         <input id="<?php echo $domId; ?>" name="levels[]"
                                                             value="<?php echo htmlspecialchars($lvlRow['course_level']); ?>"
                                                             type="checkbox" <?php echo $isChecked; ?>>
-                                                        <span class="filter-label"><?php echo htmlspecialchars($lvlName); ?></span>
+                                                        <span
+                                                            class="filter-label"><?php echo htmlspecialchars($lvlName); ?></span>
                                                         <span class="filter-count"><?php echo $lvlRow['count']; ?></span>
                                                     </label>
                                                 </li>
-                                        <?php endwhile;
+                                            <?php endwhile;
                                         endif; ?>
                                     </ul>
                                 </div>
 
                                 <!-- Price -->
-                                <div class="sidebar-widget">
+                                <!-- <div class="sidebar-widget">
                                     <h4 class="widget-title">Course Price</h4>
                                     <?php $selected_prices = isset($_GET['prices']) ? $_GET['prices'] : []; ?>
                                     <ul class="checkbox-list">
@@ -594,7 +601,7 @@ function formatDuration($minutes)
                                             </label>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
 
                             </form>
                         </div>
@@ -621,7 +628,7 @@ function formatDuration($minutes)
     <script src="assets/js/app.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const filterForm = document.getElementById('filterForm');
             const searchForm = document.getElementById('searchForm');
             const gridContainer = document.getElementById('course-grid-container');
@@ -646,7 +653,7 @@ function formatDuration($minutes)
             /* ── Filter checkboxes ── */
             if (filterForm) {
                 filterForm.querySelectorAll('input[type="checkbox"]').forEach(input => {
-                    input.addEventListener('change', function() {
+                    input.addEventListener('change', function () {
                         if (this.id === 'price-all') return;
                         const formData = new FormData(filterForm);
                         const params = new URLSearchParams(formData);
@@ -662,7 +669,7 @@ function formatDuration($minutes)
 
             /* ── Search form ── */
             if (searchForm) {
-                searchForm.addEventListener('submit', function(e) {
+                searchForm.addEventListener('submit', function (e) {
                     e.preventDefault();
                     const formData = new FormData(searchForm);
                     const params = new URLSearchParams(formData);
@@ -676,7 +683,7 @@ function formatDuration($minutes)
             }
 
             /* ── Sort select (delegated — rendered inside fetch_courses) ── */
-            gridContainer.addEventListener('change', function(e) {
+            gridContainer.addEventListener('change', function (e) {
                 if (e.target.matches('select.fc-sort-select')) {
                     const params = new URLSearchParams(window.location.search);
                     params.set('sort', e.target.value);
@@ -686,7 +693,7 @@ function formatDuration($minutes)
             });
 
             /* ── Pagination (global fn called from PHP output) ── */
-            window.changePage = function(page) {
+            window.changePage = function (page) {
                 const params = new URLSearchParams(window.location.search);
                 params.set('page', page);
                 updateState(params);
@@ -698,7 +705,7 @@ function formatDuration($minutes)
             };
 
             /* ── Browser back/forward ── */
-            window.addEventListener('popstate', function() {
+            window.addEventListener('popstate', function () {
                 fetchCourses(new URLSearchParams(window.location.search).toString());
             });
 
@@ -717,7 +724,7 @@ function formatDuration($minutes)
                     toggleBtn.setAttribute('aria-expanded', 'true');
                 }
 
-                toggleBtn.addEventListener('click', function() {
+                toggleBtn.addEventListener('click', function () {
                     const isOpen = collapsible.classList.toggle('open');
                     toggleBtn.classList.toggle('open', isOpen);
                     toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
