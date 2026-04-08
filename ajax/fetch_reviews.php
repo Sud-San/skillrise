@@ -13,7 +13,7 @@ $query = "
     SELECT f.*, u.user_name 
     FROM feedback_tbl f
     LEFT JOIN user_tbl u ON f.user_id = u.user_id
-    WHERE f.course_id = $course_id
+    WHERE f.course_id = $course_id and f.status = 1
     ORDER BY f.created_at DESC
 ";
 
