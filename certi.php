@@ -3,7 +3,7 @@ include 'connection.php';
 session_start();
 
 // Fetch user and course details
-$user_id = $_SESSION['user_Id'];
+$user_id = $_SESSION['user_id'];
 $course_id = $_GET['course_id'];
 
 $query = "SELECT user_tbl.user_name, course_tbl.course_title, enrollments_tbl.completed_at
