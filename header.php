@@ -2,6 +2,15 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Store the current page address to redirect back after login
+if (!isset($_SESSION['user_id'])) {
+    $current_page = basename($_SERVER['PHP_SELF']);
+    $auth_pages = ['login.php', 'signup.php', 'logout.php', 'forgot_password.php'];
+    if (!in_array($current_page, $auth_pages)) {
+        $_SESSION['prelogin_redirect'] = $_SERVER['REQUEST_URI'];
+    }
+}
 ?>
 
 <style>
@@ -313,11 +322,11 @@ if (session_status() === PHP_SESSION_NONE) {
                                 <i class="ri-gamepad-line me-2 text-purple-500"></i> Games
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="notes.php" class="sub-menu-item">
                                 <i class="ri-sticky-note-line me-2 text-yellow-500"></i> Notes
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
