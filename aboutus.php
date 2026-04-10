@@ -89,7 +89,7 @@ ob_end_clean();
 
 <body class="text-gray-900 dark:text-white dark:bg-gray-900">
     <!-- Error Overlay -->
-    <div id="errorOverlay" class="error-overlay">
+    <!-- <div id="errorOverlay" class="error-overlay">
         <div class="error-container">
             <div class="error-icon">
                 <i class="ri-error-warning-line"></i>
@@ -99,7 +99,7 @@ ob_end_clean();
             <button onclick="location.reload()" class="retry-btn">Try Again</button>
             <p class="text-sm text-gray-500 mt-4">If the problem persists, please contact support.</p>
         </div>
-    </div>
+    </div> -->
 
     <?php
     if (isset($errorOccurred) && $errorOccurred && !isset($conn)) {
