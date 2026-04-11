@@ -8,123 +8,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $email = trim($_POST['email'] ?? '');
   $password = $_POST['password'] ?? '';
 
+
   if ($email === '' || $password === '') {
     $msg = "Please enter email and password.";
   } else {
-    // Check tutor first
-    $tutor_sql = "SELECT * FROM tutor_tbl WHERE tutor_email='$email'";
-    $tutor_result = mysqli_query($conn, $tutor_sql);
+    // Check student
+    $safe_email = mysqli_real_escape_string($conn, $email);
+    $student_sql = "SELECT * FROM user_tbl WHERE user_email = '$safe_email'";
+    $student_result = mysqli_query($conn, $student_sql);
 
-    if (mysqli_num_rows($tutor_result) > 0) {
-      $tutor_row = mysqli_fetch_assoc($tutor_result);
+    if (mysqli_num_rows($student_result) > 0) {
+      $student_row = mysqli_fetch_assoc($student_result);
 
       // Try password_verify first (for hashed passwords)
-      if (password_verify($password, $tutor_row['password'])) {
-        if ($tutor_row['tutor_status'] == 1 && $tutor_row['verification_status'] === 'approved') {
-          $_SESSION['user_id'] = $tutor_row['tutor_id'];
-          $_SESSION['profile_pic'] = $tutor_row['profile_pic'];
-          $_SESSION['user_name'] = $tutor_row['tutor_name'];
-          $_SESSION['user_email'] = $tutor_row['tutor_email'];
-          $_SESSION['user_phone'] = $tutor_row['tutor_phone'];
-          $_SESSION['user_role'] = 'tutor';
+      if (password_verify($password, $student_row['user_password'])) {
+        if ($student_row['user_status'] == 1) {
+          $_SESSION['user_id'] = $student_row['user_id'];
+          $_SESSION['user_name'] = $student_row['user_name'];
+          $_SESSION['user_email'] = $student_row['user_email'];
+          $_SESSION['user_role'] = 'student';
+          $_SESSION['user_profile_pic'] = $user_profile_path . ($student_row['profile_pic'] ?? 'assets/images/default.png');
+          $_SESSION['game_preloader'] = 0;
 
+          // Get additional details from user_details
+          $details_sql = "SELECT * FROM user_details WHERE user_id = " . (int) $student_row['user_id'];
+          $details_result = mysqli_query($conn, $details_sql);
+
+          if (mysqli_num_rows($details_result) > 0) {
+            $details = mysqli_fetch_assoc($details_result);
+            $_SESSION['user_mobile'] = $details['mobile'] ?? '';
+            $_SESSION['user_gender'] = $details['gender'] ?? '';
+          }
+          if (isset($_SESSION['prelogin_redirect'])) {
+            $redirect_url = $_SESSION['prelogin_redirect'];
+            unset($_SESSION['prelogin_redirect']);
+            header("Location: " . $redirect_url);
+            exit;
+          }
           header("Location: index.php");
           exit;
         } else {
-          $msg = "Your tutor account is pending approval or inactive.";
+          $msg = "Your account is inactive.";
         }
       }
       // Fallback: direct comparison (remove this in production)
-      else if ($password === $tutor_row['password']) {
-        if ($tutor_row['tutor_status'] == 1 && $tutor_row['verification_status'] === 'approved') {
-          $_SESSION['user_id'] = $tutor_row['tutor_id'];
-          $_SESSION['profile_pic'] = $tutor_row['profile_pic'];
-          $_SESSION['user_name'] = $tutor_row['tutor_name'];
-          $_SESSION['user_email'] = $tutor_row['tutor_email'];
-          $_SESSION['user_phone'] = $tutor_row['tutor_phone'];
-          $_SESSION['user_role'] = 'tutor';
+      else if ($password === $student_row['user_password']) {
+        if ($student_row['user_status'] == 1) {
+          $_SESSION['user_id'] = $student_row['user_id'];
+          $_SESSION['user_name'] = $student_row['user_name'];
+          $_SESSION['user_email'] = $student_row['user_email'];
+          $_SESSION['user_role'] = 'student';
+          $_SESSION['game_preloader'] = 0;
+          $_SESSION['user_profile_pic'] = $user_profile_path . ($student_row['profile_pic'] ?? 'assets/images/default.png');
 
+          $details_sql = "SELECT * FROM user_details WHERE user_id = " . (int) $student_row['user_id'];
+          $details_result = mysqli_query($conn, $details_sql);
+
+          if (mysqli_num_rows($details_result) > 0) {
+            $details = mysqli_fetch_assoc($details_result);
+            $_SESSION['user_mobile'] = $details['mobile'] ?? '';
+            $_SESSION['user_gender'] = $details['gender'] ?? '';
+          }
+          if (isset($_SESSION['prelogin_redirect'])) {
+            $redirect_url = $_SESSION['prelogin_redirect'];
+            unset($_SESSION['prelogin_redirect']);
+            header("Location: " . $redirect_url);
+            exit;
+          }
           header("Location: index.php");
           exit;
         } else {
-          $msg = "Your tutor account is pending approval or inactive.";
+          $msg = "Your account is inactive.";
         }
       } else {
         $msg = "Invalid credentials.";
       }
-    }
-    // Check student
-    else {
-      $student_sql = "SELECT * FROM user_tbl WHERE user_email='$email'";
-      $student_result = mysqli_query($conn, $student_sql);
-
-      if (mysqli_num_rows($student_result) > 0) {
-        $student_row = mysqli_fetch_assoc($student_result);
-
-        // Try password_verify first (for hashed passwords)
-        if (password_verify($password, $student_row['user_password'])) {
-          if ($student_row['user_status'] == 1) {
-            $_SESSION['user_id'] = $student_row['user_id'];
-            $_SESSION['user_name'] = $student_row['user_name'];
-            $_SESSION['user_email'] = $student_row['user_email'];
-            $_SESSION['user_role'] = 'student';
-            $_SESSION['user_profile_pic'] = $user_profile_path . ($student_row['profile_pic'] ?? 'assets/images/default.png');
-            $_SESSION['game_preloader'] = 0;
-
-            // Get additional details from user_details
-            $details_sql = "SELECT * FROM user_details WHERE user_id = " . $student_row['user_id'];
-            $details_result = mysqli_query($conn, $details_sql);
-            if (mysqli_num_rows($details_result) > 0) {
-              $details = mysqli_fetch_assoc($details_result);
-              $_SESSION['user_mobile'] = $details['mobile'] ?? '';
-              $_SESSION['user_gender'] = $details['gender'] ?? '';
-            }
-            if (isset($_SESSION['prelogin_redirect'])) {
-              $redirect_url = $_SESSION['prelogin_redirect'];
-              unset($_SESSION['prelogin_redirect']);
-              header("Location: " . $redirect_url);
-              exit;
-            }
-            header("Location: index.php");
-            exit;
-          } else {
-            $msg = "Your account is inactive.";
-          }
-        }
-        // Fallback: direct comparison (remove this in production)
-        else if ($password === $student_row['user_password']) {
-          if ($student_row['user_status'] == 1) {
-            $_SESSION['user_id'] = $student_row['user_id'];
-            $_SESSION['user_name'] = $student_row['user_name'];
-            $_SESSION['user_email'] = $student_row['user_email'];
-            $_SESSION['user_role'] = 'student';
-            $_SESSION['game_preloader'] = 0;
-            $_SESSION['user_profile_pic'] = $user_profile_path . ($student_row['profile_pic'] ?? 'assets/images/default.png');
-
-            $details_sql = "SELECT * FROM user_details WHERE user_id = " . $student_row['user_id'];
-            $details_result = mysqli_query($conn, $details_sql);
-            if (mysqli_num_rows($details_result) > 0) {
-              $details = mysqli_fetch_assoc($details_result);
-              $_SESSION['user_mobile'] = $details['mobile'] ?? '';
-              $_SESSION['user_gender'] = $details['gender'] ?? '';
-            }
-            if (isset($_SESSION['prelogin_redirect'])) {
-              $redirect_url = $_SESSION['prelogin_redirect'];
-              unset($_SESSION['prelogin_redirect']);
-              header("Location: " . $redirect_url);
-              exit;
-            }
-            header("Location: index.php");
-            exit;
-          } else {
-            $msg = "Your account is inactive.";
-          }
-        } else {
-          $msg = "Invalid credentials.";
-        }
-      } else {
-        $msg = "Email not found.";
-      }
+    } else {
+      $msg = "Email not found.";
     }
   }
 }
@@ -470,12 +430,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="text-center">
         <br>
         <span class="text-gray-400 me-2">Don't have an account? </span>
-        <a href="signup.php" style="text-decoration: none; color: #054b40; cursor: default;"><B>Sign up as
-            Student</B></a>
-        <br>
-        <span class="text-gray-400 me-2">Want to teach? </span>
-        <a href="tutor_register.php" style="text-decoration: none; color: #054b40; cursor: default;"><B>Register as
-            Tutor</B></a>
+        <a href="signup.php" style="text-decoration: none; color: #054b40; cursor: default;"><B>Sign up here</B></a>
       </div>
     </form>
   </div>
