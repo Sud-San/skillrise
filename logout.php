@@ -15,6 +15,3 @@ unset($_SESSION['game_preloader']);
 header("Location: index.php");
 exit;
 ?>
-
-
-
