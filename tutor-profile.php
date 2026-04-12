@@ -109,19 +109,24 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                 </h3>
 
                 <ul class="tracking-[0.5px] inline-block mt-2">
-                    <li class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white/70 dark:text-white/50 hover:text-white dark:hover:text-white">
+                    <li
+                        class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white/70 dark:text-white/50 hover:text-white dark:hover:text-white">
                         <a href="index.php"><?php echo $company_name; ?></a>
                     </li>
-                    <li class="inline-block text-white/70 dark:text-white/50 mx-0.5 text-sm ltr:rotate-0 rtl:rotate-180">
+                    <li
+                        class="inline-block text-white/70 dark:text-white/50 mx-0.5 text-sm ltr:rotate-0 rtl:rotate-180">
                         <i class="ri-arrow-right-s-line"></i>
                     </li>
-                    <li class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white/70 dark:text-white/50 hover:text-white dark:hover:text-white">
+                    <li
+                        class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white/70 dark:text-white/50 hover:text-white dark:hover:text-white">
                         <a href="teams.php">Teachers</a>
                     </li>
-                    <li class="inline-block text-white/70 dark:text-white/50 mx-0.5 text-sm ltr:rotate-0 rtl:rotate-180">
+                    <li
+                        class="inline-block text-white/70 dark:text-white/50 mx-0.5 text-sm ltr:rotate-0 rtl:rotate-180">
                         <i class="ri-arrow-right-s-line"></i>
                     </li>
-                    <li class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white dark:text-white" aria-current="page">
+                    <li class="inline-block font-medium uppercase duration-500 text-xs ease-in-out text-white dark:text-white"
+                        aria-current="page">
                         Profile
                     </li>
                 </ul>
@@ -138,29 +143,34 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                 <div class="lg:col-span-1">
                     <div class="sticky top-24">
                         <!-- Tutor Card -->
-                        <div class="bg-white dark:bg-gray-900 rounded-lg shadow shadow-gray-200 dark:shadow-gray-800 p-6 text-center">
-                            <div class="relative mx-auto w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-md shadow-gray-100 dark:shadow-gray-800 mb-6">
-                                <img src="<?php echo  $profilePic; ?>"
-                                    class="w-full h-full object-cover rounded-full"
+                        <div
+                            class="bg-white dark:bg-gray-900 rounded-lg shadow shadow-gray-200 dark:shadow-gray-800 p-6 text-center">
+                            <div
+                                class="relative mx-auto w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-md shadow-gray-100 dark:shadow-gray-800 mb-6">
+                                <img src="<?php echo $profilePic; ?>" class="w-full h-full object-cover rounded-full"
                                     alt="<?php echo htmlspecialchars($tutor['tutor_name']); ?>"
                                     onerror="this.onerror=null; this.src='default-tutor.png';">
                             </div>
 
-                            <h4 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($tutor['tutor_name']); ?></h4>
+                            <h4 class="text-xl font-semibold mb-2"><?php echo htmlspecialchars($tutor['tutor_name']); ?>
+                            </h4>
                             <p class="text-primary font-medium mb-4">
                                 <?php echo !empty($tutor['expertise']) ? htmlspecialchars($tutor['expertise']) : 'Expert Tutor'; ?>
                             </p>
 
                             <div class="flex justify-center space-x-2 mb-6">
-                                <a href="#" class="size-9 inline-flex items-center justify-center bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-full duration-500">
+                                <a href="#"
+                                    class="size-9 inline-flex items-center justify-center bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-full duration-500">
                                     <i class="ri-facebook-circle-line"></i>
                                 </a>
 
-                                <a href="#" class="size-9 inline-flex items-center justify-center bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-full duration-500">
+                                <a href="#"
+                                    class="size-9 inline-flex items-center justify-center bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-full duration-500">
                                     <i class="ri-instagram-line"></i>
                                 </a>
 
-                                <a href="#" class="size-9 inline-flex items-center justify-center bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-full duration-500">
+                                <a href="#"
+                                    class="size-9 inline-flex items-center justify-center bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-full duration-500">
                                     <i class="ri-linkedin-line"></i>
                                 </a>
                             </div>
@@ -184,18 +194,20 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                                             <span class="text-gray-600 dark:text-gray-400 text-sm">Experience:</span>
                                             <span class="font-medium text-sm"><?php echo $experience_years; ?>+ years</span>
                                         </div>
-                                <?php endif;
+                                    <?php endif;
                                 endif; ?>
 
                                 <div class="flex items-center justify-between">
                                     <span class="text-gray-600 dark:text-gray-400 text-sm">Status:</span>
-                                    <span class="px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded-full text-xs font-medium">
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded-full text-xs font-medium">
                                         Verified
                                     </span>
                                 </div>
                             </div>
 
-                            <button onclick="Swal.fire('Contact Information', 'Email: <?php echo htmlspecialchars($tutor['tutor_email']); ?>', 'info')"
+                            <button
+                                onclick="Swal.fire('Contact Information', 'Email: <?php echo htmlspecialchars($tutor['tutor_email']); ?>', 'info')"
                                 class="h-11 w-full px-5 tracking-wider inline-flex justify-center items-center text-sm font-medium rounded-lg bg-primary/10 hover:bg-primary text-primary hover:text-white duration-500 cursor-pointer">
                                 <i class="ri-chat-3-line me-2"></i>Contact Tutor
                             </button>
@@ -206,7 +218,8 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                 <!-- Right Column - Tutor Details -->
                 <div class="lg:col-span-2">
                     <!-- Bio Section -->
-                    <div class="bg-white dark:bg-gray-900 rounded-lg shadow shadow-gray-200 dark:shadow-gray-800 p-6 mb-6">
+                    <div
+                        class="bg-white dark:bg-gray-900 rounded-lg shadow shadow-gray-200 dark:shadow-gray-800 p-6 mb-6">
                         <h4 class="mb-4 md:leading-normal text-xl leading-normal font-semibold flex items-center">
                             <i class="ri-user-3-line text-primary me-2"></i> About Me
                         </h4>
@@ -223,7 +236,7 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                     </div>
 
                     <!-- Skills Section -->
-                    <div class="bg-white dark:bg-gray-900 rounded-lg shadow shadow-gray-200 dark:shadow-gray-800 p-6 mb-6">
+                    <!-- <div class="bg-white dark:bg-gray-900 rounded-lg shadow shadow-gray-200 dark:shadow-gray-800 p-6 mb-6">
                         <h4 class="mb-6 md:leading-normal text-xl leading-normal font-semibold flex items-center">
                             <i class="ri-tools-line text-primary me-2"></i> Teaching Expertise
                         </h4>
@@ -237,7 +250,7 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                                     $skill = trim($skill);
                                     if (!empty($skill)):
                                         $level = rand(80, 98);
-                                ?>
+                                        ?>
                                         <div>
                                             <div class="flex justify-between mb-2">
                                                 <span class="text-gray-700 dark:text-gray-300"><?php echo htmlspecialchars($skill); ?></span>
@@ -255,7 +268,7 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                                 Expertise information not available.
                             </p>
                         <?php endif; ?>
-                    </div>
+                    </div> -->
 
                     <!-- Courses Section -->
                     <div class="bg-white dark:bg-gray-900 rounded-lg shadow shadow-gray-200 dark:shadow-gray-800 p-6">
@@ -272,20 +285,24 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                                     $price = $course['course_price'] ?? $course['price'] ?? 0;
                                     $duration = $course['course_duration'] ?? $course['duration'] ?? 'Self-paced';
                                     $level = $course['course_level'] ?? $course['level'] ?? 'All Levels';
-                                ?>
-                                    <div class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-5 transition hover:shadow-lg duration-300">
-                                        <a href="course-detail.php?id=<?php echo $course['course_id'] ?? $course['id'] ?? 0; ?>">
+                                    ?>
+                                    <div
+                                        class="group bg-gray-50 dark:bg-gray-800 rounded-lg p-5 transition hover:shadow-lg duration-300">
+                                        <a
+                                            href="course-detail.php?id=<?php echo $course['course_id'] ?? $course['id'] ?? 0; ?>">
                                             <div class="flex items-start justify-between mb-3">
 
                                                 <div>
-                                                    <h5 class="font-semibold text-lg mb-1 group-hover:text-primary duration-500">
+                                                    <h5
+                                                        class="font-semibold text-lg mb-1 group-hover:text-primary duration-500">
                                                         <?php echo htmlspecialchars($course_title); ?>
                                                     </h5>
                                                     <span class="text-sm text-gray-500">
                                                         <?php echo htmlspecialchars($course['category_name'] ?? 'Uncategorized'); ?>
                                                     </span>
                                                 </div>
-                                                <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                                                <span
+                                                    class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
                                                     <?php echo htmlspecialchars($level); ?>
                                                 </span>
 
@@ -294,7 +311,8 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                                             <p class="text-gray-400 text-sm mb-4 line-clamp-2">
                                                 <?php
                                                 echo htmlspecialchars(substr($description, 0, 100));
-                                                if (strlen($description) > 100) echo '...';
+                                                if (strlen($description) > 100)
+                                                    echo '...';
                                                 ?>
                                             </p>
 
@@ -326,11 +344,13 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
                             </div>
                         <?php else: ?>
                             <div class="text-center py-8">
-                                <div class="inline-flex items-center justify-center size-16 bg-primary/10 text-primary rounded-full mb-4">
+                                <div
+                                    class="inline-flex items-center justify-center size-16 bg-primary/10 text-primary rounded-full mb-4">
                                     <i class="ri-book-line text-2xl"></i>
                                 </div>
                                 <h5 class="text-lg font-semibold mb-2">No Courses Yet</h5>
-                                <p class="text-gray-400 max-w-md mx-auto">This tutor hasn't published any courses yet. Check back soon for amazing learning content!</p>
+                                <p class="text-gray-400 max-w-md mx-auto">This tutor hasn't published any courses yet. Check
+                                    back soon for amazing learning content!</p>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -343,7 +363,8 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
     <?php include 'footer.php'; ?>
 
     <!-- Back to top -->
-    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top fixed hidden text-lg rounded-lg z-10 bottom-5 end-5 size-9 text-center bg-primary/10 hover:bg-primary text-primary hover:text-white leading-9">
+    <a href="#" onclick="topFunction()" id="back-to-top"
+        class="back-to-top fixed hidden text-lg rounded-lg z-10 bottom-5 end-5 size-9 text-center bg-primary/10 hover:bg-primary text-primary hover:text-white leading-9">
         <i class="ri-arrow-up-line"></i>
     </a>
 
@@ -353,7 +374,7 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
 
     <script>
         // Animate skill bars when page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const skillBars = document.querySelectorAll('.bg-primary');
             skillBars.forEach(bar => {
                 if (bar.parentElement.classList.contains('bg-gray-100')) {
@@ -372,7 +393,10 @@ $courses_result = mysqli_stmt_get_result($courses_stmt);
 
 <?php
 // Close database connections
-if (isset($stmt)) mysqli_stmt_close($stmt);
-if (isset($courses_stmt)) mysqli_stmt_close($courses_stmt);
-if (isset($conn)) mysqli_close($conn);
+if (isset($stmt))
+    mysqli_stmt_close($stmt);
+if (isset($courses_stmt))
+    mysqli_stmt_close($courses_stmt);
+if (isset($conn))
+    mysqli_close($conn);
 ?>
