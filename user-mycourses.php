@@ -110,7 +110,7 @@ function e($str)
 
                     <?php
                     // Dynamic fetch enrolled courses
-                    $fetch = $conn->prepare("
+                    $fetch = "
          SELECT 
 			e.enrolled_at,
 			p.payment_status,
@@ -121,26 +121,25 @@ function e($str)
 			c.course_thumbnail,
 			c.course_description,
 			c.course_level,
-			e.enrollment_status
+			e.enrollment_status,
+            e.progress
 		FROM enrollments_tbl e
 		LEFT JOIN user_payment_tbl p 
 				ON e.user_payment_id = p.user_payment_id
 		JOIN course_tbl c 
 				ON e.course_id = c.course_id
-		WHERE e.user_id = ?
+		WHERE e.user_id = $user_id
 		ORDER BY e.enrolled_at DESC;
 
-        ");
+        ";
 
-                    $fetch->bind_param("i", $user_id);
-                    $fetch->execute();
-                    $courses = $fetch->get_result();
+                    $courses = mysqli_query($conn, $fetch);
 
-                    if ($courses->num_rows == 0) {
+                    if (mysqli_num_rows($courses) == 0) {
                         echo "<p class='text-gray-500 dark:text-gray-300'>No courses enrolled yet.</p>";
                     }
 
-                    while ($course = $courses->fetch_assoc()):
+                    while ($course = mysqli_fetch_assoc($courses)):
 
                         // Generate progress dynamically (OR you can add a progress column later)
                         $progress = rand(20, 90);
@@ -178,13 +177,10 @@ function e($str)
                             <!-- Progress -->
                             <div class="mt-6">
                                 <p class="text-sm text-gray-600 dark:text-gray-300 font-medium mb-2">
-                                    Progress: <span class="font-semibold text-green-600">0%</span>
+                                    Progress: <span class="font-semibold text-green-600">
+                                        <?php echo $course['progress'] ?>%
+                                    </span>
                                 </p>
-
-                                <div class="w-full bg-gray-200 dark:bg-gray-700 h-3 rounded-full overflow-hidden">
-                                    <div class="bg-green-500 h-full rounded-full" style="width: <?= $progress ?>%;">
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- Resume Button -->
