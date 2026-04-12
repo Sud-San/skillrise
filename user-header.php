@@ -371,11 +371,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 <i class="ri-gamepad-line me-2 text-purple-500"></i> Games
                             </a>
                         </li>
-                        <li>
-                            <a href="notes.php">
-                                <i class="ri-sticky-note-line me-2 text-yellow-500"></i> Notes
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
 
