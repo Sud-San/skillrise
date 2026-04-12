@@ -7,9 +7,7 @@ use Razorpay\Api\Api;
 
 // Get course ID safely
 $course_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-if ($course_id <= 0) {
-    die("<h2 class='text-center py-20 text-red-600'>Invalid Course ID</h2>");
-}
+
 
 // =====================
 // 🔹 Fetch Course Details - CORRECTED QUERY
@@ -17,6 +15,7 @@ if ($course_id <= 0) {
 $courseQuery = "
     SELECT 
         c.course_id, 
+        c.category_id,
         c.course_title AS title, 
         c.course_description AS description, 
         c.price, 
@@ -47,21 +46,18 @@ if (!$course) {
 // 🔹 Check if user already purchased the course
 // ==========================
 $already_purchased = false;
-
+$certificate = 0;
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
     // Check in enrollments table
-    $checkQuery = "SELECT * FROM enrollments_tbl WHERE user_id = ? AND course_id = ? LIMIT 1";
-    $stmt = $conn->prepare($checkQuery);
-    $stmt->bind_param("ii", $user_id, $course_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $certificates = $result->fetch_assoc();
-    $certificate = $certificates['certificate_issued'];
+    $checkQuery = "SELECT * FROM enrollments_tbl WHERE user_id = $user_id AND course_id = $course_id LIMIT 1";
+    $result = mysqli_query($conn, $checkQuery);
 
-    if ($result && $result->num_rows > 0) {
+    if ($result && mysqli_num_rows($result) > 0) {
         $already_purchased = true;
+        $certificates = mysqli_fetch_assoc($result);
+        $certificate = $certificates['certificate_issued'] ?? 0;
     }
 }
 
@@ -161,7 +157,7 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
         }
     </style>
     <!-- Plyr CSS -->
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" /> -->
 
 </head>
 
@@ -361,49 +357,52 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
                     <h5 class="text-2xl font-semibold my-6 border-b border-gray-100 dark:border-gray-800 pb-2">Reviews &
                         Ratings</h5>
                     <?php
-                    $q1 = "select * from feedback_tbl where user_id=$_SESSION[user_id] and course_id=$course_id LIMIT 1";
-                    if (mysqli_query($conn, $q1)) {
-                        $already_review = true;
+                    if (isset($_SESSION['user_id'])) {
+                        $q1 = "SELECT * FROM feedback_tbl WHERE user_id = {$_SESSION['user_id']} AND course_id = $course_id LIMIT 1";
+                        $res_review = mysqli_query($conn, $q1);
 
-                    } else {
-                        $already_review = false;
-                    }
-                    ?>
-                    <!-- Review Submission Form (Enrolled Users Only) -->
-                    <?php if ($already_purchased && !$already_review): ?>
-                        <div
-                            class="p-6 bg-gray-50 dark:bg-gray-800 rounded-lg mb-8 border border-gray-100 dark:border-gray-700 shadow-inner">
-                            <h6 class="text-lg font-semibold mb-4 flex items-center text-primary">
-                                <i class="ri-edit-line me-2"></i> Leave a Review
-                            </h6>
-                            <form id="reviewForm" class="space-y-4">
-                                <input type="hidden" name="course_id" value="<?= $course_id; ?>">
-                                <div>
-                                    <label
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Rating</label>
-                                    <select name="rating"
-                                        class="w-full p-2.5 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
-                                        required>
-                                        <option value="5">5 - Excellent</option>
-                                        <option value="4">4 - Very Good</option>
-                                        <option value="3">3 - Good</option>
-                                        <option value="2">2 - Fair</option>
-                                        <option value="1">1 - Poor</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Comment</label>
-                                    <textarea name="comment" rows="3"
-                                        class="w-full p-2.5 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
-                                        placeholder="Tell us what you think..." required></textarea>
-                                </div>
-                                <button type="submit"
-                                    class="w-full bg-primary text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-green-700 transition shadow-sm">Submit
-                                    Review</button>
-                            </form>
-                        </div>
-                    <?php endif; ?>
+                        if ($res_review && mysqli_num_rows($res_review) > 0) {
+                            $already_review = true;
+                        } else {
+                            $already_review = false;
+                        }
+                        ?>
+                        <!-- Review Submission Form (Enrolled Users Only) -->
+                        <?php if ($already_purchased && !$already_review): ?>
+                            <div
+                                class="p-6 bg-gray-50 dark:bg-gray-800 rounded-lg mb-8 border border-gray-100 dark:border-gray-700 shadow-inner">
+                                <h6 class="text-lg font-semibold mb-4 flex items-center text-primary">
+                                    <i class="ri-edit-line me-2"></i> Leave a Review
+                                </h6>
+                                <form id="reviewForm" class="space-y-4" action="ajax/add_review.php" method="POST">
+                                    <input type="hidden" name="course_id" value="<?= $course_id; ?>">
+                                    <div>
+                                        <label
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Rating</label>
+                                        <select name="rating"
+                                            class="w-full p-2.5 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
+                                            required>
+                                            <option value="5">5 - Excellent</option>
+                                            <option value="4">4 - Very Good</option>
+                                            <option value="3">3 - Good</option>
+                                            <option value="2">2 - Fair</option>
+                                            <option value="1">1 - Poor</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label
+                                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Comment</label>
+                                        <textarea name="comment" rows="3"
+                                            class="w-full p-2.5 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
+                                            placeholder="Tell us what you think..." required></textarea>
+                                    </div>
+                                    <button type="submit"
+                                        class="w-full bg-primary text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-green-700 transition shadow-sm">Submit
+                                        Review</button>
+                                </form>
+                            </div>
+                        <?php endif;
+                    } ?>
 
                     <!-- Reviews List (Loaded via AJAX) -->
                     <div id="reviews-list" class="space-y-4">
@@ -516,7 +515,7 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
                 if (!userId) {
                     Swal.fire('Login Required', "Please login to purchase this course.", 'warning');
                     window.location.href = "login.php";
-                    <?php $_SESSION['prelogin_redirect'] = $_SERVER['REQUEST_URI']; ?>
+
                     return;
                 }
 
@@ -672,12 +671,12 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
     <script src="assets/js/plugins.init.js"></script>
     <script src="assets/js/app.js"></script>
 
-    <!-- AJAX Reviews Logic -->
+    <!--  AJAX Reviews Logic -->
     <script>
         $(document).ready(function () {
             const courseId = <?= $course_id; ?>;
 
-            // Function to load reviews
+            // F unction to load reviews
             function loadReviews() {
                 $.ajax({
                     url: 'ajax/fetch_reviews.php',
@@ -706,8 +705,8 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
                                                 <span class="text-xs text-gray-400">${review.created_at}</span>
                                             </div>
                                             <p class="text-sm text-gray-600 dark:text-gray-400">${review.comment}</p>
-                                        </div>
-                                    `;
+                                            </div>
+                                        `;
                                 });
                             }
                             $('#reviews-list').html(html);
@@ -723,38 +722,7 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
 
             // Initial load
             loadReviews();
-
-            // Handle Review Submission
-            $('#reviewForm').on('submit', function (e) {
-                e.preventDefault();
-                const $form = $(this);
-                const $btn = $form.find('button');
-
-                $btn.prop('disabled', true).html('Submitting...');
-
-                $.ajax({
-                    url: 'ajax/add_review.php',
-                    type: 'POST',
-                    data: $form.serialize(),
-                    dataType: 'json',
-                    success: function (res) {
-                        $btn.prop('disabled', false).html('Submit Review');
-                        if (res.success) {
-                            showSuccess(res.message);
-                            $form[0].reset();
-                            loadReviews(); // Reload the list
-                        } else {
-                            showError(res.message);
-                        }
-                    },
-                    error: function () {
-                        $btn.prop('disabled', false).html('Submit Review');
-                        showError('An error occurred during submission.');
-                    }
-                });
-            });
-
-            // Re-using SweetAlert functions if they exist, else defining basic ones
+            // R    e-using SweetAlert functions if they exist, else defining basic ones
             function showSuccess(msg) {
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({ icon: 'success', title: 'Success', text: msg, timer: 2000, showConfirmButton: false });
