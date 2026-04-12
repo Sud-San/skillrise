@@ -59,8 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (mysqli_num_rows($check_result) > 0) {
       $error = "Email already registered.";
     } else {
-      // Start transaction
-      mysqli_begin_transaction($conn);
 
       try {
         // Insert into tutor_tbl
@@ -79,28 +77,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             0, 
                             'pending'
                           )";
-
         if (mysqli_query($conn, $query)) {
-          $tutor_id = mysqli_insert_id($conn);
-
-          // Insert into tutor_profile_tbl
-          $profile_query = "INSERT INTO tutor_profile_tbl (tutor_id) 
-                                     VALUES (" . intval($tutor_id) . "";
-
-          if (mysqli_query($conn, $profile_query)) {
-            mysqli_commit($conn);
-            $success = "Registration successful! Your account is pending admin approval. You'll be notified via email once approved.";
-            $_POST = array();
-          } else {
-            mysqli_rollback($conn);
-            $error = "Error creating profile. Please try again.";
-          }
+          $success = "Registration successful! Your account is pending admin approval. You'll be notified via email once approved.";
         } else {
-          mysqli_rollback($conn);
           $error = "Error creating account. Please try again.";
         }
       } catch (Exception $e) {
-        mysqli_rollback($conn);
         $error = "Error: " . $e->getMessage();
       }
     }
