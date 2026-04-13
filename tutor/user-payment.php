@@ -488,8 +488,8 @@ if (
                                                                 WHERE user_id=" . $row['user_id'] . " 
                                                                 AND tutor_id=" . $row['tutor_id'] . " 
                                                                 AND course_id=" . $row['course_id'];
-                                                            $result = mysqli_query($conn, $q);
-                                                            $row1 = mysqli_fetch_assoc($result);
+                                                            $result1 = mysqli_query($conn, $q);
+                                                            $row1 = mysqli_fetch_assoc($result1);
                                                             ?>
                                                             <a
                                                                 href="user-invoice.php?uid=<?= $row['user_id'] ?>&cid=<?= $row['course_id'] ?>&tid=<?= $row['tutor_id'] ?>">
