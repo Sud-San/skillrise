@@ -1,3 +1,5 @@
 *.zip
 *.txt
 *.mp4
+vendor/
+tutor/vendor/
