@@ -59,148 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['course_id'])) {
 }
 ?>
 
-<style>
-    .page-card {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 1px 8px rgba(0, 0, 0, .07);
-        overflow: hidden;
-    }
-
-    .page-card-title {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 22px 28px 18px;
-        border-bottom: 1px solid #f0f0f0;
-    }
-
-    .page-card-title .title-icon {
-        width: 34px;
-        height: 34px;
-        background: #166534;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    .page-card-title .title-icon i {
-        color: #fff;
-        font-size: .95rem;
-    }
-
-    .page-card-title h4 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #1a1a1a;
-        margin: 0;
-    }
-
-    .page-card-body {
-        padding: 28px;
-    }
-
-    .section-heading {
-        font-size: .7rem;
-        font-weight: 700;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        color: #6b7280;
-        margin-bottom: 18px;
-        padding-bottom: 10px;
-        border-bottom: 1px dashed #e5e7eb;
-    }
-
-    .form-label {
-        font-size: .85rem;
-        font-weight: 600;
-        color: #374151;
-        margin-bottom: 6px;
-    }
-
-    .form-label .req {
-        color: #dc2626;
-    }
-
-    .form-control,
-    .form-select {
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-        padding: 9px 13px;
-        font-size: .9rem;
-        color: #1f2937;
-        background: #fff;
-        transition: border-color .18s, box-shadow .18s;
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-        border-color: #16a34a;
-        box-shadow: 0 0 0 3px rgba(22, 163, 74, .13);
-        outline: none;
-    }
-
-    .form-control::placeholder {
-        color: #9ca3af;
-    }
-
-    .field-hint {
-        font-size: .75rem;
-        color: #9ca3af;
-        margin-top: 5px;
-    }
-
-    /* Buttons */
-    .btn-area {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        padding-top: 22px;
-        margin-top: 24px;
-        border-top: 1px solid #f3f4f6;
-    }
-
-    .btn-save {
-        background: #16a34a;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        padding: 9px 22px;
-        font-size: .88rem;
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        transition: background .18s;
-    }
-
-    .btn-save:hover {
-        background: #15803d;
-    }
-
-    .btn-cancel {
-        background: #dc2626;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        padding: 9px 22px;
-        font-size: .88rem;
-        font-weight: 600;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        transition: background .18s;
-    }
-
-    .btn-cancel:hover {
-        background: #b91c1c;
-        color: #fff;
-    }
-</style>
+<head>
+    <link rel="stylesheet" href="assets/css/add_video.css" />
+</head>
 
 <body class="app">
     <?php include 'includes/header.php'; ?>
@@ -254,7 +115,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['course_id'])) {
                                     <input type="file" name="video_file" class="form-control"
                                         accept="video/mp4,video/webm,video/ogg" required>
                                     <div class="field-hint">MP4 recommended. Max size depends on your server's
-                                        <code>upload_max_filesize</code> setting.</div>
+                                        <code>upload_max_filesize</code> setting.
+                                    </div>
                                 </div>
 
                             </div>
