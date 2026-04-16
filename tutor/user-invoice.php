@@ -49,89 +49,7 @@ function e($str)
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="../assets/css/tailwind.min.css" />
 
-    <style>
-        /* Logo styles - applied on screen and print */
-        .logo {
-            display: flex;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            font-size: 28px;
-            font-weight: bold;
-            gap: 8px;
-        }
-
-        .skill {
-            color: #333;
-        }
-
-        .academy {
-            color: #2ecc71;
-        }
-
-        @media print {
-            @page {
-                size: A4 portrait;
-            }
-
-            body {
-                background: white !important;
-                color: black !important;
-            }
-
-            nav,
-            footer,
-            #back-to-top,
-            .print-btn-container {
-                display: none !important;
-            }
-
-            section {
-                padding: 0 !important;
-                border: none !important;
-            }
-
-            .container {
-                max-width: 100% !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            .rounded-lg,
-            .shadow-sm {
-                border: none !important;
-                box-shadow: none !important;
-            }
-
-            .watermark {
-                opacity: 0.05 !important;
-                -webkit-print-color-adjust: exact;
-                color-adjust: exact;
-            }
-        }
-
-        .watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            height: auto;
-            opacity: 0.1;
-            pointer-events: none;
-            z-index: 0;
-            background-image: url('../SkillRise_logo1.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-        }
-
-        /* Ensure content stays above the watermark */
-        .invoice-content {
-            position: relative;
-            z-index: 10;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/user-invoice.css">
 </head>
 
 <body class="text-gray-900 dark:text-white dark:bg-gray-900">
@@ -227,26 +145,28 @@ function e($str)
                             </div>
 
                             <div class="relative dark:shadow-gray-800 rounded-lg mt-6 overflow-x-auto">
-                                <table class="w-full text-start text-gray-500 dark:text-gray-400" style="table-layout: fixed;">
+                                <table class="w-full text-start text-gray-500 dark:text-gray-400"
+                                    style="table-layout: fixed;">
                                     <thead class="text-sm uppercase bg-transparent dark:bg-transparent">
                                         <tr>
-                                            <th scope="col"
-                                                class="text-center px-3 py-3 text-gray-900 dark:text-white" style="width:8%">
+                                            <th scope="col" class="text-center px-3 py-3 text-gray-900 dark:text-white"
+                                                style="width:8%">
                                                 No.
                                             </th>
-                                            <th scope="col" class="text-start px-3 py-3 text-gray-900 dark:text-white" style="width:42%">
+                                            <th scope="col" class="text-start px-3 py-3 text-gray-900 dark:text-white"
+                                                style="width:42%">
                                                 Description
                                             </th>
-                                            <th scope="col"
-                                                class="text-center px-3 py-3 text-gray-900 dark:text-white" style="width:10%">
+                                            <th scope="col" class="text-center px-3 py-3 text-gray-900 dark:text-white"
+                                                style="width:10%">
                                                 Qty
                                             </th>
-                                            <th scope="col"
-                                                class="text-center px-3 py-3 text-gray-900 dark:text-white" style="width:20%">
+                                            <th scope="col" class="text-center px-3 py-3 text-gray-900 dark:text-white"
+                                                style="width:20%">
                                                 Rate
                                             </th>
-                                            <th scope="col"
-                                                class="text-end px-3 py-3 text-gray-900 dark:text-white" style="width:20%">
+                                            <th scope="col" class="text-end px-3 py-3 text-gray-900 dark:text-white"
+                                                style="width:20%">
                                                 Total
                                             </th>
                                         </tr>
@@ -254,8 +174,8 @@ function e($str)
                                     <tbody>
                                         <tr class="bg-transparent dark:bg-transparent">
                                             <td class="text-center px-3 py-4">1</td>
-                                            <td
-                                                class="text-start px-3 py-4 font-medium text-gray-900 dark:text-white" style="word-wrap: break-word;">
+                                            <td class="text-start px-3 py-4 font-medium text-gray-900 dark:text-white"
+                                                style="word-wrap: break-word;">
                                                 Course: <?= e($payment['course_title']) ?>
                                             </td>
                                             <td class="text-center px-3 py-4">1</td>
