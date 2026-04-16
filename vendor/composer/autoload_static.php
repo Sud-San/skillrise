@@ -6,41 +6,22 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit19dce85914a0d40ff610e42a7553729f
 {
-    public static $files = array (
-        '941748b3c8cae4466c827dfb5ca9602a' => __DIR__ . '/..' . '/rmccue/requests/library/Deprecated.php',
-        '13906c19e3d8fcd1341b24ed4d51cf72' => __DIR__ . '/..' . '/razorpay/razorpay/Deprecated.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'P' => 
         array (
-            'WpOrg\\Requests\\' => 15,
-        ),
-        'R' => 
-        array (
-            'Razorpay\\Tests\\' => 15,
-            'Razorpay\\Api\\' => 13,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WpOrg\\Requests\\' => 
+        'PHPMailer\\PHPMailer\\' => 
         array (
-            0 => __DIR__ . '/..' . '/rmccue/requests/src',
-        ),
-        'Razorpay\\Tests\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/razorpay/razorpay/tests',
-        ),
-        'Razorpay\\Api\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/razorpay/razorpay/src',
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Requests' => __DIR__ . '/..' . '/rmccue/requests/library/Requests.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
