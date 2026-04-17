@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SkillRise Tutor Dashboard</title>
-    <link rel="shortcut icon" href="codez3.png">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 
     <!-- =====================================================
     =================== GOOGLE FONTS ========================
