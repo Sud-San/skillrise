@@ -177,7 +177,7 @@ $xp_progress = min(100, round(($current_level_xp % 1000) / 10)); // percentage t
                 <thead>
                     <tr>
                         <th>Game</th>
-                        <th>Language</th>
+                        <!-- <th>Language</th> -->
                         <th>Score</th>
                         <th>Accuracy</th>
                         <th>Time</th>
@@ -192,13 +192,13 @@ $xp_progress = min(100, round(($current_level_xp % 1000) / 10)); // percentage t
                                     <span class="game-icon"><?= htmlspecialchars($game['game_icon'] ?? '🎮') ?></span>
                                     <?= htmlspecialchars($game['game_name']) ?>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <?php if ($game['language']): ?>
                                         <span class="language-tag"><?= htmlspecialchars($game['language']) ?></span>
                                     <?php else: ?>
                                         <span style="color: var(--muted);">—</span>
                                     <?php endif; ?>
-                                </td>
+                                </td> -->
                                 <td><strong>+<?= number_format($game['score']) ?></strong></td>
                                 <td><?= $game['accuracy_percentage'] ?>%</td>
                                 <td>
@@ -228,12 +228,12 @@ $xp_progress = min(100, round(($current_level_xp % 1000) / 10)); // percentage t
 
         <!-- Language Stats -->
         <?php if ($lang_stats->num_rows > 0): ?>
-            <h2 class="section-title">📊 Language Performance</h2>
+            <h2 class="section-title">📊 Performance</h2>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Language</th>
+                            <!-- <th>Language</th> -->
                             <th>Games</th>
                             <th>Total Score</th>
                             <th>Avg Accuracy</th>
@@ -248,7 +248,7 @@ $xp_progress = min(100, round(($current_level_xp % 1000) / 10)); // percentage t
                                 : 0;
                             ?>
                             <tr>
-                                <td><span class="language-tag"><?= htmlspecialchars($lang['language']) ?></span></td>
+                                <!-- <td><span class="language-tag"><?= htmlspecialchars($lang['language']) ?></span></td> -->
                                 <td><?= $lang['games_played'] ?></td>
                                 <td><?= number_format($lang['total_score']) ?></td>
                                 <td><?= $lang['avg_accuracy'] ?>%</td>
