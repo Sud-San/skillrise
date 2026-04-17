@@ -670,14 +670,11 @@
 
 
 
-					<li class="nav-item has-submenu">
-
+					<!-- <li class="nav-item has-submenu">
 						<a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
 							data-bs-target="#submenu-12" aria-expanded="false" aria-controls="submenu-13">
 							<span class="nav-icon">
-
 								<i class="bi bi-images"></i>
-
 							</span>
 							<span class="nav-link-text">Gallery</span>
 							<span class="submenu-arrow">
@@ -686,14 +683,15 @@
 									<path fill-rule="evenodd"
 										d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
 								</svg>
-							</span><!--//submenu-arrow-->
-						</a><!--//nav-link-->
+							</span>
+						</a>
 						<div id="submenu-12" class="collapse submenu submenu-12" data-bs-parent="#menu-accordion">
 							<ul class="submenu-list list-unstyled">
 								<li class="submenu-item"><a class="submenu-link" href="gallery.php">Events</a></li>
 							</ul>
 						</div>
-					</li><!--//nav-item-->
+					</li> -->
+					<!--//nav-item-->
 
 
 					<!--<li class="nav-item">
