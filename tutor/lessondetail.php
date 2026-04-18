@@ -134,7 +134,7 @@ if (isset($_GET['delete_id'])) {
                                         <th class="cell">Sr No</th>
                                         <th class="cell">Lesson Title</th>
                                         <th class="cell">Course</th>
-                                        <th class="cell">Duration (Min)</th>
+                                        
                                         <th class="cell">Status</th>
                                         <th class="cell">Actions</th>
                                     </tr>
@@ -148,7 +148,7 @@ if (isset($_GET['delete_id'])) {
                                             <td class="cell"><?= $sr++; ?></td>
                                             <td class="cell"><span class="truncate"><?= htmlspecialchars($row['lesson_title']); ?></span></td>
                                             <td class="cell"><?= htmlspecialchars($row['course_title']); ?></td>
-                                            <td class="cell"><?= $row['duration']; ?></td>
+                                            
                                             <td class="cell">
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input status-switch" type="checkbox" 
@@ -194,10 +194,7 @@ if (isset($_GET['delete_id'])) {
                             <label class="form-label">Lesson Title</label>
                             <input type="text" name="lesson_title" id="edit_lesson_title" class="form-control" required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Duration (Minutes)</label>
-                            <input type="number" name="duration" id="edit_duration" class="form-control" required>
-                        </div>
+                        
                         <div class="mb-3">
                             <label class="form-label">Content</label>
                             <textarea name="content" id="edit_content" class="form-control" rows="5"></textarea>
