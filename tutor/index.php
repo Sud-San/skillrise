@@ -19,7 +19,7 @@ $total_earnings_res = mysqli_query($conn, "SELECT SUM(amount) as sum FROM user_p
 $total_earnings = mysqli_fetch_assoc($total_earnings_res)['sum'] ?? 0;
 
 // Pending Reviews
-$pending_reviews_res = mysqli_query($conn, "SELECT COUNT(*) as count FROM feedback_tbl WHERE tutor_id = $tutor_id AND status = 0");
+$pending_reviews_res = mysqli_query($conn, "SELECT COUNT(*) as count FROM feedback_tbl WHERE tutor_id = $tutor_id");
 $pending_reviews = mysqli_fetch_assoc($pending_reviews_res)['count'];
 
 // Active Courses
@@ -73,7 +73,7 @@ while ($row = mysqli_fetch_assoc($my_courses_res)) {
 
 // Recent Enrollments (Detailed)
 $recent_enrollments = [];
-$recent_enrollments_res = mysqli_query($conn, "SELECT u.user_name, u.profile_pic, u.user_email, c.course_title, e.enrolled_at FROM enrollments_tbl e JOIN user_tbl u ON e.user_id = u.user_id JOIN course_tbl c ON e.course_id = c.course_id WHERE e.tutor_id = $tutor_id ORDER BY e.enrolled_at DESC LIMIT 5");
+$recent_enrollments_res = mysqli_query($conn, "SELECT u.user_name, u.profile_pic, u.user_email, c.course_title, e.updated_at, e.progress FROM enrollments_tbl e JOIN user_tbl u ON e.user_id = u.user_id JOIN course_tbl c ON e.course_id = c.course_id WHERE e.tutor_id = $tutor_id ORDER BY e.enrolled_at DESC LIMIT 5");
 while ($row = mysqli_fetch_assoc($recent_enrollments_res)) {
 	$recent_enrollments[] = $row;
 }
@@ -209,7 +209,7 @@ $active_assignments = mysqli_fetch_assoc($active_assignments_res)['count'];
 						<div class="app-card app-card-stat shadow-sm h-100">
 							<div class="app-card-body p-3 p-lg-4">
 								<div class="d-flex align-items-center justify-content-between mb-2">
-									<h4 class="stats-type mb-0">Pending Reviews</h4>
+									<h4 class="stats-type mb-0">Total Reviews</h4>
 									<svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
 										class="bi bi-chat-dots text-danger" fill="currentColor"
 										xmlns="http://www.w3.org/2000/svg">
@@ -222,7 +222,7 @@ $active_assignments = mysqli_fetch_assoc($active_assignments_res)['count'];
 									</svg>
 								</div>
 								<div class="stats-figure"><?php echo $pending_reviews; ?></div>
-								<div class="stats-meta text-danger">Action Required</div>
+								<div class="stats-meta text-danger">Total Reviews</div>
 							</div><!--//app-card-body-->
 							<a class="app-card-link-mask" href="feedback.php"></a>
 						</div><!--//app-card-->
@@ -344,7 +344,7 @@ $active_assignments = mysqli_fetch_assoc($active_assignments_res)['count'];
 										<h4 class="app-card-title">My Courses</h4>
 									</div><!--//col-->
 									<div class="col-auto">
-										<a class="btn btn-sm btn-success" href="add-course.php">
+										<a class="btn btn-sm btn-success" href="add_course.php">
 											<svg width="1em" height="1em" viewBox="0 0 16 16"
 												class="bi bi-plus-circle me-1" fill="currentColor"
 												xmlns="http://www.w3.org/2000/svg">
@@ -497,11 +497,13 @@ $active_assignments = mysqli_fetch_assoc($active_assignments_res)['count'];
 														<td class="cell">
 															<div class="progress" style="height: 10px;">
 																<div class="progress-bar bg-success" role="progressbar"
-																	style="width: 0%">0%</div>
+																	style="width: <?php echo $enrollment['progress']; ?>%">
+																	<?php echo $enrollment['progress']; ?>%
+																</div>
 															</div>
 														</td>
 														<td class="cell"><span
-																class="badge bg-info"><?php echo date('d M Y', strtotime($enrollment['enrolled_at'])); ?></span>
+																class="badge bg-info"><?php echo date('d M Y', strtotime($enrollment['updated_at'])); ?></span>
 														</td>
 														<!-- <td class="cell">
 															<button class="btn btn-sm btn-outline-success">Message</button>
