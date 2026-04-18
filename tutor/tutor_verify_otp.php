@@ -66,7 +66,7 @@ if (isset($_POST['otp'])) {
     }
 }
 
-$company_name = isset($company_name) ? $company_name : 'TutorPanel';
+$company_name = isset($company_name) ? $company_name : 'SkillRise';
 
 // Calculate remaining time
 $remaining_seconds = max(0, $_SESSION['tutor_otp_expire'] - time());
@@ -319,8 +319,8 @@ $remaining_seconds = max(0, $_SESSION['tutor_otp_expire'] - time());
                     </svg>
                 </div>
                 <div>
-                    <div class="logo-name">TutorPanel</div>
-                    <div class="logo-tag">Tutor Portal</div>
+                    <div class="logo-name">SkillRise</div>
+                    <div class="logo-tag">Education Excellence</div>
                 </div>
             </div>
 
