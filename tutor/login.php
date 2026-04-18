@@ -56,9 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (strlen($tutor['password']) == 60 && substr($tutor['password'], 0, 4) === '$2y$') {
                     // Password is hashed - use password_verify
                     $password_valid = password_verify($password, $tutor['password']);
-                } else {
-                    // Password is plain text - direct comparison
-                    $password_valid = ($password === $tutor['password']);
                 }
 
                 if ($password_valid) {
