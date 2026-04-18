@@ -350,7 +350,7 @@ require_once('includes/init.php');
                 ?>
 
                 <!-- Statistics Cards -->
-                <div class="stats-container">
+                <!-- <div class="stats-container">
                     <div class="stat-card total">
                         <h3 class="stat-value"><?= $stats['total'] ?></h3>
                         <p class="stat-label">Total Feedback</p>
@@ -367,7 +367,7 @@ require_once('includes/init.php');
                         <h3 class="stat-value"><?= $stats['resolved'] ?></h3>
                         <p class="stat-label">Resolved</p>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Main Feedback Table -->
                 <div class="feedback-card">
@@ -402,6 +402,7 @@ require_once('includes/init.php');
                                     <tr>
                                         <th>ID</th>
                                         <th>User</th>
+                                        <th>Course</th>
                                         <th>Type</th>
                                         <th>Rating</th>
                                         <th>Message</th>
@@ -466,7 +467,9 @@ require_once('includes/init.php');
                                                         </span>
                                                     <?php endif; ?>
                                                 </td>
-
+                                                <td>
+                                                    <?= htmlspecialchars($row['course_name']); ?>
+                                                </td>
                                                 <td>
                                                     <span
                                                         class="type-badge type-<?= strtolower($row['feedback_type'] ?? ''); ?>">
