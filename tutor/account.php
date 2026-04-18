@@ -56,11 +56,17 @@ if ($v_status == 'approved') {
 }
 
 $pkg_days_left = 0;
+$is_pkg_active = false;
 if ($package) {
     $end = new DateTime($package['end_date']);
+    $end->setTime(23, 59, 59); // Active until end of day
     $now = new DateTime();
-    $diff = $now->diff($end);
-    $pkg_days_left = ($diff->invert === 0) ? $diff->days : 0;
+
+    if ($now <= $end) {
+        $is_pkg_active = true;
+        $diff = $now->diff($end);
+        $pkg_days_left = $diff->days;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -295,7 +301,7 @@ if ($package) {
                             <div class="pcard-body">
                                 <div class="sec-heading">Active Package</div>
 
-                                <?php if ($package):
+                                <?php if ($package && $is_pkg_active):
                                     $total_days = (new DateTime($package['start_date']))->diff(new DateTime($package['end_date']))->days;
                                     $used_days = max(0, $total_days - $pkg_days_left);
                                     $pct = $total_days > 0 ? min(100, round($used_days / $total_days * 100)) : 0;
@@ -389,12 +395,7 @@ if ($package) {
                                     </a>
                                     <a href="add_video.php" class="info-row text-decoration-none"
                                         style="padding:10px 0; border-bottom:none;">
-                                        <div class="info-label"
-                                            style="font-size:.85rem; color:var(--ink2); font-weight:600;">
-                                            <i class="fa-solid fa-video"></i> Upload Video
-                                        </div>
-                                        <i class="fa-solid fa-chevron-right"
-                                            style="color:#d1d5db; font-size:.75rem;"></i>
+                                        <div class="info-label" style="color:#d1d5db; font-size:.75rem;"></i>
                                     </a>
                                 </div>
                             </div>
@@ -407,10 +408,38 @@ if ($package) {
         </div>
     </div>
 
-    <script src="assets/plugins/popper.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/app.js"></script>
     <?php include 'includes/script.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('package_expired')) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Active Plan Required',
+                    text: 'Your current package has expired. Please renew or upgrade your plan to continue adding new courses, lessons, and materials.',
+                    confirmButtonText: 'View Plans',
+                    confirmButtonColor: '#28a745',
+                    showCancelButton: true,
+                    cancelButtonText: 'Later',
+                    cancelButtonColor: '#6c757d'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'packages.php';
+                    }
+                });
+                // Remove the parameter from URL without refreshing to keep it clean
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+</script>
+<script src="assets/js/app.js"></script>
+<?php include 'includes/script.php'; ?>
 </body>
 
 </html>
