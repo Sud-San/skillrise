@@ -43,36 +43,8 @@ if(document.getElementsByClassName('tiny-single-item').length > 0) {
     });
 };
 
-if(document.getElementsByClassName('tiny-three-item-icon').length > 0) {
-    var slider = tns({
-        container: '.tiny-three-item-icon',
-        controls: true,
-        mouseDrag: true,
-        loop: true,
-        rewind: true,
-        autoplay: true,
-        autoplayButtonOutput: false,
-        autoplayTimeout: 3000,
-        navPosition: "bottom",
-        controlsText: ['<i class="ri-arrow-left-s-line"></i>', '<i class="ri-arrow-right-s-line"></i>'],
-        nav: false,
-        speed: 400,
-        gutter: 0,
-        responsive: {
-            992: {
-                items: 3
-            },
+// Testimonial slider is handled in index.php for better control over dynamic content.
 
-            767: {
-                items: 2
-            },
-
-            320: {
-                items: 1
-            },
-        },
-    });
-};
 
 //=========================================//
 /*/*            02) Data Counter           */
