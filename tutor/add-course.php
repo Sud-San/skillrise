@@ -1,6 +1,6 @@
 <?php
-// Protect this page - only logged-in tutors can access
-require_once 'auth_check.php';
+header("Location: add_course.php");
+exit;
 ?>
 <!DOCTYPE html>
 <html lang="en">
