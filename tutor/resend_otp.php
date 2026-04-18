@@ -46,10 +46,10 @@ try {
     $mail->SMTPSecure = "ssl";
     $mail->Port       = 465;
 
-    $mail->setFrom("codezy03@gmail.com", "TutorPanel");
+    $mail->setFrom("codezy03@gmail.com", "SkillRise");
     $mail->addAddress($email);
     $mail->isHTML(true);
-    $mail->Subject = "New Password Reset OTP - TutorPanel";
+    $mail->Subject = "New Password Reset OTP - SkillRise";
     $mail->Body = '
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;border:1px solid #e2e8f0;border-radius:10px;">
             <div style="background:linear-gradient(135deg,#10b981,#065f46);padding:30px;text-align:center;border-radius:10px 10px 0 0;">
@@ -67,7 +67,7 @@ try {
                 <div style="margin-top:20px;padding:15px;background:#fff3cd;border-left:4px solid #ffc107;border-radius:5px;">
                     <p style="margin:0;color:#856404;font-size:14px;">⚠️ If you did not request this, please ignore this email.</p>
                 </div>
-                <p style="margin-top:30px;color:#666;">Best regards,<br><strong style="color:#10b981;">TutorPanel Team</strong></p>
+                <p style="margin-top:30px;color:#666;">Best regards,<br><strong style="color:#10b981;">SkillRise Team</strong></p>
             </div>
         </div>
     ';
