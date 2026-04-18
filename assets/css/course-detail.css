@@ -1,0 +1,36 @@
+img {
+    position: relative;
+    z-index: 1;
+}
+
+#buyNowBtn {
+    position: relative;
+    z-index: 9999;
+}
+
+section.relative.table {
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+}
+
+/* Plyr Custom Branding */
+.plyr--full-ui.plyr--video .plyr__control--hover,
+.plyr--full-ui.plyr--video .plyr__control[aria-expanded=true],
+.plyr--full-ui.plyr--video .plyr__control:focus {
+    background: #054b40 !important;
+}
+
+.plyr__control--overlaid {
+    background: #054b40 !important;
+}
+
+.plyr--video .plyr__control.plyr__tab-focus,
+.plyr--video .plyr__control:hover,
+.plyr--video .plyr__control[aria-expanded=true] {
+    background: #054b40 !important;
+}
