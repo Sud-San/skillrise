@@ -1,8 +1,12 @@
 <?php
 ob_start();
 require_once('includes/init.php');
+require_once('includes/package_check.php');
 include 'connection.php';
 include 'includes/headtag.php';
+?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['course_id'])) {
 
@@ -61,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['course_id'])) {
 
 <head>
     <link rel="stylesheet" href="assets/css/add_video.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="app">
@@ -78,12 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['course_id'])) {
                     </div>
 
                     <div class="page-card-body">
-                        <?php if (!empty($error_msg)): ?>
-                            <div class="alert alert-danger"
-                                style="background:#fee2e2;border:1px solid #fca5a5;color:#991b1b;padding:12px 16px;border-radius:8px;margin-bottom:18px;font-size:.9rem;">
-                                <strong>Error:</strong> <?php echo htmlspecialchars($error_msg); ?>
-                            </div>
-                        <?php endif; ?>
 
                         <form method="POST" enctype="multipart/form-data">
 
@@ -142,9 +141,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['course_id'])) {
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
     <?php include 'includes/script.php'; ?>
+<script>
+    $(document).ready(function() {
+        <?php if (!empty($error_msg)): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '<?php echo addslashes($error_msg); ?>',
+            confirmButtonColor: '#166534'
+        });
+        <?php endif; ?>
+    });
+</script>
 
     <script>
         $(document).ready(function () {
+            <?php if (!empty($error_msg)): ?>
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission Error',
+                text: '<?php echo addslashes($error_msg); ?>',
+                confirmButtonColor: '#dc3545'
+            });
+            <?php endif; ?>
+
             $('#courseSelect').change(function () {
                 var course_id = $(this).val();
                 if (course_id) {
