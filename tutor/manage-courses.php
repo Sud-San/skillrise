@@ -22,7 +22,7 @@ require_once 'auth_check.php';
                             <h1 class="app-page-title">Manage Courses</h1>
                         </div>
                         <div class="col-auto">
-                            <a class="btn app-btn-primary" href="add-course.php">
+                            <a class="btn app-btn-primary" href="add_course.php">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
   <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 1 0v2.5h2.5a.5.5 0 0 1 0 1h-2.5V14a.5.5 0 0 1-1 0v-2.5H5a.5.5 0 0 1 0-1h2.5V8z"/>
