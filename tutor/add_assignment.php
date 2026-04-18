@@ -1,7 +1,11 @@
 <?php
 require_once('includes/init.php');
+require_once('includes/package_check.php');
 include 'connection.php';
 include 'includes/headtag.php';
+?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -19,19 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $targetPath = $uploadDir . $fileName;
 
     if (!move_uploaded_file($tmpName, $targetPath)) {
-        die('❌ Assignment file upload failed');
-    }
+        $error_msg = "Assignment file upload failed. Please check folder permissions.";
+    } else {
 
     $query = "INSERT INTO assignment_tbl 
               (course_id, assignment_name, assignment_file, assignment_status, created_at)
               VALUES
               ('$course_id', '$assignment_name', '$fileName', '$status', NOW())";
 
-    if (mysqli_query($conn, $query)) {
-        header("Location: assignmentdetail.php?success=1");
-        exit;
-    } else {
-        echo "Error: " . mysqli_error($conn);
+        if (mysqli_query($conn, $query)) {
+            header("Location: assignmentdetail.php?success=1");
+            exit;
+        } else {
+            $error_msg = "Database Error: " . mysqli_error($conn);
+        }
     }
 }
 ?>
@@ -252,5 +257,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
 
 <?php include 'includes/script.php'; ?>
+<script>
+    $(document).ready(function() {
+        <?php if (!empty($error_msg)): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '<?php echo addslashes($error_msg); ?>',
+            confirmButtonColor: '#166534'
+        });
+        <?php endif; ?>
+    });
+</script>
 </body>
 </html>
