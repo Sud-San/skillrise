@@ -51,7 +51,7 @@ while ($r = mysqli_fetch_assoc($all_res))
 
 function inv_no($id)
 {
-    return 'CDZ-ENR-' . str_pad($id, 5, '0', STR_PAD_LEFT);
+    return 'SRA-ENR-' . str_pad($id, 5, '0', STR_PAD_LEFT);
 }
 ?>
 <!DOCTYPE html>
