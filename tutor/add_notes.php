@@ -1,5 +1,6 @@
 <?php
 require_once('includes/init.php');
+require_once('includes/package_check.php');
 include 'connection.php';
 
 $logged_tutor_id = $_SESSION['tutor_id'];
