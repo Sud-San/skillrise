@@ -1,5 +1,6 @@
 <?php
 require_once('includes/init.php');
+require_once('includes/package_check.php');
 include 'connection.php';
 
 $tutor_id = $_SESSION['tutor_id'];
@@ -12,16 +13,16 @@ $courses = mysqli_query($conn, "SELECT course_id, course_title, category_id FROM
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $course_id = (int) $_POST['course_id'];
     $title = mysqli_real_escape_string($conn, $_POST['lesson_title']);
-    $duration = (int) $_POST['duration'];
+    $duration = null;
     $content = mysqli_real_escape_string($conn, $_POST['content']);
-    
+
     // Get category_id from the selected course
     $catQuery = mysqli_query($conn, "SELECT category_id FROM course_tbl WHERE course_id = $course_id");
     $catRow = mysqli_fetch_assoc($catQuery);
     $category_id = $catRow['category_id'] ?? 0;
 
-    $query = "INSERT INTO lessons_tbl (course_id, category_id, lesson_title, duration, content, status, created_at) 
-              VALUES ($course_id, $category_id, '$title', $duration, '$content', 1, NOW())";
+    $query = "INSERT INTO lessons_tbl (course_id, category_id, lesson_title, content, status, created_at) 
+              VALUES ($course_id, $category_id, '$title', '$content', 1, NOW())";
 
     if (mysqli_query($conn, $query)) {
         $insertSuccess = true;
@@ -89,21 +90,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <select name="course_id" class="form-select" required>
                                         <option value="">-- Select Course --</option>
                                         <?php while ($c = mysqli_fetch_assoc($courses)): ?>
-                                            <option value="<?= $c['course_id']; ?>"><?= htmlspecialchars($c['course_title']); ?></option>
+                                            <option value="<?= $c['course_id']; ?>">
+                                                <?= htmlspecialchars($c['course_title']); ?>
+                                            </option>
                                         <?php endwhile; ?>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Lesson Title</label>
-                                    <input type="text" name="lesson_title" class="form-control" placeholder="e.g. Introduction to Variables" required>
+                                    <input type="text" name="lesson_title" class="form-control"
+                                        placeholder="e.g. Introduction to Variables" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Duration (Minutes)</label>
-                                    <input type="number" name="duration" class="form-control" min="1" placeholder="30" required>
-                                </div>
+
                                 <div class="col-12">
                                     <label class="form-label">Lesson Content</label>
-                                    <textarea name="content" class="form-control" rows="10" placeholder="Enter lesson notes or content here..."></textarea>
+                                    <textarea name="content" class="form-control" rows="10"
+                                        placeholder="Enter lesson notes or content here..."></textarea>
                                 </div>
                             </div>
 
