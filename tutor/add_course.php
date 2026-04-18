@@ -1,5 +1,6 @@
 <?php
 require_once('includes/init.php');
+require_once('includes/package_check.php');
 include 'connection.php'; // Your DB connection
 include 'includes/headtag.php';
 
