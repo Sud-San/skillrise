@@ -32,7 +32,7 @@ $videosStmt = $conn->prepare("
     SELECT l.*, v.video_id, v.video_url, v.video_status, v.uploaded_at 
     FROM lessons_tbl l
     LEFT JOIN videos_tbl v ON l.lesson_id = v.lesson_id 
-    WHERE l.course_id = ? 
+    WHERE l.course_id = ? AND v.video_status=1
     ORDER BY l.lesson_order ASC
 ");
 $videosStmt->bind_param("i", $course_id);
@@ -94,7 +94,7 @@ if ($is_enrolled && $active_video) {
 
     if (isset($_GET['finished']) && $_GET['finished'] == 1 && $active_video['lesson_order'] == $lesson_count) {
         $new_progress = 100;
-        $upd = $conn->prepare("UPDATE enrollments_tbl SET progress = 100, completed_at = NOW(), certificate_issued = '1' WHERE user_id = ? AND course_id = ?");
+        $upd = $conn->prepare("UPDATE enrollments_tbl SET progress = 100, completed_at = NOW(), updated_at = NOW(), certificate_issued = '1' WHERE user_id = ? AND course_id = ?");
         $upd->bind_param("ii", $user_id, $course_id);
         $upd->execute();
     } else {
@@ -104,7 +104,7 @@ if ($is_enrolled && $active_video) {
         $curr = $check->get_result()->fetch_assoc();
 
         if ($curr && $new_progress > $curr['progress']) {
-            $upd = $conn->prepare("UPDATE enrollments_tbl SET progress = ? WHERE user_id = ? AND course_id = ?");
+            $upd = $conn->prepare("UPDATE enrollments_tbl SET progress = ?, updated_at = NOW() WHERE user_id = ? AND course_id = ?");
             $upd->bind_param("iii", $new_progress, $user_id, $course_id);
             $upd->execute();
         }
