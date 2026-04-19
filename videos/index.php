@@ -123,7 +123,7 @@ function e($str)
     <meta charset="UTF-8" />
     <title><?php echo e($active_video['lesson_title'] ?? 'Watch Course'); ?> | <?php echo $company_name; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="icon" sizes="180x180" href="../codez3.png" />
+    <link rel="icon" sizes="180x180" href="../skillrise.png" />
     <link href="../assets/libs/remixicon/fonts/remixicon.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
