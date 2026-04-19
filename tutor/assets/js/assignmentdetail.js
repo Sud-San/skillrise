@@ -237,9 +237,46 @@ $(document).ready(function () {
         table.draw();
     });
 
-    // Redraw table when status switch is toggled
+    // Redraw table when status switch is toggled + Send AJAX
     $(document).on('change', '.status-switch', function () {
-        table.draw();
+        let $switch = $(this);
+        let id = $switch.data('id');
+        let isChecked = $switch.prop('checked') ? 1 : 0;
+
+        $.ajax({
+            url: 'ajax/update_assignment_status.php',
+            type: 'POST',
+            data: { id: id, status: isChecked },
+            success: function (res) {
+                if (res.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Status Updated',
+                        text: 'Assignment visibility has been updated.',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        toast: true,
+                        position: 'top-end'
+                    });
+                    table.draw();
+                } else {
+                    $switch.prop('checked', !isChecked); // Revert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Update Failed',
+                        text: res.message || 'Something went wrong.'
+                    });
+                }
+            },
+            error: function () {
+                $switch.prop('checked', !isChecked); // Revert
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Server Error',
+                    text: 'Unable to connect to the server.'
+                });
+            }
+        });
     });
 
     // ============== ADD ORDER FUNCTIONALITY ==============
@@ -305,98 +342,91 @@ $(document).ready(function () {
 
     // ============== EDIT FUNCTIONALITY ==============
 
-    let currentRow;
-    $(document).on('click', '.edit-btn', function () {
-        $('#editCourseId').val($(this).data('id'));
-        $('#editCourseTitle').val($(this).data('title'));
-        $('#editCourseDescription').val($(this).data('desc'));
-        $('#editCourseLevel').val($(this).data('level'));
-        $('#editTotalLesson').val($(this).data('lesson'));
-        $('#editPrice').val($(this).data('price'));
+    $(document).on('show.bs.modal', '#editModal', function (event) {
+        let button = $(event.relatedTarget);
+        $('#editAssignmentId').val(button.attr('data-id'));
+        $('#editCourseId').val(button.attr('data-course'));
+        $('#editAssignmentTitle').val(button.attr('data-title'));
+        $('#editAssignmentDescription').val(button.attr('data-desc'));
     });
 
-
-    // Save changes with validation
-    $('#saveChanges').on('click', function () {
-        if (!validateForm('edit')) {
-            alert('⚠️ Please fix all validation errors before saving.');
-            return;
-        }
-
-        // Get values
-        let name = $('#editName').val();
-        let email = $('#editEmail').val();
-        let phone = $('#editPhone').val();
-        let course = $('#editCourse').val();
-        let enrolled = $('#editEnrolled').val();
-        let progress = $('#editProgress').val();
-        let tutor = $('#editTutor').val();
-
-        // Update the table row
-        let cells = currentRow.find('td');
-        cells.eq(2).text(name);
-        cells.eq(3).text(email);
-        cells.eq(4).text(phone);
-        cells.eq(5).text(course);
-        cells.eq(6).text(enrolled);
-        cells.eq(7).text(progress + '%');
-        cells.eq(8).text(tutor);
-
-        let isActive = $('#editStatus').prop('checked');
-        cells.eq(9).find('.status-switch').prop('checked', isActive);
-
-        $('#editModal').modal('hide');
-
-        alert('✅ Order updated successfully!');
-
-        // AJAX call would go here
-    });
 
     // Delete button click
-    $('#datatable tbody').on('click', '.delete-btn', function (e) {
+    $(document).on('click', '.delete-btn', function (e) {
         e.preventDefault();
+        let id = $(this).attr('data-id');
+        let row = $(this).closest('tr');
 
-        if (confirm('⚠️ Are you sure you want to delete this order?')) {
-            let row = $(this).closest('tr');
-            table.row(row).remove().draw();
-
-            alert('🗑️ Order deleted successfully!');
-        }
-    });
-});
-
-$(document).on('click', '.edit-btn', function () {
-    $('#editCourseId').val($(this).data('id'));
-    $('#editCourseTitle').val($(this).data('title'));
-    $('#editCourseDescription').val($(this).data('desc'));
-    $('#editCourseLevel').val($(this).data('level'));
-    $('#editTotalLesson').val($(this).data('lesson'));
-    $('#editPrice').val($(this).data('price'));
-    $('#editStatus').prop('checked', $(this).data('status') == 1);
-});
-
-
-$('#saveChanges').click(function () {
-    $.ajax({
-        url: 'ajax/coursedetail.php',
-        type: 'POST',
-        data: {
-            course_id: $('#editCourseId').val(),   // 🔥 REQUIRED
-            title: $('#editCourseTitle').val(),
-            description: $('#editCourseDescription').val(),
-            level: $('#editCourseLevel').val(),
-            lesson: $('#editTotalLesson').val(),
-            price: $('#editPrice').val()
-        },
-        success: function (res) {
-            if (res.trim() === 'success') {
-                location.reload();
-            } else {
-                alert(res);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this! The file will also be deleted.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'ajax/delete_assignment.php',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (res) {
+                        if (res.success) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Assignment has been deleted.',
+                                'success'
+                            );
+                            table.row(row).remove().draw();
+                        } else {
+                            Swal.fire('Error', res.message || 'Deletion failed', 'error');
+                        }
+                    },
+                    error: function () {
+                        Swal.fire('Error', 'Server connection failed', 'error');
+                    }
+                });
             }
-        },
-        error: function (xhr) {
-            alert('Update failed: ' + xhr.responseText);
-        }
+        });
     });
+
+    $('#saveAssignmentChanges').click(function () {
+        let formData = new FormData($('#editAssignmentForm')[0]);
+
+        $.ajax({
+            url: 'ajax/update_assignment.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                if (res.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Assignment updated successfully!',
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: res.message || 'Update failed'
+                    });
+                }
+            },
+            error: function (xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Server Error',
+                    text: 'Update failed: ' + xhr.responseText
+                });
+            }
+        });
+    });
+
 });
