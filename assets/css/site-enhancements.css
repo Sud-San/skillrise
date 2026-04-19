@@ -136,6 +136,33 @@ img.rounded-lg,
   transition: transform 0.3s ease;
 }
 
+/* ========== Profile Circles (Team & Testimonials) ========== */
+.tutor-profile-circle,
+.student-profile-circle,
+.teacher-profile-circle {
+  width: 120px !important;
+  height: 120px !important;
+  min-width: 120px !important;
+  min-height: 120px !important;
+  max-width: 120px !important;
+  max-height: 120px !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  border: 4px solid white !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.tutor-profile-circle img,
+.student-profile-circle img,
+.teacher-profile-circle img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
 .group:hover img.rounded-lg {
   transform: scale(1.02);
 }
@@ -233,3 +260,23 @@ select:focus {
 section.bg-primary a:hover {
   text-decoration: underline;
 }
+
+/* ========== Responsive Carousel Cards ========== */
+/* Categories */
+.cat-card { min-width: 0; }
+@media (max-width: 639px) { .cat-card { flex: 0 0 calc(100% - 20px) !important; } }
+@media (min-width: 640px) and (max-width: 1023px) { .cat-card { flex: 0 0 calc(50% - 20px) !important; } }
+@media (min-width: 1024px) { .cat-card { flex: 0 0 calc(25% - 20px) !important; } }
+
+/* Tutors */
+.tutor-card { min-width: 0; }
+@media (max-width: 639px) { .tutor-card { flex: 0 0 calc(100% - 24px) !important; } }
+@media (min-width: 640px) and (max-width: 1023px) { .tutor-card { flex: 0 0 calc(50% - 24px) !important; } }
+@media (min-width: 1024px) { .tutor-card { flex: 0 0 calc(25% - 24px) !important; } }
+
+/* Testimonials */
+.testimonial-card { min-width: 0; }
+@media (max-width: 639px) { .testimonial-card { flex: 0 0 100% !important; } }
+@media (min-width: 640px) and (max-width: 1023px) { .testimonial-card { flex: 0 0 50% !important; } }
+@media (min-width: 1024px) { .testimonial-card { flex: 0 0 33.333% !important; } }
+
