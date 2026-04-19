@@ -67,7 +67,7 @@ while ($g = mysqli_fetch_assoc($gq))
     $all_games[] = $g;
 
 // ── Site name ─────────────────────────────────────────────────────────────────
-$company_name = $company_name ?? 'Codezy';
+$company_name = $company_name ?? '';
 
 // ── Medal helper ─────────────────────────────────────────────────────────────
 function medal(int $rank): string
