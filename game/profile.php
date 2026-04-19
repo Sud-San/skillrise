@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = (int) $_SESSION['user_id'];
-$company_name = $company_name ?? 'Codezy';
+$company_name = $company_name ?? '';
 
 // ── Get User Basic Info ─────────────────────────────────────────────────
 $user_query = "SELECT user_name, profile_pic, user_email, mobile, city FROM user_tbl WHERE user_id = ?";
