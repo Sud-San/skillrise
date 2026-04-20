@@ -148,7 +148,8 @@ function e($str)
 						<!-- Date of Birth -->
 						<div class="md:col-span-6">
 							<label class="form-label font-medium text-sm">Date of Birth :</label>
-							<input type="date" name="dob" value="<?php echo $user['dob']; ?>"
+							<input type="date" name="dob" max="<?php echo date('Y-m-d', strtotime('-6 years')); ?>"
+								value="<?php echo $user['dob']; ?>"
 								class="form-input px-3 py-2 h-10 text-sm rounded-lg w-full bg-transparent border border-gray-100 dark:border-gray-800 focus:shadow-none focus:ring-0 placeholder:text-gray-400 mt-2"
 								placeholder="e.g. html, css, js">
 						</div>
@@ -187,37 +188,7 @@ function e($str)
 			<div class="p-6 rounded-lg shadow-sm shadow-gray-100 dark:shadow-gray-800 bg-white dark:bg-gray-900">
 				<div class="grid lg:grid-cols-2 grid-cols-1 gap-5">
 
-					<div>
-						<h5 class="font-semibold mb-4">Contact Info :</h5>
 
-						<form id="contactForm" action="user-update-contact.php" method="POST">
-
-							<div class="grid grid-cols-1 gap-4">
-
-								<div>
-									<label class="form-label font-medium text-sm">Phone No. :</label>
-									<input type="text" name="mobile" value="<?php echo e($user['mobile']); ?>"
-										class="form-input px-3 py-2 h-10 text-sm rounded-lg w-full bg-transparent border border-gray-100 dark:border-gray-800 focus:shadow-none focus:ring-0 placeholder:text-gray-400 mt-2"
-										placeholder="Phone :">
-								</div>
-
-								<div>
-									<label class="form-label font-medium text-sm">Add Address :</label>
-									<input type="text" name="addr_short" value="<?php //echo e($user['address']); ?>"
-										class="form-input px-3 py-2 h-10 text-sm rounded-lg w-full bg-transparent border border-gray-100 dark:border-gray-800 focus:shadow-none focus:ring-0 placeholder:text-gray-400 mt-2"
-										placeholder="Short address">
-								</div>
-
-								<div>
-									<button type="submit"
-										class="h-11 px-5 tracking-wider inline-flex items-center text-xs uppercase justify-center font-bold rounded-lg bg-primary text-white">
-										Save Contact
-									</button>
-								</div>
-
-							</div>
-						</form>
-					</div>
 
 					<!-- Change Password -->
 					<div>
@@ -227,7 +198,7 @@ function e($str)
 
 							<input type="hidden" name="user_id" value="<?php echo e($user_id); ?>">
 
-							<div class="grid grid-cols-1 gap-4">
+							<div class="grid">
 
 								<div>
 									<label class="form-label font-medium text-sm">Old password :</label>
@@ -249,7 +220,7 @@ function e($str)
 										class="form-input px-3 py-2 h-10 text-sm rounded-lg w-full bg-transparent border border-gray-100 dark:border-gray-800 focus:shadow-none focus:ring-0 placeholder:text-gray-400 mt-2"
 										placeholder="Re-type New password">
 								</div>
-
+								<br>
 								<div>
 									<button
 										class="h-11 px-5 tracking-wider inline-flex items-center text-xs uppercase justify-center font-bold rounded-lg bg-primary text-white">
