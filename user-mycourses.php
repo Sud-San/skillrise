@@ -204,16 +204,17 @@ function e($str)
                                     <i class="fa-solid fa-download fa-lg"></i></span>
                                 Download Invoice
                             </button>
-
-                            <button
-                                class="mt-2 w-full py-3 rounded-xl font-semibold shadow-md transition-all duration-200 flex items-center justify-center gap-2 hover:opacity-90"
-                                style="background-color:#0c7a33 !important; color:white !important;"
-                                onclick="window.location.href='certi.php?user_id=<?= $user_id ?>&course_id=<?= $course['course_id'] ?>'">
-                                <span
-                                    class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-xs text-white">
-                                    <i class="fa-solid fa-certificate fa-lg"></i></span>
-                                See Certificate
-                            </button>
+                            <?php if ($course['progress'] == 100): ?>
+                                <button
+                                    class="mt-2 w-full py-3 rounded-xl font-semibold shadow-md transition-all duration-200 flex items-center justify-center gap-2 hover:opacity-90"
+                                    style="background-color:#0c7a33 !important; color:white !important;"
+                                    onclick="window.location.href='certi.php?user_id=<?= $user_id ?>&course_id=<?= $course['course_id'] ?>'">
+                                    <span
+                                        class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-xs text-white">
+                                        <i class="fa-solid fa-certificate fa-lg"></i></span>
+                                    See Certificate
+                                </button>
+                            <?php endif; ?>
                         </div>
                         </a>
                     <?php endwhile; ?>
