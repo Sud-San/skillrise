@@ -167,9 +167,10 @@ function feature_row($label, $val, $max = null)
                             <div class="pkg-name-title"><?= htmlspecialchars($pkg['package_name']) ?></div>
                             <div class="pkg-validity">
                                 <i class="fa-solid fa-clock me-1"></i>
-                                <?= $pkg['valid_months'] ?> month<?= $pkg['valid_months'] > 1 ? 's' : '' ?>
+                                <?= $pkg['valid_months'] ?> month
+                                <!-- <?= $pkg['valid_months'] > 1 ? 's' : '' ?> -->
                                 <?php if (!$is_current && $pkg_days_left > 0): ?>
-                                    + <?= $pkg_days_left ?> prepaid days
+                                    <!-- + <?= $pkg_days_left ?> prepaid days -->
                                 <?php endif; ?>
                             </div>
 
@@ -179,10 +180,10 @@ function feature_row($label, $val, $max = null)
                             </div>
 
                             <?php if (!$is_current && $pkg_days_left > 0): ?>
-                                <div class="prepaid-info-card">
+                                <!-- <div class="prepaid-info-card">
                                     <i class="fa-solid fa-gift"></i>
                                     Expires <?= $preview_end ?> (includes <?= $pkg_days_left ?> carry-over days)
-                                </div>
+                                </div> -->
                             <?php endif; ?>
 
                             <hr class="pkg-divider">
@@ -190,9 +191,7 @@ function feature_row($label, $val, $max = null)
                             <div>
                                 <?= feature_row('Add Courses', $pkg['can_add_courses'], $pkg['max_course'] ?: null) ?>
                                 <?= feature_row('Upload Videos', $pkg['can_add_videos'], $pkg['max_video_upload'] ?: null) ?>
-                                <?= feature_row('Create Quizzes', $pkg['can_add_quiz']) ?>
-                                <?= feature_row('Add Games', $pkg['can_add_games']) ?>
-                                <?= feature_row('Assignments', $pkg['can_add_assignments']) ?>
+                                <!-- f -->
                             </div>
 
                             <?php if ($is_current): ?>
