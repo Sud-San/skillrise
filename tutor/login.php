@@ -123,7 +123,7 @@ $company_name = isset($company_name) ? $company_name : 'TutorPanel';
 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="shortcut icon" href="codez3.png">
+    <link rel="shortcut icon" href="../SkillRise_logo1">
 
     <link rel="stylesheet" href="assets/css/login.css">
 </head>
