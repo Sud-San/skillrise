@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         exit;
     }
 
-    $uploadDir = '/uploads/notes/';
+    $uploadDir = '../uploads/notes/';
     if (!is_dir($uploadDir))
         mkdir($uploadDir, 0755, true);
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     $fileSize = (int) $file['size'];
     $fileType = mysqli_real_escape_string($conn, $fileExt);
-    $fileUrl = 'uploads/notes/' . $uniqueName;
+    $fileUrl = "/uploads/notes/" . $uniqueName;
 
     $insert = "INSERT INTO course_notes (course_id, lesson_id, file_url, description, file_size, file_type)
                VALUES ($courseId, $lessonId, '$fileUrl', '$description', $fileSize, '$fileType')";
