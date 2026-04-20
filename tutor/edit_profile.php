@@ -102,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
         $newName = 'tutor_' . $tutor_id . '_' . time() . '.' . $ext;
         if (!move_uploaded_file($file['tmp_name'], $uploadDir . $newName)) {
+
             echo json_encode(['success' => false, 'message' => 'Failed to save image.']);
             exit;
         }
@@ -109,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $exists = mysqli_fetch_assoc(mysqli_query($conn, "SELECT tutor_profile_id FROM tutor_profile_tbl WHERE tutor_id=$tutor_id"));
         if ($exists) {
             mysqli_query($conn, "UPDATE tutor_profile_tbl SET profile_pic='$newName' WHERE tutor_id=$tutor_id");
+            $_SESSION['tutor_image'] = $newName;
         } else {
             mysqli_query($conn, "INSERT INTO tutor_profile_tbl (tutor_id, profile_pic) VALUES ($tutor_id,'$newName')");
         }
