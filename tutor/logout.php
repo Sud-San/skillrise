@@ -11,9 +11,9 @@ if (isset($_COOKIE[session_name()])) {
 }
 
 // Destroy the session completely
-session_destroy();
+unset($_SESSION['tutor_id']);
 
 // Redirect to login page with logout success message
-header('Location: login.php?logout=1');
+header('Location: login.php');
 exit();
 ?>
