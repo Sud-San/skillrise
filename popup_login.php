@@ -1,27 +1,19 @@
 <?php
-require 'connection.php';
+include 'connection.php';
 
-if (isset($_POST['email_check']) && isset($_POST['password'])) {
+if (isset($_POST['email_check'])) {
   $email = mysqli_real_escape_string($conn, $_POST['email_check']);
-  $password = $_POST['password'];
-
-  $query = "SELECT user_id FROM user_tbl WHERE user_email = '$email' AND user_password = '$password' LIMIT 1";
+  $query = "SELECT user_id FROM user_tbl WHERE user_email = '$email' LIMIT 1";
   $result = mysqli_query($conn, $query);
 
   if (mysqli_num_rows($result) > 0) {
     echo "exists";
-    $row = mysqli_fetch_assoc($result);
-    $_SESSION['user_id'] = $row['user_id'];
-    $_SESSION['user_email'] = $row['user_email'];
-    $_SESSION['user_password'] = $row['user_password'];
-    $_SESSION['user_role'] = 'student';
-    $_SESSION['user_profile_pic'] = $user_profile_path . ($row['profile_pic'] ?? 'assets/images/default.png');
-    $_SESSION['game_preloader'] = 0;
   } else {
     echo "not_exists";
   }
-  exit; // stop page from loading HTML
+  exit;
 }
+
 
 ?>
 
@@ -115,7 +107,7 @@ if (isset($_POST['email_check']) && isset($_POST['password'])) {
         setTimeout(() => {
           $('#blurOverlay').fadeIn(300);
           $('#loginPopup').fadeIn(400);
-        }, 15000 + Math.random() * 5000);
+        }, 15000);
       }
     });
 
