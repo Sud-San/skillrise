@@ -18,4 +18,4 @@
 <!-- Main Css -->
 <link href="assets/libs/remixicon/fonts/remixicon.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="assets/css/tailwind.min.css" />
-<link rel="stylesheet" href="assets/css/site-enhancements.css" />
+<link rel="stylesheet" href="assets/css/site-enhancements.css?v=<?php echo time(); ?>" />
