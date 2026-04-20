@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Security check: ensure assignment belongs to the tutor
-    $update = "UPDATE assignment_tbl SET status = $status WHERE assignment_id = $assignment_id AND tutor_id = $tutor_id";
+    $update = "UPDATE assignment_tbl SET status = $status WHERE assignment_id = $assignment_id AND course_id IN (SELECT course_id FROM course_tbl WHERE tutor_id = $tutor_id)";
 
     if (mysqli_query($conn, $update)) {
         echo json_encode(['success' => true]);
