@@ -2,7 +2,8 @@
 session_start();
 include 'connection.php';
 
-if (!isset($_SESSION['user_id'])) exit("Session expired");
+if (!isset($_SESSION['user_id']))
+    exit("Session expired");
 
 $user_id = (int) $_SESSION['user_id'];
 
@@ -10,7 +11,8 @@ $old = $_POST['old_password'] ?? '';
 $new = $_POST['new_password'] ?? '';
 $confirm = $_POST['confirm_password'] ?? '';
 
-if ($new !== $confirm) exit("New passwords do not match");
+if ($new !== $confirm)
+    exit("<script>alert('New passwords do not match'); window.location.href = 'user-setting.php';</script>");
 
 /* Get current hash */
 $stmt = $conn->prepare("SELECT user_password FROM user_tbl WHERE user_id=?");
@@ -20,7 +22,7 @@ $result = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
 if (!$result || !password_verify($old, $result['user_password'])) {
-    exit("Old password is incorrect");
+    exit("<script>alert('Old password is incorrect'); window.location.href = 'user-setting.php';</script>");
 }
 
 /* Update new password */
@@ -30,5 +32,7 @@ $stmt->bind_param("si", $newHash, $user_id);
 $stmt->execute();
 $stmt->close();
 
-echo "Password changed successfully!";
+header("Location: user-setting.php");
+include_once 'logout.php';
+exit;
 ?>
