@@ -12,6 +12,6 @@ unset($_SESSION['game_preloader']);
 
 // DO NOT REMOVE SESSION COOKIE — keeps admin session safe
 
-header("Location: index.php");
+header("Location: login.php");
 exit;
 ?>
