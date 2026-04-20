@@ -35,7 +35,7 @@ if (mysqli_num_rows($result) > 0) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="icon" sizes="180x180" href="codez3.png" />
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Open+Sans|Pinyon+Script|Rochester');
+        @import url('https://fonts.googleapis.com/css?family=Agbalumo');
 
         body {
             display: flex;
@@ -89,7 +89,7 @@ if (mysqli_num_rows($result) > 0) {
         .pm-earned-text {
             font-size: 45px;
             font-weight: bold;
-            font-family: 'Pinyon Script', cursive;
+            font-family: 'Agbalumo';
             color: #444;
         }
 
@@ -144,7 +144,7 @@ if (mysqli_num_rows($result) > 0) {
 <body>
 
     <div id="certificate" class="certificate-container">
-        <img class="watermark" src="<?php echo $logo; ?>" alt="Website Logo">
+        <img class="watermark" src="<?php echo $logo1; ?>" alt="Website Logo">
 
         <div class="pm-certificate-title">
             <h2>Certificate of Completion</h2>
@@ -165,7 +165,7 @@ if (mysqli_num_rows($result) > 0) {
         <div class="pm-footer">
             <div></div>
             <div class="date">Date of Completion:
-                <?php echo $completion_date; ?>
+                <?php echo date('d-m-Y', strtotime($completion_date)); ?>
             </div>
         </div>
     </div>
