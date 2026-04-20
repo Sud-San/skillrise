@@ -83,6 +83,15 @@ $noteQuery = "
 ";
 $notes = mysqli_query($conn, $noteQuery);
 
+// For assignment
+$assignmentQuery = "
+    SELECT *
+    FROM assignment_tbl
+    WHERE course_id = $course_id
+    ORDER BY created_at DESC
+";
+$assignments = mysqli_query($conn, $assignmentQuery);
+
 // =====================
 // 🔹 Razorpay Order Creation
 // =====================
@@ -118,44 +127,7 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
 
 <head>
     <?php include 'headtag.php'; ?>
-    <style>
-        img {
-            position: relative;
-            z-index: 1;
-        }
-
-        #buyNowBtn {
-            position: relative;
-            z-index: 9999;
-        }
-
-        section.relative.table {
-            position: relative;
-            z-index: 1;
-        }
-
-        .container {
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Plyr Custom Branding */
-        .plyr--full-ui.plyr--video .plyr__control--hover,
-        .plyr--full-ui.plyr--video .plyr__control[aria-expanded=true],
-        .plyr--full-ui.plyr--video .plyr__control:focus {
-            background: #054b40 !important;
-        }
-
-        .plyr__control--overlaid {
-            background: #054b40 !important;
-        }
-
-        .plyr--video .plyr__control.plyr__tab-focus,
-        .plyr--video .plyr__control:hover,
-        .plyr--video .plyr__control[aria-expanded=true] {
-            background: #054b40 !important;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/course-detail.css">
     <!-- Plyr CSS -->
     <!-- <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" /> -->
 
@@ -314,7 +286,7 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
                                                 </p>
                                             </div>
                                         </div>
-                                        <a href="<?= "." . htmlspecialchars($note['file_url']); ?>" download class="">
+                                        <a href="<?= "." . $note['file_url']; ?>" download class="">
                                             <i class="ri-download-2-line"></i>
                                         </a>
                                     </div>
@@ -326,6 +298,42 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
                             <h5 class="text-2xl font-semibold mb-4">Course Notes</h5>
                             <p class="text-gray-500 dark:text-gray-400">You need to purchase the course to download the
                                 notes.</p>
+                        </div>
+                    <?php } ?>
+
+                    <!-- ── Assignment Section ─────────────────────────── -->
+                    <?php if ($already_purchased) { ?>
+                        <?php if ($assignments && mysqli_num_rows($assignments) > 0) { ?>
+                            <div class="mt-8">
+                                <h5 class="text-2xl font-semibold mb-4">Assignments</h5>
+                                <div class="space-y-3">
+                                    <?php while ($assignment = mysqli_fetch_assoc($assignments)): ?>
+                                        <div
+                                            class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 flex justify-between items-center transition hover:shadow-md">
+                                            <div class="flex items-center">
+                                                <div class="flex items-center justify-center me-3 text-xl">
+                                                    <i class="ri-file-text-line"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-xs text-gray-400 mt-1"> &nbsp;
+                                                        <?= htmlspecialchars($assignment['title']); ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <a href="<?= "./tutor/assets/assignments/" . htmlspecialchars($assignment['file_url']); ?>"
+                                                download class="">
+                                                <i class="ri-download-2-line"></i>
+                                            </a>
+                                        </div>
+                                    <?php endwhile; ?>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <div class="mt-8">
+                            <h5 class="text-2xl font-semibold mb-4">Assignments</h5>
+                            <p class="text-gray-500 dark:text-gray-400">You need to purchase the course to download the
+                                assignments.</p>
                         </div>
                     <?php } ?>
 
@@ -376,6 +384,7 @@ if (isset($_SESSION['user_id']) && !$already_purchased) {
                                 </h6>
                                 <form id="reviewForm" class="space-y-4" action="ajax/add_review.php" method="POST">
                                     <input type="hidden" name="course_id" value="<?= $course_id; ?>">
+                                    <input type="hidden" name="tutor_id" value="<?= $course['tutor_id']; ?>">
                                     <div>
                                         <label
                                             class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Rating</label>
