@@ -3,7 +3,19 @@ require_once('includes/init.php');
 include 'connection.php';
 
 $tutor_id = $_SESSION['tutor_id'];
-$courses = mysqli_query($conn, "SELECT course_tbl.*, assignment_tbl.title, assignment_tbl.description, assignment_tbl.file_url FROM course_tbl LEFT JOIN assignment_tbl ON course_tbl.course_id = assignment_tbl.course_id WHERE course_tbl.tutor_id = $tutor_id ORDER BY course_id DESC");
+$courses = mysqli_query($conn, "
+    SELECT 
+        course_tbl.*, 
+        assignment_tbl.assignment_id, 
+        assignment_tbl.title, 
+        assignment_tbl.description,
+        assignment_tbl.file_url, 
+        assignment_tbl.status as assignment_status 
+    FROM course_tbl 
+    JOIN assignment_tbl ON course_tbl.course_id = assignment_tbl.course_id 
+    WHERE course_tbl.tutor_id = $tutor_id 
+    ORDER BY course_id DESC
+");
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
@@ -165,7 +177,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
                                                                 <?php if (empty($row['file_url'])) { ?>
                                                                     No file available
                                                                 <?php } else { ?>
-                                                                    <?php echo htmlspecialchars($row['file_url']); ?>
+                                                                    <a href="assets/assignments/<?php echo htmlspecialchars($row['file_url']); ?>"
+                                                                        target="_blank">
+                                                                        <?php echo htmlspecialchars($row['file_url']); ?>
+                                                                    </a>
                                                                 <?php } ?>
                                                             </span>
                                                         </td>
@@ -173,28 +188,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
                                                         <!-- STATUS -->
                                                         <td>
                                                             <div class="d-flex justify-content-center">
-                                                                <div class="form-check form-switch custom-switch">
-                                                                    <input class="form-check-input status-switch"
-                                                                        type="checkbox" data-id="<?= $row['course_id']; ?>"
-                                                                        <?= ($row['course_status'] == 1) ? 'checked' : ''; ?>>
-                                                                </div>
+                                                                <?php if (!empty($row['assignment_id'])) { ?>
+                                                                    <div class="form-check form-switch custom-switch">
+                                                                        <input class="form-check-input status-switch" type="checkbox"
+                                                                            data-id="<?= $row['assignment_id']; ?>"
+                                                                            <?= ($row['assignment_status'] == 1) ? 'checked' : ''; ?>>
+                                                                    </div>
+                                                                <?php } else { ?>
+                                                                    <span class="badge bg-secondary">No Assignment</span>
+                                                                <?php } ?>
                                                             </div>
                                                         </td>
 
                                                         <!-- ACTION -->
                                                         <td class="text-center">
-                                                            <a href="#" class="edit-btn text-primary"
-                                                                data-id="<?= $row['course_id']; ?>"
-                                                                data-title="<?= htmlspecialchars($row['course_title']); ?>"
-                                                                data-desc="<?= htmlspecialchars($row['course_description']); ?>"
-                                                                data-level="<?= $row['course_level']; ?>"
-                                                                data-lesson="<?= $row['total_lesson']; ?>"
-                                                                data-price="<?= $row['price']; ?>"
-                                                                data-status="<?= $row['course_status']; ?>"
-                                                                data-bs-toggle="modal" data-bs-target="#editModal"
-                                                                title="Edit Course">
-                                                                <i class="fa-solid fa-pen"></i>
-                                                            </a>
+                                                            <?php if (!empty($row['assignment_id'])) { ?>
+                                                                    <a href="#" class="edit-btn text-primary"
+                                                                        data-id="<?= $row['assignment_id']; ?>"
+                                                                        data-course="<?= $row['course_id']; ?>"
+                                                                        data-title="<?= htmlspecialchars($row['title'] ?? ''); ?>"
+                                                                        data-desc="<?= htmlspecialchars($row['description'] ?? ''); ?>"
+                                                                        data-bs-toggle="modal" data-bs-target="#editModal"
+                                                                        title="Edit Assignment">
+                                                                        <i class="fa-solid fa-pen"></i>
+                                                                    </a>
+                                                                    <a href="#" class="delete-btn text-danger ms-2"
+                                                                        data-id="<?= $row['assignment_id']; ?>"
+                                                                        title="Delete Assignment">
+                                                                        <i class="fa-solid fa-trash"></i>
+                                                                    </a>
+                                                            <?php } ?>
                                                         </td>
 
                                                     </tr>
@@ -219,13 +242,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel"><i class="fa-solid fa-edit me-2"></i>Edit Video Details
+                    <h5 class="modal-title" id="editModalLabel"><i class="fa-solid fa-edit me-2"></i>Edit Assignment Details
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editVideoForm" enctype="multipart/form-data">
-                        <input type="hidden" id="editVideoId" name="video_id">
+                    <form id="editAssignmentForm" enctype="multipart/form-data">
+                        <input type="hidden" id="editAssignmentId" name="assignment_id">
 
                         <div class="row g-3">
                             <!-- Course Name -->
@@ -234,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
                                 <select name="course_id" class="form-select" id="editCourseId" required>
                                     <option value="">Select Course</option>
                                     <?php
-                                    $courseQuery = mysqli_query($conn, "SELECT course_id, course_title FROM course_tbl");
+                                    $courseQuery = mysqli_query($conn, "SELECT course_id, course_title FROM course_tbl WHERE tutor_id = $tutor_id");
                                     while ($course = mysqli_fetch_assoc($courseQuery)) {
                                         echo "<option value='{$course['course_id']}'>{$course['course_title']}</option>";
                                     }
@@ -242,26 +265,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
                                 </select>
                             </div>
 
-                            <!-- Video Name -->
+                            <!-- Assignment Title -->
                             <div class="col-md-6">
-                                <label class="form-label">Video Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="editVideoName" name="video_name" required>
+                                <label class="form-label">Assignment Title <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="editAssignmentTitle" name="title" required>
                             </div>
 
-                            <!-- Video File -->
-                            <div class="col-md-6">
-                                <label class="form-label">Video File</label>
-                                <input type="file" name="video_file" class="form-control" id="editVideoFile"
-                                    accept="video/*">
-                                <small class="text-muted">Leave blank to keep current video</small>
+                            <!-- Assignment Description -->
+                            <div class="col-12">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" id="editAssignmentDescription" name="description" rows="3"></textarea>
                             </div>
 
-                            <!-- Exam File -->
-                            <div class="col-md-6">
-                                <label class="form-label">Exam File</label>
-                                <input type="file" name="exam_file" class="form-control" id="editExamFile"
-                                    accept=".pdf,.doc,.docx">
-                                <small class="text-muted">Leave blank to keep current exam file</small>
+                            <!-- Assignment File -->
+                            <div class="col-12">
+                                <label class="form-label">Assignment File</label>
+                                <input type="file" name="assignment_file" class="form-control" id="editAssignmentFile"
+                                    accept=".pdf,.doc,.docx,.zip,.rar">
+                                <small class="text-muted">Leave blank to keep current file</small>
                             </div>
                         </div>
 
@@ -270,7 +291,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i
                             class="fa-solid fa-times me-2"></i>Cancel</button>
-                    <button type="button" class="btn btn-success" id="saveVideoChanges"
+                    <button type="button" class="btn btn-success" id="saveAssignmentChanges"
                         style="background-color: #28a745; border-color: #28a745;">
                         <i class="fa-solid fa-save me-2"></i>Save Changes
                     </button>
@@ -354,8 +375,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
     <!-- Javascript -->
     <script src="assets/plugins/popper.min.js"></script>
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/assignmentdetails.js"></script>
     <?php include 'includes/script.php' ?>
+    <script src="assets/js/assignmentdetail.js"></script>
 
 </body>
 
