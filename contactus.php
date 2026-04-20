@@ -123,9 +123,9 @@ if ($faq_result) {
                     <div>
                         <div class="map-container shadow">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.505208571544!2d72.784786!3d21.146114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d1c5e8f3e13%3A0x6d6f4d4c8e6e1e8a!2sC.%20B.%20Patel%20College%20of%20Computer%20Studies%2C%20Surat!5e0!3m2!1sen!2sin!4v1700000000002!5m2!1sen!2sin"
-                                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.007829931539!2d72.79652907471778!3d21.15208668353238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04dff37ee2f05%3A0x2ed617f17458fa81!2sC%20B%20Patel%20Computer%20College!5e0!3m2!1sen!2sin!4v1776425873717!5m2!1sen!2sin"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
 
@@ -284,43 +284,37 @@ if ($faq_result) {
                         </p>
                     </div>
 
-                    <div id="accordion-collapseone" data-accordion="collapse" class="mt-6">
-                        <?php
-                        $faq_counter = 1;
-                        foreach ($faqs as $faq):
-                            ?>
-                            <div
-                                class="relative shadow-sm shadow-gray-200 dark:shadow-gray-700 bg-white dark:bg-gray-900 rounded-lg overflow-hidden mb-4">
-                                <h2 class="font-medium" id="accordion-collapse-heading-<?php echo $faq_counter; ?>">
-                                    <button type="button"
-                                        class="flex justify-between items-center p-4 w-full font-medium text-start cursor-pointer"
-                                        data-accordion-target="#accordion-collapse-body-<?php echo $faq_counter; ?>"
-                                        aria-expanded="<?php echo $faq_counter === 1 ? 'true' : 'false'; ?>"
-                                        aria-controls="accordion-collapse-body-<?php echo $faq_counter; ?>">
-                                        <span><?php echo htmlspecialchars($faq['question']); ?></span>
-                                        <svg data-accordion-icon
-                                            class="size-4 <?php echo $faq_counter === 1 ? 'rotate-180' : ''; ?> shrink-0"
-                                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </h2>
-                                <div id="accordion-collapse-body-<?php echo $faq_counter; ?>"
-                                    class="<?php echo $faq_counter === 1 ? '' : 'hidden'; ?>"
-                                    aria-labelledby="accordion-collapse-heading-<?php echo $faq_counter; ?>">
-                                    <div class="p-4 border-t border-gray-100 dark:border-gray-800">
-                                        <p class="text-gray-400 dark:text-gray-400">
-                                            <?php echo htmlspecialchars($faq['answer']); ?>
-                                        </p>
+                    <div class="mt-6">
+                        <?php foreach ($faqs as $faq): ?>
+                            <div id="accordion-collapse-<?php echo $faq['id']; ?>" data-accordion="collapse" class="mt-4">
+                                <div
+                                    class="relative shadow-sm shadow-gray-200 dark:shadow-gray-700 bg-white dark:bg-gray-900 rounded-lg overflow-hidden mb-4">
+                                    <h2 class="font-medium" id="accordion-collapse-heading-<?php echo $faq['id']; ?>">
+                                        <button type="button"
+                                            class="flex justify-between items-center p-4 w-full font-medium text-start cursor-pointer"
+                                            data-accordion-target="#accordion-collapse-body-<?php echo $faq['id']; ?>"
+                                            aria-expanded="false"
+                                            aria-controls="accordion-collapse-body-<?php echo $faq['id']; ?>">
+                                            <span><?php echo htmlspecialchars($faq['question']); ?></span>
+                                            <svg data-accordion-icon class="size-4 shrink-0" fill="currentColor"
+                                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="accordion-collapse-body-<?php echo $faq['id']; ?>" class="hidden"
+                                        aria-labelledby="accordion-collapse-heading-<?php echo $faq['id']; ?>">
+                                        <div class="p-4 border-t border-gray-100 dark:border-gray-800">
+                                            <p class="text-gray-400 dark:text-gray-400">
+                                                <?php echo htmlspecialchars($faq['answer']); ?>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <?php
-                            $faq_counter++;
-                        endforeach;
-                        ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             <?php endif; ?>
@@ -380,26 +374,7 @@ if ($faq_result) {
             return true;
         });
 
-        // Initialize FAQ accordion
-        document.addEventListener('DOMContentLoaded', function () {
-            const accordionButtons = document.querySelectorAll('[data-accordion-target]');
 
-            accordionButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const targetId = this.getAttribute('data-accordion-target');
-                    const target = document.querySelector(targetId);
-                    const icon = this.querySelector('[data-accordion-icon]');
-
-                    if (target.classList.contains('hidden')) {
-                        target.classList.remove('hidden');
-                        icon.classList.add('rotate-180');
-                    } else {
-                        target.classList.add('hidden');
-                        icon.classList.remove('rotate-180');
-                    }
-                });
-            });
-        });
     </script>
 </body>
 
