@@ -98,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                                             style="width:100%">
                                             <thead class="table-light text-uppercase">
                                                 <tr>
+                                                    <th>S.No</th>
                                                     <th>User Id</th>
                                                     <th>Profile</th>
                                                     <th>User Name</th>
@@ -109,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                                             </thead>
                                             <tbody>
                                                 <?php
+                                                $showStart = 1;
                                                 $logged_tutor_id = $_SESSION['tutor_id'];
 
                                                 $display_query = "
@@ -152,7 +154,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                                                         'UTF-8'
                                                     );
                                                     ?>
+
                                                     <tr>
+                                                        <td>
+                                                            <?= $showStart++; ?>
+                                                        </td>
                                                         <td><?= $user['user_id']; ?></td>
                                                         <td data-user="<?= $userJson ?>" class="view-user-info"
                                                             title="View Profile" style="cursor: pointer;">
