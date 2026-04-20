@@ -245,12 +245,8 @@ function e($str)
         <!-- Player Space (Left) -->
         <div class="flex-1 flex flex-col bg-black lg:overflow-hidden relative">
             <div class="video-wrapper lg:flex-1">
-                <?php if (!$active_video || empty($active_video['video_url'])): ?>
-                    <div class="text-center text-white p-10">
-                        <i class="ri-video-off-line text-6xl opacity-20"></i>
-                        <p class="mt-4 text-gray-400 font-bold">Video not available</p>
-                    </div>
-                <?php elseif ($can_watch): ?>
+
+                <?php if ($can_watch): ?>
                     <div class="w-full h-full flex items-center justify-center">
                         <video id="player" playsinline controls class="w-full h-full">
                             <source src="<?php echo $active_video['video_url']; ?>" type="video/mp4">
