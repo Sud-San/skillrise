@@ -732,7 +732,7 @@ ob_end_clean();
             }
 
             function startAutoplay() {
-                autoplayInterval = setInterval(() => nextSmooth(), 4000);
+                autoplayInterval = setInterval(() => nextSmooth(), 5000);
             }
 
             function resetAutoplay() {
