@@ -18,7 +18,7 @@ include 'connection.php';
     <?php include 'header.php'; ?>
 
     <!-- Start Hero -->
-    <section class="relative table bg-primary w-full py-24">
+    <section class="relative table bg-primary w-full py-16">
         <div class="absolute inset-0 bg-[url('../assets/images/bg/box.html')] bg-no-repeat bg-center bg-cover"></div>
         <div class="container relative">
             <div class="grid grid-cols-1 text-center mt-10">
@@ -69,7 +69,7 @@ include 'connection.php';
             ?>
 
             <?php if ($tutorCount > 0): ?>
-                <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 mt-6 gap-6">
+                <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 mt-6 gap-4">
                     <?php while ($row = mysqli_fetch_assoc($result)) {
                         // Handle profile picture path
                         $profilePic = 'assets/images/default-profile.png'; // Default
@@ -89,7 +89,7 @@ include 'connection.php';
                         ?>
                         <div class="group text-center">
                             <div
-                                class="relative mx-auto w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-md shadow-gray-100 dark:shadow-gray-800 duration-500">
+                                class="relative mx-auto rounded-full overflow-hidden border-white shadow-md shadow-gray-100 dark:shadow-gray-800 duration-500 teacher-profile-circle">
                                 <img src="<?php echo $profilePic; ?>"
                                     class="w-full h-full object-cover rounded-full group-hover:scale-105 duration-500"
                                     alt="<?php echo htmlspecialchars($row['tutor_name']); ?>"
@@ -173,16 +173,16 @@ include 'connection.php';
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                         ?>
-                        <div id="accordion-collapseone" data-accordion="collapse" class="mt-6">
+                        <div id="accordion-collapse-<?php echo $row['id']; ?>" data-accordion="collapse" class="mt-6">
                             <div
                                 class="relative shadow-sm shadow-gray-200 dark:shadow-gray-700 bg-white dark:bg-gray-900 rounded-lg overflow-hidden">
-                                <h2 class="font-medium" id="accordion-collapse-heading-1">
+                                <h2 class="font-medium" id="accordion-collapse-heading-<?php echo $row['id']; ?>">
                                     <button type="button"
                                         class="flex justify-between items-center p-5 w-full font-medium text-start cursor-pointer"
-                                        data-accordion-target="#accordion-collapse-body-1" aria-expanded="true"
-                                        aria-controls="accordion-collapse-body-1">
+                                        data-accordion-target="#accordion-collapse-body-<?php echo $row['id']; ?>" aria-expanded="false"
+                                        aria-controls="accordion-collapse-body-<?php echo $row['id']; ?>">
                                         <span><?php echo $row['question']; ?></span>
-                                        <svg data-accordion-icon class="size-5 rotate-180 shrink-0" fill="currentColor"
+                                        <svg data-accordion-icon class="size-5 shrink-0" fill="currentColor"
                                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
                                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -190,8 +190,8 @@ include 'connection.php';
                                         </svg>
                                     </button>
                                 </h2>
-                                <div id="accordion-collapse-body-1" class="hidden"
-                                    aria-labelledby="accordion-collapse-heading-1">
+                                <div id="accordion-collapse-body-<?php echo $row['id']; ?>" class="hidden"
+                                    aria-labelledby="accordion-collapse-heading-<?php echo $row['id']; ?>">
                                     <div class="p-5 border-t border-gray-100 dark:border-gray-800">
                                         <p class="text-gray-400 dark:text-gray-400"><?php echo $row['answer']; ?></p>
                                     </div>
