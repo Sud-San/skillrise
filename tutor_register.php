@@ -61,6 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 
       try {
+        // Hash the password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         // Insert into tutor_tbl
         $query = "INSERT INTO tutor_tbl (
                             tutor_name, 
@@ -73,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             '" . mysqli_real_escape_string($conn, $name) . "', 
                             '" . mysqli_real_escape_string($conn, $email) . "', 
                             '" . mysqli_real_escape_string($conn, $phone) . "', 
-                            '" . mysqli_real_escape_string($conn, $password) . "', 
+                            '" . mysqli_real_escape_string($conn, $hashed_password) . "', 
                             0, 
                             'pending'
                           )";
@@ -97,288 +99,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Codezy - Tutor Registration</title>
+  <title>
+    <?php echo $company_name; ?> - Tutor Registration
+  </title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/tutor_register.css">
+  <link rel="icon" sizes="180x180" href="skillrise.png" />
   <style>
-    /* KEEP SAME GREEN THEME AS STUDENT SIGNUP */
-    .emoji {
-      position: absolute;
-      bottom: -50px;
-      font-size: 2rem;
-      animation: floatEmoji 10s infinite ease-in-out;
-    }
-
-    @keyframes floatEmoji {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0;
-      }
-
-      50% {
-        opacity: 1;
-        transform: translateY(-50vh) scale(1.2);
-      }
-
-      100% {
-        transform: translateY(-100vh) scale(0.8);
-        opacity: 0;
-      }
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #d4f9d4, #a6e3b8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-x: hidden;
-      overflow-y: auto;
-      padding: 20px;
-    }
-
-    .background {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .circle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(0, 128, 0, 0.1);
-      animation: float 10s infinite linear;
-    }
-
-    .circle:nth-child(1) {
-      width: 80px;
-      height: 80px;
-      left: 10%;
-      animation-duration: 12s;
-    }
-
-    .circle:nth-child(2) {
-      width: 100px;
-      height: 100px;
-      left: 70%;
-      animation-duration: 15s;
-    }
-
-    .circle:nth-child(3) {
-      width: 50px;
-      height: 50px;
-      left: 40%;
-      animation-duration: 18s;
-    }
-
-    @keyframes float {
-      0% {
-        bottom: -150px;
-        transform: translateX(0);
-      }
-
-      100% {
-        bottom: 100vh;
-        transform: translateX(50px);
-      }
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      background: #fff;
-      padding: 30px 25px;
-      border-radius: 15px;
-      box-shadow: 0 10px 40px rgba(0, 128, 0, 0.2);
-      width: 100%;
-      font-size: 1.0rem;
-      max-width: 450px;
-    }
-
-    .container h2 {
-      color: #28a745;
-      margin-bottom: 25px;
-      text-align: center;
-    }
-
-    .container .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 25px;
-      font-size: 0.95rem;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="password"] {
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding-right: 40px;
-      font-size: 15px;
-    }
-
-    .form-group {
-      position: relative;
-      margin-bottom: 5px;
-    }
-
-    .form-group i {
-      position: absolute;
-      top: 50%;
-      right: 15px;
-      transform: translateY(-50%);
-      cursor: pointer;
-      color: #777;
-    }
-
-    .terms {
-      font-size: 14px;
-      margin: 15px 0;
-      padding: 10px;
-      background: #f8f9fa;
-      border-radius: 8px;
-    }
-
-    .terms label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .terms a {
-      color: #28a745;
-      text-decoration: none;
-    }
-
-    .terms a:hover {
-      text-decoration: underline;
-    }
-
-    .btn {
-      padding: 14px;
-      border: none;
-      border-radius: 8px;
-      background-color: #28a745;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 10px;
-      width: 100%;
-    }
-
-    .btn:hover {
-      background-color: #218838;
-    }
-
-    .login-link {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-    }
-
-    .login-link a {
-      color: green;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .login-link a:hover {
-      text-decoration: underline;
-    }
-
-    .student-link {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-      color: #666;
-    }
-
-    .student-link a {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .student-link a:hover {
-      text-decoration: underline;
-    }
-
-    .message {
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-
-    .success {
-      background: #d1e7dd;
-      color: #0f5132;
-      border-left: 4px solid #198754;
-    }
-
-    .error {
-      background: #f8d7da;
-      color: #842029;
-      border-left: 4px solid #dc3545;
-    }
-
-    .info-box {
-      background: #e7f3ff;
-      border-left: 4px solid #0d6efd;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 20px;
+    .error-msg {
+      color: #dc3545;
       font-size: 13px;
-      color: #0c5460;
+      margin-top: 2px;
+      margin-bottom: 12px;
+      display: none;
+      text-align: left;
+      width: 100%;
+      font-weight: 500;
     }
-
-    .info-box h4 {
-      margin-bottom: 5px;
-      color: #0d6efd;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .info-box ul {
-      margin-left: 20px;
-      margin-top: 5px;
-    }
-
-    .info-box li {
-      margin-bottom: 3px;
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 20px 15px;
-      }
-
-      .container h2 {
-        font-size: 1.5rem;
-      }
-
-      .info-box {
-        font-size: 12px;
-      }
+    .input-error {
+      border-color: #dc3545 !important;
+      background-color: #fff8f8 !important;
     }
   </style>
-  <link rel="icon" sizes="180x180" href="codez3.png" />
 </head>
 
 <body>
@@ -397,7 +139,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="container">
     <h2>Register as Tutor</h2>
 
-    <p class="subtitle">Join Codezy as an instructor. Share your knowledge with students.</p>
+    <p class="subtitle">Join
+      <?php echo $company_name; ?> as an instructor. Share your knowledge with students.
+    </p>
 
     <?php if (isset($error) && !empty($error)): ?>
       <div class="message error">
@@ -422,31 +166,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
 
       <form id="tutorRegisterForm" method="post" action="">
-        <input type="text" name="name" placeholder="Full Name *" minlength="2"
+        <input type="text" name="name" id="name" placeholder="Full Name *"
           value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>">
+        <div class="error-msg" id="name_error"></div>
 
-        <input type="email" name="email" placeholder="Email Address *"
+        <input type="email" name="email" id="email" placeholder="Email Address *"
           value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+        <div class="error-msg" id="email_error"></div>
 
-        <input type="tel" name="phone" placeholder="Phone Number (10 digits) *" pattern="[0-9]{10}"
+        <input type="tel" name="phone" id="phone" placeholder="Phone Number (10 digits) *"
           value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>">
+        <div class="error-msg" id="phone_error"></div>
 
-        <div class="form-group">
-          <input type="password" name="password" id="password" placeholder="Password (min 6 characters) *" minlength="6">
+        <div class="form-group mb-0">
+          <input type="password" name="password" id="password" placeholder="Password (min 6 characters) *">
           <i class="fa-solid fa-eye toggle-password" toggle="#password"></i>
         </div>
+        <div class="error-msg" id="password_error"></div>
 
-        <div class="form-group">
+        <div class="form-group mb-0 mt-2">
           <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password *">
           <i class="fa-solid fa-eye toggle-password" toggle="#confirmPassword"></i>
         </div>
+        <div class="error-msg" id="confirm_error"></div>
 
         <div class="terms">
           <label>
-            <input type="checkbox" name="terms" />
+            <input type="checkbox" name="terms" id="termsCheckbox" />
             I agree to the <a href="terms.php" target="_blank">Terms & Privacy Policy</a>
           </label>
         </div>
+        <div class="error-msg" id="terms_error"></div>
 
         <button type="submit" class="btn">
           <i class="fas fa-user-plus me-2"></i> Register as Tutor
@@ -532,63 +282,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (form) {
         form.addEventListener('submit', function (e) {
           let isValid = true;
-          const errors = [];
+          
+          // Clear previous errors
+          document.querySelectorAll('.error-msg').forEach(el => {
+              el.style.display = 'none';
+              el.textContent = '';
+          });
+          document.querySelectorAll('.input-error').forEach(el => {
+              el.classList.remove('input-error');
+          });
+
+          // Helper function
+          function showError(id, msg, inputId) {
+              const errEl = document.getElementById(id);
+              if (errEl) {
+                  errEl.textContent = msg;
+                  errEl.style.display = 'block';
+              }
+              if (inputId) {
+                  const inputEl = document.getElementById(inputId);
+                  if(inputEl) inputEl.classList.add('input-error');
+              }
+              isValid = false;
+          }
 
           // Name validation
           const name = this.name.value.trim();
           if (!name || name.length < 2) {
-            errors.push('Name must be at least 2 characters.');
-            isValid = false;
+            showError('name_error', 'Name must be at least 2 characters.', 'name');
           }
 
           // Email validation
           const email = this.email.value.trim();
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!email || !emailRegex.test(email)) {
-            errors.push('Please enter a valid email address.');
-            isValid = false;
+            showError('email_error', 'Please enter a valid email address.', 'email');
           }
 
           // Phone validation
           const phone = this.phone.value.trim();
           const phoneRegex = /^[0-9]{10}$/;
           if (!phone || !phoneRegex.test(phone)) {
-            errors.push('Phone number must be exactly 10 digits.');
-            isValid = false;
+            showError('phone_error', 'Phone number must be exactly 10 digits.', 'phone');
           }
 
           // Password validation
           const password = this.password.value;
           if (!password || password.length < 6) {
-            errors.push('Password must be at least 6 characters.');
-            isValid = false;
+            showError('password_error', 'Password must be at least 6 characters.', 'password');
           }
 
           // Confirm password
           const confirm = this.confirm_password.value;
           if (!confirm) {
-            errors.push('Please confirm your password.');
-            isValid = false;
+            showError('confirm_error', 'Please confirm your password.', 'confirmPassword');
           } else if (password !== confirm) {
-            errors.push('Passwords do not match.');
-            isValid = false;
+            showError('confirm_error', 'Passwords do not match.', 'confirmPassword');
           }
 
           // Terms validation
-          const terms = this.terms;
+          const terms = document.getElementById('termsCheckbox');
           if (!terms.checked) {
-            errors.push('You must agree to the terms and conditions.');
-            isValid = false;
+            showError('terms_error', 'You must agree to the terms and conditions.');
           }
 
           if (!isValid) {
             e.preventDefault();
-
-            // Show all errors in one alert
-            if (errors.length > 0) {
-              Swal.fire('Validation Errors', errors.join('\n'), 'error');
-            }
-
             return false;
           }
 
