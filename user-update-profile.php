@@ -46,6 +46,7 @@ if (!empty($_FILES['profile_pic']['name'])) {
 
     if (move_uploaded_file($fileTmp, $target)) {
         $profile_pic_path = $fileName;
+        $_SESSION['user_profile_pic'] = $target;
     }
 }
 
