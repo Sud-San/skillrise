@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'New password must be at least 6 characters.';
         } else {
             // Verify current password (adjust hash method to match your system)
-            $stored = $tutor['tutor_password'] ?? '';
+            $stored = $tutor['password'] ?? '';
             $valid = password_verify($current, $stored) || ($stored === md5($current)) || ($stored === $current);
 
             if (!$valid) {
@@ -113,8 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $hashed = password_hash($new_pass, PASSWORD_DEFAULT);
                 $hashed_esc = mysqli_real_escape_string($conn, $hashed);
-                mysqli_query($conn, "UPDATE tutor_tbl SET tutor_password = '$hashed_esc' WHERE tutor_id = $tutor_id");
+                mysqli_query($conn, "UPDATE tutor_tbl SET password = '$hashed_esc' WHERE tutor_id = $tutor_id");
                 $success = 'Password changed successfully.';
+                include_once "logout.php";
             }
         }
     }
