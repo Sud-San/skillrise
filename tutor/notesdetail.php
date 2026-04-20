@@ -31,19 +31,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     header('Content-Type: application/json');
     $noteId = (int) $_POST['note_id'];
 
-    $res = mysqli_query($conn, "SELECT file_url FROM course_notes WHERE note_id = $noteId AND tutor_id = $logged_tutor_id");
+    $res = mysqli_query($conn, "
+        SELECT n.file_url 
+        FROM course_notes n
+        JOIN course_tbl c ON n.course_id = c.course_id
+        WHERE n.note_id = $noteId AND c.tutor_id = $logged_tutor_id
+    ");
     $note = mysqli_fetch_assoc($res);
 
     if ($note) {
-        $filePath = 'assets/uploads/notes/' . $note['file_url'];
+        $filePath = '../uploads/notes/' . basename($note['file_url']);
         if (file_exists($filePath))
             unlink($filePath);
 
-        // Delete download and view records
+        // Delete mapping view/download
         mysqli_query($conn, "DELETE FROM note_downloads_tbl WHERE note_id = $noteId");
         mysqli_query($conn, "DELETE FROM note_views_tbl WHERE note_id = $noteId");
 
-        if (mysqli_query($conn, "DELETE FROM course_notes WHERE note_id = $noteId AND tutor_id = $logged_tutor_id")) {
+        $deleteQuery = "
+            DELETE n FROM course_notes n
+            JOIN course_tbl c ON n.course_id = c.course_id
+            WHERE n.note_id = $noteId AND c.tutor_id = $logged_tutor_id
+        ";
+
+        if (mysqli_query($conn, $deleteQuery)) {
             echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => mysqli_error($conn)]);
@@ -93,10 +104,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         if (!is_dir($uploadDir))
             mkdir($uploadDir, 0755, true);
 
-        $oldRes = mysqli_query($conn, "SELECT file_url FROM course_notes WHERE note_id = $noteId AND tutor_id = $logged_tutor_id");
+        $oldRes = mysqli_query($conn, "
+            SELECT n.file_url 
+            FROM course_notes n
+            JOIN course_tbl c ON n.course_id = c.course_id
+            WHERE n.note_id = $noteId AND c.tutor_id = $logged_tutor_id
+        ");
         $oldNote = mysqli_fetch_assoc($oldRes);
-        if ($oldNote && file_exists($uploadDir . $oldNote['file_url'])) {
-            unlink($uploadDir . $oldNote['file_url']);
+        if ($oldNote && file_exists($uploadDir . basename($oldNote['file_url']))) {
+            unlink($uploadDir . basename($oldNote['file_url']));
         }
 
         $uniqueName = 'note_' . $logged_tutor_id . '_' . time() . '_' . uniqid() . '.' . $fileExt;
@@ -108,15 +124,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
         $origName = mysqli_real_escape_string($conn, $file['name']);
         $fileSize = (int) $file['size'];
-        $fileType = mysqli_real_escape_string($conn, $fileMime);
-        $fileClause = ", file_url='$uniqueName', file_name='$origName', file_size=$fileSize, file_type='$fileType'";
+        $fileType = mysqli_real_escape_string($conn, $fileExt);
+        $fileUrl = 'uploads/notes/' . $uniqueName;
+        $fileClause = ", file_url='$fileUrl', file_size=$fileSize, file_type='$fileType'";
     }
 
-    $update = "UPDATE course_notes SET
-                 course_id=$courseId,
-                 description='$description'
+    $update = "UPDATE course_notes n
+               JOIN course_tbl c ON n.course_id = c.course_id
+               SET
+                 n.course_id = $courseId,
+                 n.description = '$description'
                  $fileClause
-               WHERE note_id=$noteId AND tutor_id=$logged_tutor_id";
+               WHERE n.note_id = $noteId AND c.tutor_id = $logged_tutor_id";
 
     if (mysqli_query($conn, $update)) {
         echo json_encode(['success' => true, 'message' => 'Note updated successfully.']);
