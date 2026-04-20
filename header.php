@@ -13,231 +13,9 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
-<style>
-    /* ===== HOVER SUBMENU STYLES ===== */
-
-    .has-submenu .submenu {
-        display: block !important;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(10px);
-        transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-        pointer-events: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        min-width: 200px;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-        z-index: 999;
-        padding: 8px 0;
-    }
-
-    .has-submenu:hover>.submenu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        pointer-events: all;
-    }
-
-    .has-submenu .submenu li a {
-        display: flex;
-        align-items: center;
-        padding: 9px 20px;
-        font-size: 14px;
-        color: #374151;
-        font-weight: 500;
-        transition: background 0.18s ease, color 0.18s ease, padding-left 0.18s ease;
-    }
-
-    .has-submenu .submenu li a:hover {
-        background: #f0fdf4;
-        color: #054b40;
-        padding-left: 26px;
-    }
-
-    .has-submenu .submenu li.has-submenu>a::after {
-        content: '›';
-        margin-left: auto;
-        font-size: 18px;
-        line-height: 1;
-        color: #9ca3af;
-        transition: color 0.18s ease;
-    }
-
-    .has-submenu .submenu li.has-submenu:hover>a::after {
-        color: #054b40;
-    }
-
-    .has-submenu .submenu li.has-submenu {
-        position: relative;
-    }
-
-    .has-submenu .submenu li.has-submenu>.submenu {
-        top: 0;
-        left: 100%;
-        margin-left: 4px;
-        border-radius: 10px;
-        transform: translateX(-6px) translateY(0);
-    }
-
-    .has-submenu .submenu li.has-submenu:hover>.submenu {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(0) translateY(0);
-        pointer-events: all;
-    }
-
-    .submenu .badge-prog {
-        color: #2563eb;
-    }
-
-    .submenu .badge-design {
-        color: #7c3aed;
-    }
-
-    .submenu .badge-mkt {
-        color: #d97706;
-    }
-
-    .submenu .badge-biz {
-        color: #059669;
-    }
-
-    .navigation-menu>li>a {
-        position: relative;
-    }
-
-    .navigation-menu>li>a::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: #054b40;
-        border-radius: 2px;
-        transition: width 0.22s ease;
-    }
-
-    .navigation-menu>li:hover>a::after,
-    .navigation-menu>li.active>a::after {
-        width: 100%;
-    }
-
-    /* ===== AUTH AREA — always far right ===== */
-    #nav-auth {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        margin-left: auto;
-        /* pushes the block to the right edge */
-        flex-shrink: 0;
-    }
-
-    /* Profile dropdown */
-    .profile-dropdown {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .profile-dropdown .dropdown-menu {
-        display: none;
-        position: absolute;
-        top: calc(100% + 10px);
-        right: 0;
-        width: 180px;
-        border-radius: 10px;
-        overflow: hidden;
-        background: #fff;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-        z-index: 1000;
-    }
-
-    .dark .profile-dropdown .dropdown-menu {
-        background: #1f2937;
-    }
-
-    .profile-dropdown:hover .dropdown-menu {
-        display: block;
-        animation: dropFade 0.2s ease forwards;
-    }
-
-    @keyframes dropFade {
-        from {
-            opacity: 0;
-            transform: translateY(6px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .profile-dropdown .dropdown-menu ul {
-        list-style: none;
-        padding: 8px 0;
-        margin: 0;
-    }
-
-    .profile-dropdown .dropdown-menu .menu-username {
-        padding: 8px 16px 10px;
-        font-size: 13px;
-        font-weight: 700;
-        color: #111827;
-        border-bottom: 1px solid #f0f0f0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .dark .profile-dropdown .dropdown-menu .menu-username {
-        color: #f9fafb;
-        border-color: #374151;
-    }
-
-    .profile-dropdown .dropdown-menu a {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 16px;
-        font-size: 13px;
-        font-weight: 600;
-        color: #374151;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        transition: background 0.15s, color 0.15s;
-    }
-
-    .dark .profile-dropdown .dropdown-menu a {
-        color: #d1d5db;
-    }
-
-    .profile-dropdown .dropdown-menu a:hover {
-        background: #f0fdf4;
-        color: #054b40;
-    }
-
-    .profile-dropdown .dropdown-menu a.logout:hover {
-        background: #fef2f2;
-        color: #ef4444;
-    }
-
-    /* Signup hover submenu — right-aligned */
-    #nav-auth .has-submenu {
-        position: relative;
-    }
-
-    #nav-auth .has-submenu .submenu {
-        left: auto;
-        right: 0;
-        /* align to right edge of button */
-        top: calc(100% + 6px);
-    }
-</style>
+<head>
+    <link rel="stylesheet" href="assets/css/header.css">
+</head>
 
 <!-- Start Navbar -->
 <nav id="topnav" class="defaultscroll is-sticky">
@@ -344,7 +122,7 @@ if (!isset($_SESSION['user_id'])) {
             <?php if (isset($_SESSION['user_name']) && isset($_SESSION['user_role'])): ?>
 
                 <div class="profile-dropdown">
-                    <button type="button" style="background:none;border:none;cursor:pointer;padding:4px;">
+                    <button id="profileToggle" onclick="toggleProfileMenu(event)" type="button" style="background:none;border:none;cursor:pointer;padding:4px;">
                         <span
                             style="width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,0.4);">
                             <img src="<?php echo $_SESSION['user_profile_pic']; ?>"
@@ -404,3 +182,28 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 </nav>
 <!-- End Navbar -->
+
+<script>
+    function toggleProfileMenu(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        const dropdown = document.querySelector('.profile-dropdown');
+        if (dropdown) {
+            dropdown.classList.toggle('active');
+        }
+    }
+
+    // Global click listener to close the dropdown when clicking outside
+    window.addEventListener('click', function(e) {
+        const dropdown = document.querySelector('.profile-dropdown');
+        const toggle = document.getElementById('profileToggle');
+        if (dropdown && dropdown.classList.contains('active')) {
+            // If the click is NOT on the dropdown and NOT on the toggle button, close it
+            if (!dropdown.contains(e.target) && (!toggle || !toggle.contains(e.target))) {
+                dropdown.classList.remove('active');
+            }
+        }
+    });
+</script>
