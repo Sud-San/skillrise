@@ -18,8 +18,8 @@ require __DIR__ . '/vendor/phpmailer/phpmailer/src/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$email  = $_SESSION['reset_email'];
-$alert  = "";
+$email = $_SESSION['reset_email'];
+$alert = "";
 
 // Mask email
 function maskEmail($email)
@@ -33,7 +33,7 @@ if (isset($_POST['verify_otp'])) {
 
     $enteredOtp = implode("", $_POST['pin_code']);
     $sessionOtp = $_SESSION['otp'];
-    $expire     = $_SESSION['otp_expire'];
+    $expire = $_SESSION['otp_expire'];
 
     if (time() > $expire) {
         // Expired OTP
@@ -80,19 +80,19 @@ if (isset($_POST['resend_otp'])) {
 
     $otp = rand(100000, 999999);
 
-    $_SESSION['otp']        = $otp;
+    $_SESSION['otp'] = $otp;
     $_SESSION['otp_expire'] = time() + 60;
 
     $mail = new PHPMailer(true);
 
     try {
         $mail->isSMTP();
-        $mail->Host       = "smtp.gmail.com";
-        $mail->SMTPAuth   = true;
-        $mail->Username   = "collegedekhoo.info@gmail.com";
-        $mail->Password   = "glhq ubkl hlqs uszl";
+        $mail->Host = "smtp.gmail.com";
+        $mail->SMTPAuth = true;
+        $mail->Username = "collegedekhoo.info@gmail.com";
+        $mail->Password = "glhq ubkl hlqs uszl";
         $mail->SMTPSecure = "tls";
-        $mail->Port       = 587;
+        $mail->Port = 587;
 
         // split it
         list($user, $domain) = explode('@', $email);
@@ -150,6 +150,7 @@ if (isset($_POST['resend_otp'])) {
     <link href="assets/css/app.min.css" rel="stylesheet" />
     <link href="assets/css/icons.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 </head>
 
 <body class="h-100">
@@ -178,7 +179,8 @@ if (isset($_POST['resend_otp'])) {
 
                         <div class="d-flex gap-2 justify-content-center mb-3">
                             <?php for ($i = 0; $i < 6; $i++): ?>
-                                <input type="text" maxlength="1" name="pin_code[]" class="form-control text-center fs-4 otpBox" required>
+                                <input type="text" maxlength="1" name="pin_code[]"
+                                    class="form-control text-center fs-4 otpBox" required>
                             <?php endfor; ?>
                         </div>
 
@@ -189,7 +191,8 @@ if (isset($_POST['resend_otp'])) {
 
                     <!-- RESEND OTP -->
                     <form method="post" class="mt-3 text-center">
-                        <button id="resendBtn" type="submit" name="resend_otp" class="btn btn-link text-danger" disabled>
+                        <button id="resendBtn" type="submit" name="resend_otp" class="btn btn-link text-danger"
+                            disabled>
                             Resend OTP
                         </button>
                         <p id="timerText" class="text-muted mt-1" style="font-size:14px;"></p>
@@ -205,7 +208,7 @@ if (isset($_POST['resend_otp'])) {
     <script>
         let expiryTimestamp = <?= $_SESSION['otp_expire']; ?>;
 
-        document.querySelector("button[name='verify_otp']").addEventListener("click", function(e) {
+        document.querySelector("button[name='verify_otp']").addEventListener("click", function (e) {
             let now = Math.floor(Date.now() / 1000);
 
             if (now > expiryTimestamp) {
