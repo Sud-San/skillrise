@@ -18,7 +18,8 @@ if (isset($_GET['check_course'])) {
 
     // case-insensitive check
     $sql = "SELECT course_id FROM course_tbl WHERE LOWER(course_name) = LOWER('$name_esc') ";
-    if ($exclude_id > 0) $sql .= " AND course_id != $exclude_id ";
+    if ($exclude_id > 0)
+        $sql .= " AND course_id != $exclude_id ";
     $sql .= " LIMIT 1";
     $res = mysqli_query($conn, $sql);
     $exists = ($res && mysqli_num_rows($res) > 0) ? true : false;
@@ -119,7 +120,7 @@ if (isset($_POST['btn'])) {
     <meta content="Coderthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 
     <!-- Theme Config Js -->
     <script src="assets/js/config.js"></script>
@@ -164,12 +165,15 @@ if (isset($_POST['btn'])) {
 
                                 <!-- form uses Bootstrap validation markup -->
                                 <form method="post" class="needs-validation" novalidate>
-                                    <input type="hidden" id="hidden_course_id" name="course_id" value="<?php echo isset($course_id) ? intval($course_id) : 0; ?>">
+                                    <input type="hidden" id="hidden_course_id" name="course_id"
+                                        value="<?php echo isset($course_id) ? intval($course_id) : 0; ?>">
 
                                     <div class="mb-3">
                                         <label class="form-label" for="courseName">Course Name</label>
                                         <input type="text" class="form-control" id="courseName"
-                                            placeholder="Enter Course Name" value="<?php echo htmlspecialchars($name); ?>" name="course_name" pattern="^[A-Za-z\s]+$" required>
+                                            placeholder="Enter Course Name"
+                                            value="<?php echo htmlspecialchars($name); ?>" name="course_name"
+                                            pattern="^[A-Za-z\s]+$" required>
                                         <div class="invalid-feedback">
                                             Please enter a valid course name (letters and spaces only).
                                         </div>
@@ -178,7 +182,9 @@ if (isset($_POST['btn'])) {
                                     <div class="mb-3">
                                         <label class="form-label" for="courseDuration">Course Duration</label>
                                         <input type="text" class="form-control" id="courseDuration"
-                                            placeholder="e.g. 3 Years or 36 Months" value="<?php echo htmlspecialchars($duration); ?>" name="course_duration" required>
+                                            placeholder="e.g. 3 Years or 36 Months"
+                                            value="<?php echo htmlspecialchars($duration); ?>" name="course_duration"
+                                            required>
                                         <div class="invalid-feedback">
                                             Enter duration like 3 Years, 2.5 Years, 36 Months, 12 Weeks or 30 Days.
                                         </div>
@@ -187,7 +193,8 @@ if (isset($_POST['btn'])) {
                                     <div class="mb-3">
                                         <label class="form-label" for="courseDescription">Course Description</label>
                                         <textarea class="form-control" id="courseDescription"
-                                            placeholder="Enter Course Description" name="course_description" required><?php echo htmlspecialchars($description); ?></textarea>
+                                            placeholder="Enter Course Description" name="course_description"
+                                            required><?php echo htmlspecialchars($description); ?></textarea>
                                         <div class="invalid-feedback">
                                             Please provide a description.
                                         </div>
@@ -195,18 +202,24 @@ if (isset($_POST['btn'])) {
 
                                     <div class="mb-3">
                                         <label class="form-label" for="courseEligibility">Course Eligibility</label>
-                                        <select name="elig_id" id="courseEligibility" class="form-control select2" data-toggle="select2" required>
-                                            <option <?php if ($eligibility == "") echo "selected"; ?> disabled value="">Select Eligibility</option>
+                                        <select name="elig_id" id="courseEligibility" class="form-control select2"
+                                            data-toggle="select2" required>
+                                            <option <?php if ($eligibility == "")
+                                                echo "selected"; ?> disabled value="">
+                                                Select Eligibility</option>
                                             <?php
                                             $str = "SELECT * from eligibility_tbl";
                                             $elig_options = mysqli_query($conn, $str);
                                             while ($row = mysqli_fetch_array($elig_options)) {
-                                            ?>
-                                                <option value="<?php echo $row['elig_id']; ?>" <?php if ($row['elig_id'] == $eligibility) echo "selected"; ?>><?php echo $row['minimum']; ?></option>
+                                                ?>
+                                                <option value="<?php echo $row['elig_id']; ?>" <?php if ($row['elig_id'] == $eligibility)
+                                                       echo "selected"; ?>>
+                                                    <?php echo $row['minimum']; ?></option>
                                             <?php } ?>
                                         </select>
                                         <div class="invalid-feedback">
-                                            Eligibility cannot start with a number, cannot be only numbers, must be under 200 characters and not contain HTML tags.
+                                            Eligibility cannot start with a number, cannot be only numbers, must be
+                                            under 200 characters and not contain HTML tags.
                                         </div>
                                     </div>
 
@@ -215,7 +228,8 @@ if (isset($_POST['btn'])) {
 
                                 <!-- Server-side inline status messages (no pop-up for success) -->
                                 <?php if ($status == "duplicate") { ?>
-                                    <div style="margin-top:10px;color:#b36b00;">Duplicate course name. Please choose a different name.</div>
+                                    <div style="margin-top:10px;color:#b36b00;">Duplicate course name. Please choose a
+                                        different name.</div>
                                 <?php } elseif ($status == "error") { ?>
                                     <div style="margin-top:10px;color:red;">Something went wrong. Please try again.</div>
                                 <?php } ?>
@@ -239,7 +253,7 @@ if (isset($_POST['btn'])) {
 
     <!-- Validation + live duplicate-check script -->
     <script>
-        (function() {
+        (function () {
             const form = document.querySelector('.needs-validation');
 
             // grab inputs
@@ -367,11 +381,11 @@ if (isset($_POST['btn'])) {
                 if (hiddenCourseId && parseInt(hiddenCourseId) > 0) params.append('course_id', hiddenCourseId);
 
                 fetch(window.location.pathname + '?' + params.toString(), {
-                        method: 'GET',
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    })
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
                     .then(r => r.json())
                     .then(data => {
                         if (data.exists) {
@@ -402,7 +416,7 @@ if (isset($_POST['btn'])) {
             }
 
             // Live listeners: show errors only; remain neutral when valid
-            courseInput.addEventListener('input', function() {
+            courseInput.addEventListener('input', function () {
                 if (this.value.trim() === '') {
                     clearInvalid(this);
                     return;
@@ -411,14 +425,14 @@ if (isset($_POST['btn'])) {
                 validateCourseLocal();
                 scheduleDuplicateCheck();
             });
-            courseInput.addEventListener('blur', function() {
+            courseInput.addEventListener('blur', function () {
                 // on blur run full sequence immediately
                 if (validateCourseLocal()) {
                     checkDuplicate(courseInput.value.trim());
                 }
             });
 
-            durationInput.addEventListener('input', function() {
+            durationInput.addEventListener('input', function () {
                 if (this.value.trim() === '') {
                     clearInvalid(this);
                     return;
@@ -427,7 +441,7 @@ if (isset($_POST['btn'])) {
             });
             durationInput.addEventListener('blur', validateDuration);
 
-            descriptionInput.addEventListener('input', function() {
+            descriptionInput.addEventListener('input', function () {
                 if (this.value.trim() === '') {
                     clearInvalid(this);
                     return;
@@ -436,7 +450,7 @@ if (isset($_POST['btn'])) {
             });
             descriptionInput.addEventListener('blur', validateDescription);
 
-            eligibilityInput.addEventListener('input', function() {
+            eligibilityInput.addEventListener('input', function () {
                 if (this.value.trim() === '') {
                     clearInvalid(this);
                     return;
@@ -446,7 +460,7 @@ if (isset($_POST['btn'])) {
             eligibilityInput.addEventListener('blur', validateEligibility);
 
             // On submit validate all and prevent submit if any invalid
-            form.addEventListener('submit', function(event) {
+            form.addEventListener('submit', function (event) {
                 // ensure we stop any pending duplicate timer and check synchronously if needed
                 if (debounceTimer) {
                     clearTimeout(debounceTimer);
@@ -494,7 +508,7 @@ if (isset($_POST['btn'])) {
     </script>
 
     <!-- SweetAlert trigger after server processed insertion -->
-    <?php if ($status == "success") : ?>
+    <?php if ($status == "success"): ?>
         <script>
             // show success toast for 4 seconds with progress bar, then hide
             Swal.fire({
