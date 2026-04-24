@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_assoc($settings_q)) {
         <?php echo $company_name; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
     <link href="assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
@@ -105,16 +105,14 @@ while ($row = mysqli_fetch_assoc($settings_q)) {
                                 </div>
                                 <div class="card-body">
                                     <div class="mb-3">
-                                        <label class="form-label">Razorpay API Key (Test/Live)</label>
-                                        <input type="text" name="settings[api_key_razorpay]" class="form-control"
-                                            value="<?php echo $settings['api_key_razorpay'] ?? ''; ?>">
+                                        <label class="form-label">Razorpay API Key</label>
+                                        <input type="text" name="settings[key_id]" class="form-control"
+                                            value="<?php echo $settings['key_id'] ?? ''; ?>">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Theme Mode Default</label>
-                                        <select name="settings[theme_mode]" class="form-select">
-                                            <option value="light" <?php echo ($settings['theme_mode'] ?? '') === 'light' ? 'selected' : ''; ?>>Light</option>
-                                            <option value="dark" <?php echo ($settings['theme_mode'] ?? '') === 'dark' ? 'selected' : ''; ?>>Dark</option>
-                                        </select>
+                                        <label class="form-label">Razorpay Key Secret</label>
+                                        <input type="text" name="settings[key_secret]" class="form-control"
+                                            value="<?php echo $settings['key_secret'] ?? ''; ?>">
                                     </div>
                                 </div>
                             </div>
