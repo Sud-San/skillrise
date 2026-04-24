@@ -61,7 +61,7 @@ if (isset($_POST['ajax_check'])) {
     <meta content="Coderthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 
     <!-- Theme Config Js -->
     <script src="assets/js/config.js"></script>
@@ -185,9 +185,9 @@ if (isset($_POST['ajax_check'])) {
     <!-- Projects Analytics Dashboard App js -->
     <script src="assets/js/pages/dashboard.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            $("#state_name").on("keyup", function() {
+            $("#state_name").on("keyup", function () {
 
                 let state_name = $(this).val().trim();
 
@@ -203,7 +203,7 @@ if (isset($_POST['ajax_check'])) {
                         ajax_check: 1,
                         state_name: state_name
                     },
-                    success: function(response) {
+                    success: function (response) {
 
                         if (response === "duplicate") {
                             $("#state_name").addClass("is-invalid").removeClass("is-valid");
