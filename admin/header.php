@@ -22,12 +22,12 @@ $notification = mysqli_query($conn, $sql);
             <a href="index.php" class="logo">
                 <span class="logo-light">
                     <span class="logo-lg"><img src="../SkillRise_logo1.png" alt="logo"></span>
-                    <span class="logo-sm"><img src="../codez3.png" alt="small logo"></span>
+                    <span class="logo-sm"><img src="../SkillRise_logo1.png" alt="small logo"></span>
                 </span>
 
                 <span class="logo-dark">
                     <span class="logo-lg"><img src="../SkillRise_logo1.png" alt="dark logo"></span>
-                    <span class="logo-sm"><img src="../codez3.png" alt="small logo"></span>
+                    <span class="logo-sm"><img src="../SkillRise_logo1.png" alt="small logo"></span>
                 </span>
             </a>
             <!-- Sidebar Menu Toggle Button -->
