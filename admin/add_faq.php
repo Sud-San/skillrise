@@ -57,7 +57,7 @@ if (isset($_POST['add_faq'])) {
     <meta content="Coderthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 
     <!-- Theme Config Js -->
     <script src="assets/js/config.js"></script>
