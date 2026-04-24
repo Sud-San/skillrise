@@ -62,7 +62,7 @@ $result = mysqli_query($conn, $display_query);
     <meta charset="utf-8" />
     <title>Deactive Tutors | <?php echo $company_name; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
     <link href="assets/css/vendor.min.css" rel="stylesheet" />
     <link href="assets/css/app.min.css" rel="stylesheet" id="app-style" />
@@ -102,7 +102,8 @@ $result = mysqli_query($conn, $display_query);
                                 </p>
                             </div>
                             <div class="card-body">
-                                <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100" style="overflow-x:scroll; white-space: nowrap; ">
+                                <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100"
+                                    style="overflow-x:scroll; white-space: nowrap; ">
                                     <thead>
                                         <tr>
                                             <th>Sr No.</th>
@@ -127,11 +128,13 @@ $result = mysqli_query($conn, $display_query);
                                                 ENT_QUOTES,
                                                 'UTF-8'
                                             );
-                                        ?>
+                                            ?>
                                             <tr>
                                                 <td><?= $no++; ?></td>
                                                 <td><?= htmlspecialchars($tutor['tutor_id']); ?></td>
-                                                <td><img src="assets/images/tutors/<?php echo $tutor['profile_pic']; ?>" style="cursor: pointer;" class="logo view-tutor" alt="Tutor Profile" data-tutor="<?= $tutorJson ?>"></td>
+                                                <td><img src="assets/images/tutors/<?php echo $tutor['profile_pic']; ?>"
+                                                        style="cursor: pointer;" class="logo view-tutor" alt="Tutor Profile"
+                                                        data-tutor="<?= $tutorJson ?>"></td>
                                                 <td><?php echo htmlspecialchars($tutor['tutor_name']); ?></td>
                                                 <td><?php echo htmlspecialchars($tutor['tutor_email']); ?></td>
                                                 <td><?php echo htmlspecialchars($tutor['tutor_phone']); ?></td>
@@ -196,10 +199,10 @@ $result = mysqli_query($conn, $display_query);
 
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             // Toggle tutor status
-            $(document).on('change', '.toggle-switch', function() {
+            $(document).on('change', '.toggle-switch', function () {
                 var tutor_id = $(this).data('id');
                 var tutor_status = $(this).is(':checked') ? 1 : 0;
 
@@ -212,7 +215,7 @@ $result = mysqli_query($conn, $display_query);
                         tutor_status: tutor_status
                     },
                     dataType: 'json',
-                    success: function(response) {
+                    success: function (response) {
                         if (response.status === 'success') {
                             Swal.fire({
                                 title: 'Status Updated!',
@@ -225,7 +228,7 @@ $result = mysqli_query($conn, $display_query);
                             });
                         }
                     },
-                    error: function() {
+                    error: function () {
                         Swal.fire({
                             title: 'Error!',
                             text: 'Something went wrong while updating status.',
@@ -237,7 +240,7 @@ $result = mysqli_query($conn, $display_query);
             });
 
             // Delete FAQ with SweetAlert
-            $(document).on('click', '.delete-btn', function(e) {
+            $(document).on('click', '.delete-btn', function (e) {
                 e.preventDefault();
                 var tutor_id = $(this).data('id');
                 var row = $(this).closest('tr');
@@ -260,7 +263,7 @@ $result = mysqli_query($conn, $display_query);
                                 tutor_id: tutor_id
                             },
                             dataType: 'json',
-                            success: function(response) {
+                            success: function (response) {
                                 if (response.status === 'success') {
                                     Swal.fire({
                                         icon: 'success',
@@ -269,7 +272,7 @@ $result = mysqli_query($conn, $display_query);
                                         timer: 1200,
                                         showConfirmButton: false
                                     });
-                                    row.fadeOut(800, function() {
+                                    row.fadeOut(800, function () {
                                         $(this).remove();
                                     });
                                 } else {
@@ -280,7 +283,7 @@ $result = mysqli_query($conn, $display_query);
                                     });
                                 }
                             },
-                            error: function() {
+                            error: function () {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Error!',
