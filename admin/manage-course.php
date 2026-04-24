@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 
     <!-- Theme Config Js -->
     <script src="assets/js/config.js"></script>
@@ -197,36 +197,45 @@
                                                     <td><?php echo ++$i; ?></td>
                                                     <td
                                                         style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
-                                                        <?php echo htmlspecialchars($row['course_id']); ?></td>
+                                                        <?php echo htmlspecialchars($row['course_id']); ?>
+                                                    </td>
                                                     <td
                                                         style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
-                                                        <?php echo htmlspecialchars($row['category_name']); ?></td>
+                                                        <?php echo htmlspecialchars($row['category_name']); ?>
+                                                    </td>
                                                     <td style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap; cursor: pointer;"
                                                         class="view-tutor text-primary" data-tutor="<?= $tutorJson ?>">
-                                                        <?php echo htmlspecialchars($row['tutor_name']); ?></td>
+                                                        <?php echo htmlspecialchars($row['tutor_name']); ?>
+                                                    </td>
                                                     <td
                                                         style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
                                                         <img src="<?php echo "../assets/images/thumbnail/" . htmlspecialchars($row['course_thumbnail']); ?>"
                                                             alt="<?php echo htmlspecialchars($row['course_title']); ?>"
-                                                            width="80px"></td>
+                                                            width="80px">
+                                                    </td>
                                                     <td
                                                         style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
-                                                        <?php echo htmlspecialchars($row['course_title']); ?></td>
+                                                        <?php echo htmlspecialchars($row['course_title']); ?>
+                                                    </td>
                                                     <td
                                                         style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
-                                                        <?php echo htmlspecialchars($row['course_slug']); ?></td>
+                                                        <?php echo htmlspecialchars($row['course_slug']); ?>
+                                                    </td>
                                                     <td
                                                         style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
-                                                        <?php echo htmlspecialchars($row['course_description']); ?></td>
+                                                        <?php echo htmlspecialchars($row['course_description']); ?>
+                                                    </td>
                                                     <td
                                                         style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
-                                                        <?php echo htmlspecialchars($row['course_level']); ?></td>
+                                                        <?php echo htmlspecialchars($row['course_level']); ?>
+                                                    </td>
                                                     <td
                                                         style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
                                                         ₹<?php echo htmlspecialchars($row['price']); ?></td>
                                                     <td
                                                         style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
-                                                        <?php echo htmlspecialchars($row['total_lesson']); ?></td>
+                                                        <?php echo htmlspecialchars($row['total_lesson']); ?>
+                                                    </td>
                                                     <td>
                                                         <div class="form-check form-switch">
                                                             <input type="checkbox" class="form-check-input toggle-switch"
