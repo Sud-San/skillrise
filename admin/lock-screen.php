@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include_once 'connection.php';
@@ -18,11 +17,13 @@ if (isset($_POST['lock-password'])) {
     $password = $_POST['lock-password'];
     $email = $_SESSION['admin_email'];
 
-    // Simple password check
-    $query = "SELECT * FROM admin_tbl WHERE admin_email='$email' AND admin_password='$password'";
-    $result = mysqli_query($conn, $query);
 
-    if (mysqli_num_rows($result) > 0) {
+    // Simple password check
+    $query = "SELECT * FROM admin_tbl WHERE admin_email='$email'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+
+    if (password_verify($password, $row['admin_password'])) {
         $alert = "success";
         $_SESSION['admin_logged'] = true;
     } else {
@@ -41,7 +42,7 @@ if (isset($_POST['lock-password'])) {
     <meta content="Coderthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 
     <!-- Theme Config Js -->
     <script src="assets/js/config.js"></script>
@@ -115,32 +116,32 @@ if (isset($_POST['lock-password'])) {
     <script src="assets/js/app.js"></script>
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        
+
     <?php if ($alert == "success") { ?>
-    
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Unlocked',
-            text: 'Access granted. Redirecting...',
-            showConfirmButton: false,
-            timer: 1000,
-            timerProgressBar: true
-        }).then(() => {
-            window.location.href = 'index.php';
-        });
-    </script>
+
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Unlocked',
+                text: 'Access granted. Redirecting...',
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true
+            }).then(() => {
+                window.location.href = 'index.php';
+            });
+        </script>
 
     <?php } elseif ($alert == "error") { ?>
 
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Incorrect Password',
-            text: 'Please try again.',
-            confirmButtonText: 'Retry'
-        });
-    </script>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Incorrect Password',
+                text: 'Please try again.',
+                confirmButtonText: 'Retry'
+            });
+        </script>
 
     <?php } ?>
 </body>
