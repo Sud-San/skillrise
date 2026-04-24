@@ -18,18 +18,83 @@ if (isset($_SESSION['admin_logged']) && $_SESSION['admin_logged'] === true) {
 
 ?>
 
+<style>
+    /* Responsive Logo Header Override */
+    .sidenav-menu .logo {
+        height: auto !important;
+        min-height: 70px;
+        line-height: normal !important;
+        padding: 12px 0 8px 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidenav-menu .logo-lg {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .sidenav-menu .logo-lg img {
+        height: 35px;
+        max-width: 100%;
+        object-fit: contain;
+        margin-bottom: 4px;
+    }
+
+    .sidenav-menu .logo-text {
+        font-size: clamp(16px, 1.2vw, 20px);
+        font-weight: 600;
+        font-family: 'Outfit', sans-serif;
+        white-space: nowrap;
+    }
+
+    .sidenav-menu .logo-text-accent {
+        color: #2eb85c;
+    }
+
+    /* Make sure small logo acts normal */
+    .sidenav-menu .logo-sm {
+        display: none;
+    }
+
+    .sidebar-enable .sidenav-menu .logo-lg {
+        display: none !important;
+    }
+
+    .sidebar-enable .sidenav-menu .logo-sm {
+        display: block !important;
+    }
+</style>
+
 <div class="sidenav-menu">
 
     <!-- Brand Logo -->
     <a href="index.php" class="logo">
         <span class="logo-light">
-            <span class="logo-lg"><img src="../SkillRise_logo1.png" alt="logo"></span>
-            <span class="logo-sm"><img src="../codez3.png" alt="small logo"></span>
+            <?php $c = explode(" ", $company_name); ?>
+            <span class="logo-lg drop-logo">
+                <img src="../SkillRise_logo1.png" alt="logo">
+                <span class="logo-text" style="color: #2b3342;"><?php echo $c[0] ?><span
+                        class="logo-text-accent"><?php echo isset($c[1]) ? $c[1] : '' ?></span></span>
+            </span>
+            <span class="logo-sm">
+                <img src="../SkillRise_logo1.png" alt="small logo" height="26">
+            </span>
         </span>
 
         <span class="logo-dark">
-            <span class="logo-lg"><img src="../SkillRise_logo1.png" alt="dark logo"></span>
-            <span class="logo-sm"><img src="../codez3.png" alt="small logo"></span>
+            <span class="logo-lg drop-logo">
+                <img src="../SkillRise_logo1.png" alt="dark logo">
+                <span class="logo-text" style="color: #000000;"><?php echo $c[0] ?><span
+                        class="logo-text-accent"><?php echo isset($c[1]) ? $c[1] : '' ?></span></span>
+            </span>
+            <span class="logo-sm">
+                <img src="../SkillRise_logo1.png" alt="small logo" height="26">
+            </span>
         </span>
     </a>
 
@@ -46,6 +111,7 @@ if (isset($_SESSION['admin_logged']) && $_SESSION['admin_logged'] === true) {
     <!-- Full Sidebar Menu Close Button -->
     <button class="button-close-fullsidebar">
         <i class="ti ti-x align-middle"></i>
+
     </button>
 
     <div data-simplebar>
