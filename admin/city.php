@@ -17,7 +17,8 @@ if (isset($_GET['check_city'])) {
     }
 
     $sql = "SELECT city_id FROM city_tbl WHERE LOWER(city_name)=LOWER('$name')";
-    if ($exclude_id > 0) $sql .= " AND city_id != $exclude_id ";
+    if ($exclude_id > 0)
+        $sql .= " AND city_id != $exclude_id ";
     $sql .= " LIMIT 1";
 
     $res = mysqli_query($conn, $sql);
@@ -29,7 +30,7 @@ if (isset($_GET['check_city'])) {
 ###############################################################
 # FETCH STATES
 ###############################################################
-$stateQuery  = "SELECT state_id, state_name FROM state_tbl WHERE state_status = 1 ORDER BY state_name ASC";
+$stateQuery = "SELECT state_id, state_name FROM state_tbl WHERE state_status = 1 ORDER BY state_name ASC";
 $stateResult = mysqli_query($conn, $stateQuery);
 
 $selected_state = '';
@@ -61,8 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $state = intval($_POST['state']);
     $city_name = trim($_POST['city_name']);
 
-    if ($state == 0) $status = "state_error";
-    if ($city_name == "") $status = "city_empty";
+    if ($state == 0)
+        $status = "state_error";
+    if ($city_name == "")
+        $status = "city_empty";
 
     if ($status == "") {
 
@@ -116,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8" />
     <title>Add City | <?php echo $company_name; ?></title>
 
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
     <link href="assets/css/vendor.min.css" rel="stylesheet" />
     <link href="assets/css/app.min.css" rel="stylesheet" id="app-style" />
@@ -192,14 +195,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <div class="mb-3">
                                         <label class="form-label">City Name</label>
 
-                                        <input type="text"
-                                            class="form-control"
-                                            id="cityName"
-                                            name="city_name"
-                                            placeholder="City"
-                                            value="<?= $city; ?>">
+                                        <input type="text" class="form-control" id="cityName" name="city_name"
+                                            placeholder="City" value="<?= $city; ?>">
 
-                                        <small id="errRequired" class="text-danger" style="display:none;margin-top:5px;">
+                                        <small id="errRequired" class="text-danger"
+                                            style="display:none;margin-top:5px;">
                                             City name is required.
                                         </small>
 
@@ -211,7 +211,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             Special characters are not allowed.
                                         </small>
 
-                                        <small id="errDuplicate" class="text-danger" style="display:none;margin-top:5px;">
+                                        <small id="errDuplicate" class="text-danger"
+                                            style="display:none;margin-top:5px;">
                                             City name already exists.
                                         </small>
                                     </div>
@@ -327,7 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         /* =============================================
            SUBMIT VALIDATION
         ============================================= */
-        document.getElementById("cityForm").addEventListener("submit", function(event) {
+        document.getElementById("cityForm").addEventListener("submit", function (event) {
 
             hideAllErrors();
 
