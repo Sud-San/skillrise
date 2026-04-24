@@ -32,7 +32,7 @@ $i = 1;
     <meta content="Coderthemes" name="author" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 
     <!-- Theme Config Js -->
     <script src="assets/js/config.js"></script>
