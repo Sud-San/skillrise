@@ -37,7 +37,7 @@ $i = 0;
     <title>Manage User Payment | <?php echo $company_name; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
 
     <link href="assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
@@ -87,8 +87,8 @@ $i = 0;
                                     </thead>
 
                                     <tbody>
-                                        <?php while ($payment = mysqli_fetch_array($result)) { 
-                                             $tutorJson = htmlspecialchars(
+                                        <?php while ($payment = mysqli_fetch_array($result)) {
+                                            $tutorJson = htmlspecialchars(
                                                 json_encode($payment, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT),
                                                 ENT_QUOTES,
                                                 'UTF-8'
@@ -112,13 +112,27 @@ $i = 0;
                                             <tr>
                                                 <td><?php echo ++$i; ?></td>
                                                 <td><?php echo $payment['user_payment_id']; ?></td>
-                                                <td style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;"><?php echo $payment['razorpay_id']; ?></td>
-                                                <td style="width: 100px; cursor: pointer; text-align: center; vertical-align:middle; white-space: wrap;" class="view-user text-primary" data-user="<?= $userJson ?>"><?php echo $payment['user_name']; ?></td>
-                                                <td style="width: 100px; cursor: pointer; text-align: center; vertical-align:middle; white-space: wrap;" class="view-tutor text-primary" data-tutor="<?= $tutorJson ?>"><?php echo $payment['tutor_name']; ?></td>
-                                                <td style="width: 100px; cursor: pointer; text-align: center; vertical-align:middle; white-space: wrap;" class="view-course text-primary" data-course="<?= $courseJson ?>" data-category="<?= $categoryJson ?>"><?php echo $payment['course_title']; ?></td>
-                                                <td style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;"><?php echo "₹" . $payment['amount']; ?></td>
-                                                <td style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;"><?php echo date("d-m-Y", strtotime($payment['payment_date'])); ?></td>
-                                                <td style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
+                                                <td
+                                                    style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
+                                                    <?php echo $payment['razorpay_id']; ?></td>
+                                                <td style="width: 100px; cursor: pointer; text-align: center; vertical-align:middle; white-space: wrap;"
+                                                    class="view-user text-primary" data-user="<?= $userJson ?>">
+                                                    <?php echo $payment['user_name']; ?></td>
+                                                <td style="width: 100px; cursor: pointer; text-align: center; vertical-align:middle; white-space: wrap;"
+                                                    class="view-tutor text-primary" data-tutor="<?= $tutorJson ?>">
+                                                    <?php echo $payment['tutor_name']; ?></td>
+                                                <td style="width: 100px; cursor: pointer; text-align: center; vertical-align:middle; white-space: wrap;"
+                                                    class="view-course text-primary" data-course="<?= $courseJson ?>"
+                                                    data-category="<?= $categoryJson ?>">
+                                                    <?php echo $payment['course_title']; ?></td>
+                                                <td
+                                                    style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
+                                                    <?php echo "₹" . $payment['amount']; ?></td>
+                                                <td
+                                                    style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
+                                                    <?php echo date("d-m-Y", strtotime($payment['payment_date'])); ?></td>
+                                                <td
+                                                    style="width: 100px; text-align: center; vertical-align:middle; white-space: wrap;">
                                                     <?php
                                                     if ($payment['payment_status'] == 1) {
                                                         echo '<span style="font-size:14px;" class="badge bg-success">Completed</span>';
@@ -184,7 +198,7 @@ $i = 0;
 
 <script>
     // TOGGLE STATUS
-    $(document).on("change", ".toggle-switch", function() {
+    $(document).on("change", ".toggle-switch", function () {
         var payment_id = $(this).data("id");
         var payment_status = $(this).is(":checked") ? 1 : 0;
 
@@ -195,7 +209,7 @@ $i = 0;
                 payment_id: payment_id,
                 payment_status: payment_status
             },
-            success: function(response) {
+            success: function (response) {
                 Swal.fire({
                     title: "Status Updated",
                     text: "Payment status changed successfully.",
@@ -204,7 +218,7 @@ $i = 0;
                     showConfirmButton: false
                 });
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 Swal.fire({
                     title: "Error",
                     text: "Failed to update status!",
@@ -218,7 +232,7 @@ $i = 0;
 
     // DELETE STATE ALERT
     document.querySelectorAll(".deletestate").forEach(btn => {
-        btn.addEventListener("click", function(e) {
+        btn.addEventListener("click", function (e) {
             e.preventDefault();
 
             let id = this.getAttribute("data-id");
