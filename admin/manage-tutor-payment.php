@@ -32,7 +32,7 @@ $result = mysqli_query($conn, $display_query);
     <meta charset="utf-8" />
     <title>Manage Tutor Payment | <?php echo $company_name; ?></title>
 
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
 
     <link href="assets/css/vendor.min.css" rel="stylesheet" />
@@ -65,7 +65,7 @@ $result = mysqli_query($conn, $display_query);
                                 <h4 class="header-title mb-2">Manage Tutor Payment</h4>
                                 <p class="text-muted mb-0">Manage list of tutor payments.</p>
                             </div>
-                            
+
 
                             <div class="card-body">
                                 <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
@@ -90,28 +90,27 @@ $result = mysqli_query($conn, $display_query);
                                                 <td><?php echo $payment['tutor_name']; ?></td>
                                                 <td><?php echo $payment['razorpay_id']; ?></td>
                                                 <td><?php echo $payment['package_name']; ?></td>
-                                                <td><?php echo "₹".$payment['amount_paid']; ?></td>
+                                                <td><?php echo "₹" . $payment['amount_paid']; ?></td>
                                                 <td><?php echo date('d-m-Y', strtotime($payment['start_date'])); ?></td>
                                                 <td><?php echo date('d-m-Y', strtotime($payment['end_date'])); ?></td>
                                                 <td>
                                                     <?php
                                                     $endDate = new DateTime($payment['end_date']);
-                                                    $today  = new DateTime(); // current date
-
+                                                    $today = new DateTime(); // current date
+                                                
                                                     $diff = date_diff($today, $endDate);
-                                                    if($diff->invert == 1){
+                                                    if ($diff->invert == 1) {
                                                         echo "<span style='font-size: 14px;' class='badge bg-danger'>Expired</span>";
-                                                    }elseif($diff->days == 0){
+                                                    } elseif ($diff->days == 0) {
                                                         echo "<span style='font-size: 14px;' class='badge bg-warning'>Expiring Today</span>";
-                                                    }else{
-                                                        echo "<span style='font-size: 14px;' class='badge bg-success'>".$diff->days . " Days</span>";
+                                                    } else {
+                                                        echo "<span style='font-size: 14px;' class='badge bg-success'>" . $diff->days . " Days</span>";
                                                     }
                                                     ?>
                                                 </td>
                                                 <td>
                                                     <div class="form-check form-switch">
-                                                <input type="checkbox" 
-                                                       class="form-check-input toggle-switch" 
+                                                        <input type="checkbox" class="form-check-input toggle-switch"
                                                             data-id="<?= $payment['purchase_id']; ?>"
                                                             <?= ($payment['payment_status'] == 1) ? 'checked' : ''; ?>>
                                                     </div>
@@ -157,7 +156,7 @@ $result = mysqli_query($conn, $display_query);
     <!-- STATUS UPDATE (AJAX) -->
     <script>
         document.querySelectorAll(".toggle-switch").forEach(toggle => {
-            toggle.addEventListener("change", function() {
+            toggle.addEventListener("change", function () {
                 let id = this.getAttribute("data-id");
                 let status = this.checked ? 1 : 0;
 
@@ -165,7 +164,7 @@ $result = mysqli_query($conn, $display_query);
                 xhr.open("POST", "update_status.php", true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                xhr.onload = function() {
+                xhr.onload = function () {
                     Swal.fire({
                         icon: "success",
                         title: "Status Updated",
@@ -183,7 +182,7 @@ $result = mysqli_query($conn, $display_query);
     <!-- DELETE SWEETALERT -->
     <script>
         document.querySelectorAll(".deleteCity").forEach(btn => {
-            btn.addEventListener("click", function(e) {
+            btn.addEventListener("click", function (e) {
                 e.preventDefault();
                 let id = this.getAttribute("data-id");
 
