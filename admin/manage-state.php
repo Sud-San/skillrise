@@ -29,7 +29,7 @@ $result = mysqli_query($conn, $display_query);
     <title>Manage State | <?php echo $company_name; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
 
     <link href="assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
