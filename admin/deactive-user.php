@@ -52,7 +52,7 @@ $result = mysqli_query($conn, $display_query);
     <meta charset="utf-8" />
     <title>Deactive Users | <?php echo $company_name; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
     <link href="assets/css/vendor.min.css" rel="stylesheet" />
     <link href="assets/css/app.min.css" rel="stylesheet" id="app-style" />
