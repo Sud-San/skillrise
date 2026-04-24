@@ -23,8 +23,8 @@ $alert = "";
 if (isset($_POST['new-password']) && isset($_POST['re-password'])) {
 
     $new_password = trim($_POST['new-password']);
-    $re_password  = trim($_POST['re-password']);
-    $email        = $_SESSION['reset_email'];
+    $re_password = trim($_POST['re-password']);
+    $email = $_SESSION['reset_email'];
 
     // Basic validations
     if (empty($new_password) || empty($re_password)) {
@@ -52,12 +52,10 @@ if (isset($_POST['new-password']) && isset($_POST['re-password'])) {
             });
         </script>";
     } else {
-        // HASH the new password
         $plain = $new_password;
 
-
         $query = "UPDATE admin_tbl SET admin_password='$plain' WHERE admin_email='$email'";
-        $run   = mysqli_query($conn, $query);
+        $run = mysqli_query($conn, $query);
 
         if ($run) {
 
@@ -66,17 +64,17 @@ if (isset($_POST['new-password']) && isset($_POST['re-password'])) {
             unset($_SESSION['otp_expire']);
             try {
                 $mail->isSMTP();
-                $mail->Host       = "smtp.gmail.com";
-                $mail->SMTPAuth   = true;
-                $mail->Username   = "collegedekhoo.info@gmail.com";
-                $mail->Password   = "glhq ubkl hlqs uszl";
+                $mail->Host = "smtp.gmail.com";
+                $mail->SMTPAuth = true;
+                $mail->Username = "codezy03@gmail.com";
+                $mail->Password = "bjzmtwtfnadwxqbt";
                 $mail->SMTPSecure = "tls";
-                $mail->Port       = 587;
+                $mail->Port = 587;
 
-                $mail->setFrom("collegedekhoo.info@gmail.com", "College Dekho Admin");
+                $mail->setFrom("codezy03@gmail.com", "SkillRise Support");
                 $mail->addAddress($email);
                 $mail->Subject = "Password Updated Successfully";
-                $mail->Body    = "Your password has been updated successfully.";
+                $mail->Body = "Your password has been updated successfully.";
 
                 $mail->send();
             } catch (Exception $e) {
@@ -147,12 +145,14 @@ if (isset($_POST['new-password']) && isset($_POST['re-password'])) {
 
                         <div class="mb-3">
                             <label class="form-label">Create New Password</label>
-                            <input type="password" name="new-password" class="form-control" placeholder="New Password" required>
+                            <input type="password" name="new-password" class="form-control" placeholder="New Password"
+                                required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Re-enter Password</label>
-                            <input type="password" name="re-password" class="form-control" placeholder="Re-enter Password" required>
+                            <input type="password" name="re-password" class="form-control"
+                                placeholder="Re-enter Password" required>
                         </div>
 
                         <div class="mb-2 d-grid">
