@@ -72,7 +72,7 @@ $admin_name = $_SESSION['admin_name'] ?? "Admin";
     <meta charset="utf-8" />
     <title>Dashboard | <?php echo $company_name; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
     <link href="assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
@@ -361,7 +361,7 @@ $admin_name = $_SESSION['admin_name'] ?? "Admin";
                                                     </td>
                                                     <td class="text-center"><?php echo $row['course_title']; ?></td>
                                                     <td class="text-center">
-                                                        <?php echo date('d M, Y', strtotime($row['enrollment_date'] ?? 'now')); ?>
+                                                        <?php echo date('d M, Y', strtotime($row['enrolled_at'] ?? 'now')); ?>
                                                     </td>
                                                     <td><span
                                                             class="badge bg-soft-success text-success rounded-pill">Active</span>
