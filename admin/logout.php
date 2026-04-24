@@ -17,9 +17,14 @@ $_SESSION = array(); // Clear all session variables
 // Note: This will destroy the session, and not just the session data!
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params["path"], $params["domain"],
-        $params["secure"], $params["httponly"]
+    setcookie(
+        session_name(),
+        '',
+        time() - 42000,
+        $params["path"],
+        $params["domain"],
+        $params["secure"],
+        $params["httponly"]
     );
 }
 
@@ -37,7 +42,7 @@ session_destroy();
     <meta content="Coderthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 
     <!-- Theme Config Js -->
     <script src="assets/js/config.js"></script>
