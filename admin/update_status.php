@@ -70,7 +70,7 @@ if (isset($_POST['course_id']) && isset($_POST['course_status'])) {
 // FOR ENROLLMENT MODULE
 if (isset($_POST['enrollmentid']) && isset($_POST['enrollmentstatus'])) {
     $enrollment_id = (int) $_POST['enrollmentid'];
-    $enrollment_status = ($_POST['enrollmentstatus'] == "active") ? "inactive" : "active";
+    $enrollment_status = mysqli_real_escape_string($conn, $_POST['enrollmentstatus']);
 
     $sql = "UPDATE enrollments_tbl SET enrollment_status = '$enrollment_status' WHERE enrollment_id = '$enrollment_id'";
     if (mysqli_query($conn, $sql)) {
@@ -129,6 +129,22 @@ if (isset($_POST['tutor_id']) && isset($_POST['tutor_status'])) {
     $status = mysqli_real_escape_string($conn, $status);
 
     $query = "UPDATE tutor_tbl SET tutor_status = '$status' WHERE tutor_id = '$id'";
+    if (mysqli_query($conn, $query)) {
+        echo json_encode(['status' => 'success']);
+    } else {
+        echo json_encode(['status' => "error", 'error' => "Error updating status: " . mysqli_error($conn)]);
+    }
+    exit;
+}
+
+// FOR TUTOR PAYMENT
+if (isset($_POST['purchase_id']) && isset($_POST['payment_status'])) {
+    $id = $_POST['purchase_id'];
+    $status = $_POST['payment_status'];
+    $id = mysqli_real_escape_string($conn, $id);
+    $status = mysqli_real_escape_string($conn, $status);
+
+    $query = "UPDATE tutor_package_tbl SET payment_status = '$status' WHERE purchase_id = '$id'";
     if (mysqli_query($conn, $query)) {
         echo json_encode(['status' => 'success']);
     } else {
