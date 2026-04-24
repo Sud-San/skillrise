@@ -16,29 +16,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
+
     // YOU SHOULD use prepared statements in real apps, but keeping your style for now
-    $str = "SELECT * FROM admin_tbl WHERE admin_email='$email' AND admin_password='$password'";
+    $str = "SELECT * FROM admin_tbl WHERE admin_email='$email'";
     $result = mysqli_query($conn, $str);
 
     if ($result && mysqli_num_rows($result) > 0) {
         $admin = mysqli_fetch_array($result);
 
-        if ($admin['admin_status'] != 1) {
-            // Just set flag, JS will show alert later
-            $account_deactivated = true;
-        } else {
-            $_SESSION['admin'] = $admin['admin_id'];
-            $_SESSION['admin_email'] = $admin['admin_email'];
-            $_SESSION['admin_name'] = $admin['admin_name'];
-            $_SESSION['admin_image'] = $admin['admin_image'];
-            $_SESSION['admin_logged'] = true;
+        if (password_verify($password, $admin['admin_password'])) {
 
-            header('Location: index.php');
-            exit();
+            if ($admin['admin_status'] != 1) {
+                // Just set flag, JS will show alert later
+                $account_deactivated = true;
+            } else {
+                $_SESSION['admin'] = $admin['admin_id'];
+                $_SESSION['admin_email'] = $admin['admin_email'];
+                $_SESSION['admin_name'] = $admin['admin_name'];
+                $_SESSION['admin_image'] = $admin['admin_image'];
+                $_SESSION['admin_logged'] = true;
+
+                header('Location: index.php');
+                exit();
+            }
+        } else {
+            $login_error = 'Invalid email or password';
         }
     } else {
         $login_error = 'Invalid email or password';
     }
+
+
 }
 ?>
 <!DOCTYPE html>
@@ -52,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta content="Coderthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
 
     <!-- Theme Config Js -->
     <script src="assets/js/config.js"></script>
@@ -89,17 +97,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <h4 class="fw-semibold mb-3 fs-18">Log in to your account</h4>
 
-                    <form action="" method="post" class="text-start mb-3">
+                    <form id="adminLoginForm" action="" method="post" class="text-start mb-3">
                         <div class="mb-3">
                             <label class="form-label" for="example-email">Email</label>
                             <input type="email" id="example-email" name="email" class="form-control"
-                                placeholder="Enter your email" required>
+                                placeholder="Enter your email">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="example-password">Password</label>
                             <input type="password" name="password" id="example-password" class="form-control"
-                                placeholder="Enter your password" required>
+                                placeholder="Enter your password">
                         </div>
 
                         <div class="d-flex justify-content-between mb-3">
@@ -108,9 +116,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label class="form-check-label" for="checkbox-signin">Remember me</label> -->
                             </div>
 
-                            <!-- <a href="recover_pass.php" class="text-muted border-bottom border-dashed">
+                            <a href="recover_pass.php" class="text-muted border-bottom border-dashed">
                                 Forget Password
-                            </a> -->
+                            </a>
                         </div>
 
                         <div class="d-grid">
@@ -128,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    © SkillRise Academy
+                    © <?php echo $company_name; ?>
                 </p>
             </div>
         </div>
@@ -166,6 +174,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
         </script>
     <?php endif; ?>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('adminLoginForm');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    const email = document.getElementById('example-email').value.trim();
+                    const password = document.getElementById('example-password').value.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                    let errorMsg = '';
+                    if (!email || !emailRegex.test(email)) {
+                        errorMsg = 'Please enter a valid email address.';
+                    } else if (!password) {
+                        errorMsg = 'Please enter your password.';
+                    }
+
+                    if (errorMsg) {
+                        e.preventDefault();
+                        Swal.fire({
+                            title: 'Validation Error',
+                            text: errorMsg,
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 
