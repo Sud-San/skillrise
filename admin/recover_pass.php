@@ -24,8 +24,10 @@ if (isset($_POST['email'])) {
     $email = $_POST['email'];
 
     // Check email in DB
-    $query = "SELECT * FROM admin_tbl WHERE admin_email='$email'";
+    $query = "SELECT admin_name FROM admin_tbl WHERE admin_email='$email'";
     $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $admin_name = $row['admin_name'];
 
     if ($result && mysqli_num_rows($result) > 0) {
 
@@ -37,27 +39,31 @@ if (isset($_POST['email'])) {
 
         // Create Mail Object
         $mail = new PHPMailer(true);
+        $smtpHost = 'smtp.gmail.com';
+        $smtpUser = 'codezy03@gmail.com';
+        $smtpPass = 'bjzmtwtfnadwxqbt'; // Consistent password from verify/forgot
+        $smtpPort = 465;
+        $smtpSecure = 'ssl';
 
         try {
             // SMTP settings
             $mail->isSMTP();
-            $mail->Host = "smtp.gmail.com";
+            $mail->Host = $smtpHost;
             $mail->SMTPAuth = true;
-            //$mail->Username = "rampariyaprince@gmail.com";
-            $mail->Username = "collegedekhoo.info@gmail.com";
-            $mail->Password = "glhq ubkl hlqs uszl";
-            //$mail->Password = "wkuqikxbhrqhghpw";
-            $mail->SMTPSecure = "tls";
-            $mail->Port = 587;
+
+            $mail->Username = $smtpUser;
+            $mail->Password = $smtpPass;
+            $mail->SMTPSecure = $smtpSecure;
+            $mail->Port = $smtpPort;
 
             // split it
             list($user, $domain) = explode('@', $email);
             $safeEmail = "<span>{$user}</span><span>@{$domain}</span>";
 
             // Sender and receiver
-            $mail->setFrom("rampariyaprince@gmail.com", "College Dekho Admin");
+            $mail->setFrom($smtpUser, "SkillRise Support");
             $mail->addAddress($email);
-            $mail->addEmbeddedImage(__DIR__ . '/img/CollegeDekhoLogo(Color).png', 'companylogo');
+            $mail->addEmbeddedImage('../SkillRise.png', 'companylogo');
             $mail->isHTML(true);
             // Content
             $mail->Subject = "Password Reset OTP Code";
@@ -66,9 +72,9 @@ if (isset($_POST['email'])) {
                     <div style="text-align:center;">
                         <img src="cid:companylogo" width="300" style="margin-bottom:10px;">
                     </div>
-                    <h2 style="color:#333;">Dear <span style="text-decoration:none;color:#000;">' . $safeEmail . '</span>,</h2>
+                    <h2 style="color:#333;">Dear <span style="text-decoration:none;color:#000;">' . $admin_name . '</span>,</h2>
                     <p>Your verification code is: <b>' . $otp . '</b>. This code will expire in 1 minute.</p>
-                    <p>Regards,<br><b>College Dekho Admin</b></p>
+                    <p>Regards,<br><b>SkillRise Support</b></p>
                 </div>
                 ';
 
@@ -150,7 +156,8 @@ if (isset($_POST['email'])) {
 <body class="h-100">
 
     <!-- SHOW ALERT IF EXISTS -->
-    <?php if (!empty($alert)) echo $alert; ?>
+    <?php if (!empty($alert))
+        echo $alert; ?>
 
     <div class="auth-bg d-flex min-vh-100">
         <div class="row g-0 justify-content-center w-100 m-xxl-5 px-xxl-4 m-3">
@@ -190,7 +197,7 @@ if (isset($_POST['email'])) {
 
                 </div>
 
-                 <p class="mt-4 text-center mb-0">
+                <p class="mt-4 text-center mb-0">
                     <script>document.write(new Date().getFullYear())</script> © SkillRise Academy
                 </p>
 
