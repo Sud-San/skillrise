@@ -53,11 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $new_pass = $_POST['new_password'];
         $confirm_pass = $_POST['confirm_password'];
 
-        if ($current_pass !== $admin_data['admin_password']) {
+        $q = "SELECT admin_password FROM admin_tbl WHERE admin_id = '$admin_id'";
+        $r = mysqli_query($conn, $q);
+        $row = mysqli_fetch_assoc($r);
+        if (!password_verify($current_pass, $row['admin_password'])) {
             $error_msg = "Current password is incorrect.";
         } elseif ($new_pass !== $confirm_pass) {
             $error_msg = "New passwords do not match.";
         } else {
+            $new_pass = password_hash($new_pass, PASSWORD_DEFAULT);
             $update_pass_q = "UPDATE admin_tbl SET admin_password = '$new_pass' WHERE admin_id = '$admin_id'";
             if (mysqli_query($conn, $update_pass_q)) {
                 $success_msg = "Password changed successfully!";
@@ -78,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php echo $company_name; ?>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
     <link href="assets/css/vendor.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
