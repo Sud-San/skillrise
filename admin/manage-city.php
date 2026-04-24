@@ -31,7 +31,7 @@ $result = mysqli_query($conn, $display_query);
     <meta charset="utf-8" />
     <title>Manage City | <?php echo $company_name; ?></title>
 
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="../SkillRise_logo1.png">
     <script src="assets/js/config.js"></script>
 
     <link href="assets/css/vendor.min.css" rel="stylesheet" />
