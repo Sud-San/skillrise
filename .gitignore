@@ -3,3 +3,5 @@
 *.mp4
 vendor/
 tutor/vendor/
+*.sql
+tutor/migrations
